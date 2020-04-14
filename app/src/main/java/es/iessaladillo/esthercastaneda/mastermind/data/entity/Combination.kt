@@ -1,3 +1,3 @@
 package es.iessaladillo.esthercastaneda.mastermind.data.entity
 
-class Combination(val chip01: Int, val chip02: Int, val chip03: Int, val chip04: Int) {}
+class Combination(var chip01: Int, var chip02: Int, var chip03: Int, var chip04: Int) {}

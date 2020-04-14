@@ -3,6 +3,11 @@ package es.iessaladillo.esthercastaneda.mastermind.ui.menu.selectModeGame.modeGa
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.transition.Fade
+import android.transition.Slide
+import android.transition.TransitionSet
+import android.view.Gravity
+import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.core.content.edit
 import androidx.navigation.NavController
@@ -53,7 +58,5 @@ class ModeGame : Fragment(R.layout.mode_game_fragment) {
         }
         navController.navigate(R.id.gameFragment)
     }
-
-
 
 }

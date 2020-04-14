@@ -15,7 +15,7 @@
             app:destination="@id/manualFragment" />
         <action
             android:id="@+id/action_homeFragment_to_difficultGameSelect"
-            app:destination="@id/difficultGameSelect" />
+            app:destination="@id/difficultGameSelect"/>
     </fragment>
     <fragment
         android:id="@+id/manualFragment"
