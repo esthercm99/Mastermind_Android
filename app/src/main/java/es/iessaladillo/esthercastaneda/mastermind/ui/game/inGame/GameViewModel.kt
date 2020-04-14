@@ -9,6 +9,7 @@ import es.iessaladillo.esthercastaneda.mastermind.data.entity.Combination
 class GameViewModel(private val application: Application) : ViewModel() {
 
     var currentChipId : Int = -1
+    var round: Int = 1
     var currentCombination = Combination(-1, -1, -1, -1)
 
     private var combinationList: MutableList<Combination> = mutableListOf()

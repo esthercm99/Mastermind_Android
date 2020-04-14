@@ -34,7 +34,7 @@ class GameFragment : Fragment(R.layout.game_fragment) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        lblRound.text = String.format("%s - %s", settings.getString("difficultGame", "None"), settings.getString("modeGame", "None"))
+        // lblRound.text = String.format("%s - %s", settings.getString("difficultGame", "None"), settings.getString("modeGame", "None"))
         setupRecyclerView()
         observe()
         setupViews()
@@ -63,6 +63,7 @@ class GameFragment : Fragment(R.layout.game_fragment) {
     }
 
     private fun setupViews() {
+        lblRound.text = String.format("RONDA %d", viewModel.round)
         chipSelectCheck()
         changeColor()
         setupButtons()
@@ -76,12 +77,11 @@ class GameFragment : Fragment(R.layout.game_fragment) {
             viewModel.currentCombination.chip02 != -1 &&
             viewModel.currentCombination.chip03 != -1 &&
             viewModel.currentCombination.chip04 != -1) {
-                Toast.makeText(context, "Se ha añadido combinación", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(context, "Se ha añadido combinación", Toast.LENGTH_SHORT).show()
                 viewModel.addCombination()
-
                 nextRound()
             } else {
-                Toast.makeText(context, "Rellene una combinación entera", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Rellena la combinación", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -94,6 +94,9 @@ class GameFragment : Fragment(R.layout.game_fragment) {
         ficha02Select.background = context?.getDrawable(R.drawable.ficha_vacia)
         ficha03Select.background = context?.getDrawable(R.drawable.ficha_vacia)
         ficha04Select.background = context?.getDrawable(R.drawable.ficha_vacia)
+
+        viewModel.round++
+        lblRound.text = String.format("RONDA %d", viewModel.round)
     }
 
     private fun chipSelectCheck() {
@@ -103,18 +106,18 @@ class GameFragment : Fragment(R.layout.game_fragment) {
         ficha04Select.setOnClickListener { viewModel.currentChipId = it.id }
     }
     private fun changeColor() {
-        fichaRoja.setOnClickListener { changeColorSelected(R.drawable.ficha_roja) }
-        fichaNaranja.setOnClickListener { changeColorSelected(R.drawable.ficha_naranja) }
-        fichaAzul.setOnClickListener { changeColorSelected(R.drawable.ficha_azul) }
-        fichaAmarilla.setOnClickListener { changeColorSelected(R.drawable.ficha_amarillo) }
-        fichaVerde.setOnClickListener { changeColorSelected(R.drawable.ficha_verde) }
-        fichaMorada.setOnClickListener { changeColorSelected(R.drawable.ficha_morado) }
-        fichaMarron.setOnClickListener { changeColorSelected(R.drawable.ficha_marron) }
-        fichaGris.setOnClickListener { changeColorSelected(R.drawable.ficha_gris) }
+        fichaRoja.setOnClickListener { changeColorSelected(R.drawable.chip_red) }
+        fichaNaranja.setOnClickListener { changeColorSelected(R.drawable.chip_orange) }
+        fichaAzul.setOnClickListener { changeColorSelected(R.drawable.chip_blue) }
+        fichaAmarilla.setOnClickListener { changeColorSelected(R.drawable.chip_yellow) }
+        fichaVerde.setOnClickListener { changeColorSelected(R.drawable.chip_green) }
+        fichaMorada.setOnClickListener { changeColorSelected(R.drawable.chip_purple) }
+        fichaMarron.setOnClickListener { changeColorSelected(R.drawable.chip_brown) }
+        fichaGris.setOnClickListener { changeColorSelected(R.drawable.chip_grey) }
     }
     private fun changeColorSelected(color: Int) {
         if (viewModel.currentChipId != -1) {
-            
+
             val btn = view?.findViewById<Button>(viewModel.currentChipId)
 
             // Se comprueba cual el botón que se ha seleccionado para añadirle el color a la combinación actual:

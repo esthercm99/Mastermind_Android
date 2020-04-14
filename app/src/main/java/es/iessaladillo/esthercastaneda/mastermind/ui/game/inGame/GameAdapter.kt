@@ -1,13 +1,10 @@
 package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
 
-import android.content.res.Resources
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import es.iessaladillo.esthercastaneda.mastermind.R
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.Combination
