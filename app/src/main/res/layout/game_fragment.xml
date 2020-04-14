@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.game.inGame.GameFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <TextView
+            android:id="@+id/lblRound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ROUND 1"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <Button
+            android:id="@+id/btnExit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exit"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <Button
+            android:id="@+id/fichaRoja"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/ficha_roja"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnExit"/>
+        <Button
+            android:id="@+id/fichaVerde"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ficha_verde"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fichaRoja"/>
+        <Button
+            android:id="@+id/fichaAzul"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ficha_azul"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fichaVerde"/>
+        <Button
+            android:id="@+id/fichaAmarilla"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ficha_amarillo"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fichaAzul"/>
+        <Button
+            android:id="@+id/fichaNaranja"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ficha_naranja"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fichaAmarilla"/>
+        <Button
+            android:id="@+id/fichaMorada"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ficha_morado"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fichaNaranja"/>
+        <Button
+            android:id="@+id/fichaMarron"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ficha_marron"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fichaMorada"/>
+        <Button
+            android:id="@+id/fichaGris"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ficha_gris"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fichaMarron"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstRounds"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/lblRound"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/fichaRoja"
+            app:layout_constraintBottom_toTopOf="@id/ficha01Select"
+            tools:listitem="@layout/round_easy_item"/>
+
+        <Button
+            android:id="@+id/ficha01Select"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ficha_vacia"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <Button
+            android:id="@+id/ficha02Select"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ficha_vacia"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/ficha01Select"/>
+
+        <Button
+            android:id="@+id/ficha03Select"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ficha_vacia"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/ficha02Select"/>
+
+        <Button
+            android:id="@+id/ficha04Select"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ficha_vacia"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/ficha03Select"/>
+
+        <Button
+            android:id="@+id/btnCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

@@ -1,0 +1,87 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemAvatarlst"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:animateLayoutChanges="true">
+
+    <ImageView
+        android:id="@+id/ficha01"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ficha_vacia"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ficha02"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ficha_vacia"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ficha01"/>
+
+    <ImageView
+        android:id="@+id/ficha03"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ficha_vacia"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ficha02"/>
+
+    <ImageView
+        android:id="@+id/ficha04"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ficha_vacia"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ficha03"/>
+
+    <ImageView
+        android:id="@+id/fichaByN01"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ficha_vacia"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ficha04"/>
+    <ImageView
+        android:id="@+id/fichaByN02"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ficha_vacia"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/fichaByN01"/>
+    <ImageView
+        android:id="@+id/fichaByN03"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ficha_vacia"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/fichaByN01"
+        app:layout_constraintLeft_toRightOf="@id/ficha04"/>
+    <ImageView
+        android:id="@+id/fichaByN04"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ficha_vacia"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/fichaByN01"
+        app:layout_constraintLeft_toRightOf="@id/fichaByN01"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package es.iessaladillo.esthercastaneda.mastermind
+package es.iessaladillo.esthercastaneda.mastermind.ui.menu.home
 
 import androidx.lifecycle.ViewModel
 
