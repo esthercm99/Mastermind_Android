@@ -15,6 +15,7 @@ import es.iessaladillo.esthercastaneda.mastermind.data.entity.Combination
 import kotlinx.android.synthetic.main.game_fragment.*
 import kotlinx.android.synthetic.main.main_activity.*
 import androidx.lifecycle.observe
+import es.iessaladillo.esthercastaneda.mastermind.data.entity.Chip
 
 class GameFragment : Fragment(R.layout.game_fragment) {
 
@@ -53,12 +54,22 @@ class GameFragment : Fragment(R.layout.game_fragment) {
 
     private fun observe() {
         viewModel.listCombination.observe(this) {
-            updateList(it)
+            updateCombinationList(it)
+        }
+        viewModel.listCombinationBN.observe(this) {
+            updateCombinationBNList(it)
+        }
+
+    }
+
+    private fun updateCombinationList(newList: List<Combination>) {
+        lstRounds.post {
+            gameAdapter.submitCombinationList(newList)
         }
     }
-    private fun updateList(newList: List<Combination>) {
+    private fun updateCombinationBNList(newList: List<Combination>) {
         lstRounds.post {
-            gameAdapter.submitList(newList)
+            gameAdapter.submitCombinationBNList(newList)
         }
     }
 
@@ -73,10 +84,10 @@ class GameFragment : Fragment(R.layout.game_fragment) {
             navController.navigate(R.id.homeFragment)
         }
         btnCheck.setOnClickListener {
-        if (viewModel.currentCombination.chip01 != -1 &&
-            viewModel.currentCombination.chip02 != -1 &&
-            viewModel.currentCombination.chip03 != -1 &&
-            viewModel.currentCombination.chip04 != -1) {
+        if (viewModel.currentCombination.chips[0].color != -1 &&
+            viewModel.currentCombination.chips[1].color != -1 &&
+            viewModel.currentCombination.chips[2].color != -1 &&
+            viewModel.currentCombination.chips[3].color != -1) {
                 // Toast.makeText(context, "Se ha añadido combinación", Toast.LENGTH_SHORT).show()
                 viewModel.addCombination()
                 nextRound()
@@ -88,7 +99,7 @@ class GameFragment : Fragment(R.layout.game_fragment) {
 
     private fun nextRound() {
         viewModel.currentChipId = -1
-        viewModel.currentCombination = Combination(-1, -1, -1, -1)
+        viewModel.currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
 
         ficha01Select.background = context?.getDrawable(R.drawable.ficha_vacia)
         ficha02Select.background = context?.getDrawable(R.drawable.ficha_vacia)
@@ -122,13 +133,17 @@ class GameFragment : Fragment(R.layout.game_fragment) {
 
             // Se comprueba cual el botón que se ha seleccionado para añadirle el color a la combinación actual:
             if(ficha01Select.id == this.viewModel.currentChipId) {
-                viewModel.currentCombination.chip01 = color
+                viewModel.currentCombination.chips[0].color = color
+                viewModel.currentCombination.chips[0].position = 1
             } else if(ficha02Select.id == viewModel.currentChipId) {
-                viewModel.currentCombination.chip02 = color
+                viewModel.currentCombination.chips[1].color = color
+                viewModel.currentCombination.chips[1].position = 2
             } else if(ficha03Select.id == viewModel.currentChipId) {
-                viewModel.currentCombination.chip03 = color
+                viewModel.currentCombination.chips[2].color = color
+                viewModel.currentCombination.chips[2].position = 3
             } else if(ficha04Select.id == viewModel.currentChipId) {
-                viewModel.currentCombination.chip04 = color
+                viewModel.currentCombination.chips[3].color = color
+                viewModel.currentCombination.chips[3].position = 4
             }
 
             btn?.background = context?.getDrawable(color)
