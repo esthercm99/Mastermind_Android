@@ -2,8 +2,8 @@ package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.game_fragment.*
 import kotlinx.android.synthetic.main.main_activity.*
 import androidx.lifecycle.observe
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.Chip
+import es.iessaladillo.esthercastaneda.mastermind.data.entity.GameSettings
 
 class GameFragment : Fragment(R.layout.game_fragment) {
 
@@ -25,17 +26,12 @@ class GameFragment : Fragment(R.layout.game_fragment) {
         GameViewModelFactory(requireActivity().application)
     }
 
-    private val settings: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(activity)
-    }
-
     private val navController: NavController by lazy {
         NavHostFragment.findNavController(navHostFragment)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // lblRound.text = String.format("%s - %s", settings.getString("difficultGame", "None"), settings.getString("modeGame", "None"))
         setupRecyclerView()
         observe()
         setupViews()
@@ -53,13 +49,12 @@ class GameFragment : Fragment(R.layout.game_fragment) {
     }
 
     private fun observe() {
-        viewModel.listCombination.observe(this) {
+        viewModel.listCombination01.observe(this) {
             updateCombinationList(it)
         }
-        viewModel.listCombinationBN.observe(this) {
+        viewModel.listCombinationBN01.observe(this) {
             updateCombinationBNList(it)
         }
-
     }
 
     private fun updateCombinationList(newList: List<Combination>) {
@@ -74,37 +69,82 @@ class GameFragment : Fragment(R.layout.game_fragment) {
     }
 
     private fun setupViews() {
+        setupBtnSelect()
         lblRound.text = String.format("RONDA %d", viewModel.round)
         chipSelectCheck()
         changeColor()
         setupButtons()
     }
+
+    private fun setupBtnSelect() {
+        if (viewModel.gameSettings == GameSettings.NORMAL) {
+            ficha05Select.visibility = View.VISIBLE
+        } else if (viewModel.gameSettings == GameSettings.HARD) {
+            ficha05Select.visibility = View.VISIBLE
+            ficha06Select.visibility = View.VISIBLE
+        }
+    }
+
+    private fun checkWinner() {
+        if (viewModel.round > viewModel.gameSettings.numRounds) {
+            finishGame()
+        } else if(viewModel.getWinner01()) {
+            finishGame()
+        }
+    }
+
+    private fun finishGame() {
+        navController.navigate(R.id.resultFragment)
+    }
+
     private fun setupButtons() {
+
         btnExit.setOnClickListener {
             navController.navigate(R.id.homeFragment)
         }
+
         btnCheck.setOnClickListener {
-        if (viewModel.currentCombination.chips[0].color != -1 &&
-            viewModel.currentCombination.chips[1].color != -1 &&
-            viewModel.currentCombination.chips[2].color != -1 &&
-            viewModel.currentCombination.chips[3].color != -1) {
-                // Toast.makeText(context, "Se ha añadido combinación", Toast.LENGTH_SHORT).show()
+            var emptyChip = false
+
+            for (i in 0 until viewModel.currentCombination.chips.size) {
+                if (viewModel.currentCombination.chips[i].color == -1) {
+                    emptyChip = true
+                }
+            }
+
+            if(!emptyChip) {
                 viewModel.addCombination()
                 nextRound()
+                checkWinner()
             } else {
                 Toast.makeText(context, "Rellena la combinación", Toast.LENGTH_SHORT).show()
             }
+
+           /* if (viewModel.currentCombination.chips[0].color != -1 &&
+                viewModel.currentCombination.chips[1].color != -1 &&
+                viewModel.currentCombination.chips[2].color != -1 &&
+                viewModel.currentCombination.chips[3].color != -1) {
+
+                // Toast.makeText(context, "Se ha añadido combinación", Toast.LENGTH_SHORT).show()
+                viewModel.addCombination()
+                nextRound()
+                checkWinner()
+            } else {
+                Toast.makeText(context, "Rellena la combinación", Toast.LENGTH_SHORT).show()
+            }*/
         }
     }
 
     private fun nextRound() {
         viewModel.currentChipId = -1
-        viewModel.currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
+        viewModel.resetCurrentCombination()
 
         ficha01Select.background = context?.getDrawable(R.drawable.ficha_vacia)
         ficha02Select.background = context?.getDrawable(R.drawable.ficha_vacia)
         ficha03Select.background = context?.getDrawable(R.drawable.ficha_vacia)
         ficha04Select.background = context?.getDrawable(R.drawable.ficha_vacia)
+        ficha05Select.background = context?.getDrawable(R.drawable.ficha_vacia)
+        ficha06Select.background = context?.getDrawable(R.drawable.ficha_vacia)
 
         viewModel.round++
         lblRound.text = String.format("RONDA %d", viewModel.round)
@@ -115,6 +155,8 @@ class GameFragment : Fragment(R.layout.game_fragment) {
         ficha02Select.setOnClickListener { viewModel.currentChipId = it.id }
         ficha03Select.setOnClickListener { viewModel.currentChipId = it.id }
         ficha04Select.setOnClickListener { viewModel.currentChipId = it.id }
+        ficha05Select.setOnClickListener { viewModel.currentChipId = it.id }
+        ficha06Select.setOnClickListener { viewModel.currentChipId = it.id }
     }
     private fun changeColor() {
         fichaRoja.setOnClickListener { changeColorSelected(R.drawable.chip_red) }
@@ -132,18 +174,29 @@ class GameFragment : Fragment(R.layout.game_fragment) {
             val btn = view?.findViewById<Button>(viewModel.currentChipId)
 
             // Se comprueba cual el botón que se ha seleccionado para añadirle el color a la combinación actual:
-            if(ficha01Select.id == this.viewModel.currentChipId) {
+            if (ficha01Select.id == this.viewModel.currentChipId) {
                 viewModel.currentCombination.chips[0].color = color
                 viewModel.currentCombination.chips[0].position = 1
-            } else if(ficha02Select.id == viewModel.currentChipId) {
+
+            } else if (ficha02Select.id == viewModel.currentChipId) {
                 viewModel.currentCombination.chips[1].color = color
                 viewModel.currentCombination.chips[1].position = 2
-            } else if(ficha03Select.id == viewModel.currentChipId) {
+
+            } else if (ficha03Select.id == viewModel.currentChipId) {
                 viewModel.currentCombination.chips[2].color = color
                 viewModel.currentCombination.chips[2].position = 3
-            } else if(ficha04Select.id == viewModel.currentChipId) {
+
+            } else if (ficha04Select.id == viewModel.currentChipId) {
                 viewModel.currentCombination.chips[3].color = color
                 viewModel.currentCombination.chips[3].position = 4
+
+            } else if (ficha05Select.id == viewModel.currentChipId) {
+                viewModel.currentCombination.chips[4].color = color
+                viewModel.currentCombination.chips[4].position = 5
+
+            } else if (ficha06Select.id == viewModel.currentChipId) {
+                viewModel.currentCombination.chips[5].color = color
+                viewModel.currentCombination.chips[5].position = 6
             }
 
             btn?.background = context?.getDrawable(color)

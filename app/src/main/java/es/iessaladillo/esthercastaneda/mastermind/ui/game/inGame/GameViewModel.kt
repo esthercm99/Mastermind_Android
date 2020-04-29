@@ -1,44 +1,67 @@
 package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
 
 import android.app.Application
+import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.preference.PreferenceManager
 import es.iessaladillo.esthercastaneda.mastermind.R
-import es.iessaladillo.esthercastaneda.mastermind.data.entity.Chip
-import es.iessaladillo.esthercastaneda.mastermind.data.entity.Combination
-import es.iessaladillo.esthercastaneda.mastermind.data.entity.GameSettings
-import es.iessaladillo.esthercastaneda.mastermind.data.entity.IA
+import es.iessaladillo.esthercastaneda.mastermind.data.entity.*
 
 class GameViewModel(private val application: Application) : ViewModel() {
 
-    var currentChipId : Int = -1
     var round: Int = 1
-    var currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
-    private val combinationIA = IA().createSecretCombination()
-    private var gameSettings = GameSettings.EASY
+    var currentChipId : Int = -1
+    lateinit var gameSettings: GameSettings
 
-    private var combinationBNList: MutableList<Combination> = mutableListOf()
-    private val _listCombinationBN : MutableLiveData<List<Combination>> = MutableLiveData()
-    val listCombinationBN : LiveData<List<Combination>>
-        get() = _listCombination
+    lateinit var currentCombination: Combination
 
+    private val settings: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(application)
+    }
 
-    private var combinationList: MutableList<Combination> = mutableListOf()
-    private val _listCombination : MutableLiveData<List<Combination>> = MutableLiveData()
-    val listCombination : LiveData<List<Combination>>
-        get() = _listCombination
+    init {
 
+        when (settings.getInt("difficultGame", -1)) {
+            0 -> {
+                gameSettings = GameSettings.EASY
+                currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
+            }
+            1 -> {
+                gameSettings = GameSettings.NORMAL
+                currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip()))
+            }
+            2 -> {
+                gameSettings = GameSettings.HARD
+                currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip(), Chip()))
+            }
+        }
+
+        Toast.makeText(application.applicationContext, String.format(gameSettings.name), Toast.LENGTH_LONG).show()
+    }
+
+    // Jugador 1:
+    private val player01 = Player("Scole")
+    private val _listCombinationBN01 : MutableLiveData<List<Combination>> = MutableLiveData()
+    val listCombinationBN01 : LiveData<List<Combination>>
+        get() = _listCombinationBN01
+    private val _listCombination01 : MutableLiveData<List<Combination>> = MutableLiveData()
+    val listCombination01 : LiveData<List<Combination>>
+        get() = _listCombination01
+
+    private val combinationIA = IA("IA").createSecretCombination(gameSettings)
+
+    fun getWinner01() = player01.isWinner()
 
     fun addCombination(){
         currentCombination.let {
-            combinationList.add(it)
-            _listCombination.value = combinationList
+            player01.addCombination(it)
+            _listCombination01.value = player01.getCombinationList()
         }
         checkCombination()
     }
-
     private fun checkCombination() {
         var totalWhite: Byte = 0
         var totalBlack: Byte = 0
@@ -47,6 +70,8 @@ class GameViewModel(private val application: Application) : ViewModel() {
 
         // Comprueba si hay fichas negras:
         for (i in 0 until gameSettings.numChips) {
+
+            // Si son iguales se guarda la posición en la que es negra para luego comprobarlo con las blancas:
             if (combinationIA.chips[i].color == currentCombination.chips[i].color &&
                 combinationIA.chips[i].position == currentCombination.chips[i].position) {
                 totalBlack++
@@ -67,6 +92,8 @@ class GameViewModel(private val application: Application) : ViewModel() {
                     val black = blackMap[i]
                     val white = whiteMap[i]
 
+                    // Si en la posición de la IA / jugador contrario no hay ninguna ficha en la misma posición
+                    // y aun no se ha colocado como ficha blanca se cuenta:
                     if (black == false && (white == false || white == null)) {
                         totalWhite++
                         whiteMap[i] = true
@@ -76,7 +103,61 @@ class GameViewModel(private val application: Application) : ViewModel() {
             }
         }
 
-        Toast.makeText(application.applicationContext, String.format("Blancas: %d | Negras: %d", totalWhite, totalBlack), Toast.LENGTH_LONG).show()
+
+        var index = 0
+        lateinit var combinationBN: Combination
+
+        when (gameSettings) {
+            GameSettings.EASY -> {
+                combinationBN = Combination(arrayOf(
+                    Chip(-1, 0),
+                    Chip(-1, 1),
+                    Chip(-1, 2),
+                    Chip(-1, 3)))
+            }
+            GameSettings.NORMAL -> {
+                combinationBN = Combination(arrayOf(
+                    Chip(-1, 0),
+                    Chip(-1, 1),
+                    Chip(-1, 2),
+                    Chip(-1, 3),
+                    Chip(-1, 4)))
+            }
+            GameSettings.HARD -> {
+                combinationBN = Combination(arrayOf(
+                    Chip(-1, 0),
+                    Chip(-1, 1),
+                    Chip(-1, 2),
+                    Chip(-1, 3),
+                    Chip(-1, 4),
+                    Chip(-1, 5)))
+            }
+        }
+
+        for (i in 0 until totalBlack) {
+            combinationBN.chips[index] = Chip(R.drawable.chip_black, index)
+            index++
+        }
+
+        for (i in 0 until totalWhite) {
+            combinationBN.chips[index] = Chip(R.drawable.chip_white, index)
+            index++
+        }
+
+        player01.addCombinationBN(combinationBN)
+        _listCombinationBN01.value = player01.getCombinationBNList()
+
+        if (totalBlack.toInt() == gameSettings.numChips) {
+            player01.setWinner(true)
+        }
+        // Toast.makeText(application.applicationContext, String.format("Blancas: %d | Negras: %d", totalWhite, totalBlack), Toast.LENGTH_LONG).show()
     }
 
+    fun resetCurrentCombination() {
+        when (gameSettings) {
+            GameSettings.EASY -> currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
+            GameSettings.NORMAL -> currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip()))
+            GameSettings.HARD -> currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip(), Chip()))
+        }
+    }
 }

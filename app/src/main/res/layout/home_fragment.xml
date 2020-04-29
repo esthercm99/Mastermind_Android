@@ -20,7 +20,6 @@
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"/>
 
-
         <ImageView
             android:id="@+id/title"
             android:layout_width="match_parent"

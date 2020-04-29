@@ -129,8 +129,8 @@
 
         <Button
             android:id="@+id/ficha01Select"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:background="@drawable/ficha_vacia"
             android:layout_margin="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -138,8 +138,8 @@
 
         <Button
             android:id="@+id/ficha02Select"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:background="@drawable/ficha_vacia"
             android:layout_margin="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -147,8 +147,8 @@
 
         <Button
             android:id="@+id/ficha03Select"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:background="@drawable/ficha_vacia"
             android:layout_margin="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -156,12 +156,32 @@
 
         <Button
             android:id="@+id/ficha04Select"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:background="@drawable/ficha_vacia"
             android:layout_margin="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/ficha03Select"/>
+
+        <Button
+            android:id="@+id/ficha05Select"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/ficha_vacia"
+            android:layout_margin="10dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/ficha04Select"/>
+
+        <Button
+            android:id="@+id/ficha06Select"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/ficha_vacia"
+            android:layout_margin="10dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/ficha05Select"/>
 
         <Button
             android:id="@+id/btnCheck"

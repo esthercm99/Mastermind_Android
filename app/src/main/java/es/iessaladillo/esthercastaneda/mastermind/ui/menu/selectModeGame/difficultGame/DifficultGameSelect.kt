@@ -18,8 +18,6 @@ import kotlinx.android.synthetic.main.main_activity.*
 
 class DifficultGameSelect : Fragment(R.layout.difficult_game_select_fragment) {
 
-    private lateinit var viewModel: DifficultGameSelectViewModel
-
     private val settings: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(activity)
     }
@@ -30,8 +28,6 @@ class DifficultGameSelect : Fragment(R.layout.difficult_game_select_fragment) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(DifficultGameSelectViewModel::class.java)
-
         setupViews()
     }
 
@@ -44,19 +40,19 @@ class DifficultGameSelect : Fragment(R.layout.difficult_game_select_fragment) {
             navController.navigateUp()
         }
         btnEasy.setOnClickListener {
-            navigateToModeSelect(btnEasy.text.toString())
+            navigateToModeSelect(0)
         }
         btnNormal.setOnClickListener {
-            navigateToModeSelect(btnNormal.text.toString())
+            navigateToModeSelect(1)
         }
         btnHard.setOnClickListener {
-            navigateToModeSelect(btnHard.text.toString())
+            navigateToModeSelect(2)
         }
     }
 
-    private fun navigateToModeSelect(difficult: String) {
+    private fun navigateToModeSelect(difficult: Int) {
         settings.edit {
-            putString("difficultGame", difficult)
+            putInt("difficultGame", difficult)
         }
         navController.navigate(R.id.modeGame)
     }
