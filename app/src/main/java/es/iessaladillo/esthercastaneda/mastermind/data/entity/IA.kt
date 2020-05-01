@@ -11,10 +11,10 @@ class IA(name: String) : Player(name) {
 
         when(gameSettings) {
 
-            GameSettings.EASY -> combination = Combination(arrayOf(   Chip(R.drawable.chip_orange, 1),
-                Chip(R.drawable.chip_orange, 2),
-                Chip(R.drawable.chip_orange, 3),
-                Chip(R.drawable.chip_orange, 4)))
+            GameSettings.EASY -> combination = Combination(arrayOf(   Chip(R.drawable.chip_red, 1),
+                Chip(R.drawable.chip_green, 2),
+                Chip(R.drawable.chip_green, 3),
+                Chip(R.drawable.chip_blue, 4)))
 
             GameSettings.NORMAL -> combination = Combination(arrayOf(   Chip(R.drawable.chip_orange, 1),
                 Chip(R.drawable.chip_orange, 2),

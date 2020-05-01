@@ -2,6 +2,7 @@ package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,8 +19,7 @@ class GameViewModel(private val application: Application) : ViewModel() {
     var modePlayer: Int = 0
     lateinit var gameSettings: GameSettings
     lateinit var currentCombination: Combination
-    private lateinit var currentCombinationIA: Combination
-
+    private lateinit var hideCombinationIA: Combination
 
     // Player 1:
     var player01 : Player
@@ -63,7 +63,7 @@ class GameViewModel(private val application: Application) : ViewModel() {
     val listCombination01 : LiveData<List<Combination>>
         get() = _listCombination01
 
-    // Player 2:
+    // Player IA:
     private var combinationIA = player02.createSecretCombination(gameSettings)
     private val _listCombinationBN02: MutableLiveData<List<Combination>> = MutableLiveData()
     val listCombinationBN02 : LiveData<List<Combination>>
@@ -73,15 +73,24 @@ class GameViewModel(private val application: Application) : ViewModel() {
         get() = _listCombination02
 
 
-
-    fun getWinner01() = player01.isWinner()
+    // IA functions:
     fun getWinner02() = player02.isWinner()
-
     fun playRoundIA() {
-        currentCombinationIA = player02.createSecretCombination(gameSettings)
+        hideCombinationIA = player02.createSecretCombination(gameSettings)
         addCombination()
     }
+    private fun addCombination(){
+        currentCombination = hideCombinationIA
+        currentCombination.let { it ->
+            player02.addCombination(it)
+            _listCombination02.value = player02.getCombinationList()
+        }
+        checkCombination(player02)
+        _listCombinationBN02.value = player02.getCombinationBNList()
+    }
 
+    // Player functions:
+    fun getWinner01() = player01.isWinner()
     fun addCombination(player: Player){
         currentCombination.let {
             player.addCombination(it)
@@ -90,17 +99,11 @@ class GameViewModel(private val application: Application) : ViewModel() {
         checkCombination(player)
         _listCombinationBN01.value = player.getCombinationBNList()
     }
-    private fun addCombination(){
-        currentCombinationIA.let {
-            player02.addCombination(it)
-            _listCombination02.value = player02.getCombinationList()
-        }
-        checkCombination(player02)
-        _listCombinationBN02.value = player02.getCombinationBNList()
-    }
+
     private fun checkCombination(player: Player) {
         var totalWhite: Byte = 0
         var totalBlack: Byte = 0
+
         val whiteMap: MutableMap<Int, Boolean> = HashMap()
         val blackMap: MutableMap<Int, Boolean> = HashMap()
 
@@ -111,9 +114,9 @@ class GameViewModel(private val application: Application) : ViewModel() {
             if (combinationIA.chips[i].color == currentCombination.chips[i].color &&
                 combinationIA.chips[i].position == currentCombination.chips[i].position) {
                 totalBlack++
-                blackMap[i] = true
+                blackMap[combinationIA.chips[i].position-1] = true
             } else {
-                blackMap[i] = false
+                blackMap[combinationIA.chips[i].position-1] = false
             }
         }
 
@@ -130,44 +133,26 @@ class GameViewModel(private val application: Application) : ViewModel() {
 
                     // Si en la posición de la IA / jugador contrario no hay ninguna ficha en la misma posición
                     // y aun no se ha colocado como ficha blanca se cuenta:
-                    if (black == false && (white == false || white == null)) {
-                        totalWhite++
-                        whiteMap[i] = true
+                    if (black == false) {
+                        if (white == null || white == false) {
+                            totalWhite++
+                            whiteMap[i] = true
+                        } else {
+                            whiteMap[i] = false
+                        }
+                    } else {
+                        whiteMap[i] = false
                     }
 
                 }
             }
         }
 
-        var index = 0
-        lateinit var combinationBN: Combination
+        //totalWhite = (totalWhite - totalBlack).toByte()
 
-        when (gameSettings) {
-            GameSettings.EASY -> {
-                combinationBN = Combination(arrayOf(
-                    Chip(-1, 0),
-                    Chip(-1, 1),
-                    Chip(-1, 2),
-                    Chip(-1, 3)))
-            }
-            GameSettings.NORMAL -> {
-                combinationBN = Combination(arrayOf(
-                    Chip(-1, 0),
-                    Chip(-1, 1),
-                    Chip(-1, 2),
-                    Chip(-1, 3),
-                    Chip(-1, 4)))
-            }
-            GameSettings.HARD -> {
-                combinationBN = Combination(arrayOf(
-                    Chip(-1, 0),
-                    Chip(-1, 1),
-                    Chip(-1, 2),
-                    Chip(-1, 3),
-                    Chip(-1, 4),
-                    Chip(-1, 5)))
-            }
-        }
+        // Se añade la combinación de blancas y negras:
+        var index = 0
+        val combinationBN: Combination = getEmptyCombination()
 
         for (i in 0 until totalBlack) {
             combinationBN.chips[index] = Chip(R.drawable.chip_black, index)
@@ -179,27 +164,33 @@ class GameViewModel(private val application: Application) : ViewModel() {
             index++
         }
 
+        for (i in index until gameSettings.numChips) {
+            combinationBN.chips[index] = Chip(R.drawable.chip_empty, index)
+            index++
+        }
+
         player.addCombinationBN(combinationBN)
 
         if (totalBlack.toInt() == gameSettings.numChips) {
             player.setWinner(true)
         }
+
+        val a = totalBlack
+        val b = totalWhite
         // Toast.makeText(application.applicationContext, String.format("Blancas: %d | Negras: %d", totalWhite, totalBlack), Toast.LENGTH_LONG).show()
     }
-    fun resetCurrentCombination() {
+    private fun getEmptyCombination(): Combination {
+        val combination: Combination
+
         when (gameSettings) {
-            GameSettings.EASY -> {
-                currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
-                currentCombinationIA = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
-            }
-            GameSettings.NORMAL -> {
-                currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip()))
-                currentCombinationIA = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip()))
-            }
-            GameSettings.HARD -> {
-                currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip(), Chip()))
-                currentCombinationIA = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip(), Chip()))
-            }
+            GameSettings.EASY -> combination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
+            GameSettings.NORMAL -> combination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip()))
+            GameSettings.HARD -> combination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip(), Chip()))
         }
+
+        return combination
+    }
+    fun resetCurrentCombination() {
+        currentCombination = getEmptyCombination()
     }
 }

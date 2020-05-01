@@ -66,13 +66,7 @@ class GameFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         setupRecyclerView()
-        setupRecyclerViewIA()
-
-       // observe()
-        //observeIA()
-
         setupViews()
     }
 
@@ -150,6 +144,7 @@ class GameFragment : Fragment() {
     }
     private fun setupMultiplayerViews() {
         namePlayer1.text = viewModel.player01.name
+        setupRecyclerViewIA()
     }
     private fun roundIA() {
         viewModel.playRoundIA()
@@ -164,6 +159,7 @@ class GameFragment : Fragment() {
         }
     }
     private fun nextRound() {
+        observe()
         viewModel.currentColorId = -1
         viewModel.resetCurrentCombination()
         resetSelected()
@@ -175,7 +171,10 @@ class GameFragment : Fragment() {
         resetChipSelected(chip05)
         resetChipSelected(chip06)
 
-        roundIA()
+        if(viewModel.modePlayer == 1) {
+            roundIA()
+            observeIA()
+        }
 
         viewModel.round++
         lblRound.text = String.format("%s %d", getString(R.string.lblround), viewModel.round)
