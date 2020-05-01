@@ -19,6 +19,7 @@ class GameAdapter() : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
     private lateinit var gameMode: GameSettings
     private var colorBlindMode by Delegates.notNull<Boolean>()
+
     private var combinationList: List<Combination> = emptyList()
     private var combinationListBN: List<Combination> = emptyList()
 

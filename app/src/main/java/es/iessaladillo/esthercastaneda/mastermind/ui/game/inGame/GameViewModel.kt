@@ -13,12 +13,12 @@ import es.iessaladillo.esthercastaneda.mastermind.data.entity.*
 class GameViewModel(private val application: Application) : ViewModel() {
 
     var round: Int = 1
-    var currentColorId : Int = -1
-    var currentNumberColor: Int = -1
-    var colorBlindMode: Boolean
     var modePlayer: Int = 0
+    var colorBlindMode: Boolean
+    var currentNumberColor: Int = -1
     lateinit var gameSettings: GameSettings
     lateinit var currentCombination: Combination
+    var currentColorId : Int = R.drawable.chip_empty
     private lateinit var hideCombinationIA: Combination
 
     // Player 1:
@@ -163,29 +163,34 @@ class GameViewModel(private val application: Application) : ViewModel() {
             combinationBN.chips[index] = Chip(R.drawable.chip_white, index)
             index++
         }
-
-        for (i in index until gameSettings.numChips) {
-            combinationBN.chips[index] = Chip(R.drawable.chip_empty, index)
-            index++
+/*
+        if(totalBlack + totalWhite < gameSettings.numChips) {
+            for (i in index until gameSettings.numChips) {
+                combinationBN.chips[index] = Chip(, index)
+                index++
+            }
         }
-
+*/
         player.addCombinationBN(combinationBN)
 
         if (totalBlack.toInt() == gameSettings.numChips) {
             player.setWinner(true)
         }
 
-        val a = totalBlack
-        val b = totalWhite
         // Toast.makeText(application.applicationContext, String.format("Blancas: %d | Negras: %d", totalWhite, totalBlack), Toast.LENGTH_LONG).show()
     }
     private fun getEmptyCombination(): Combination {
         val combination: Combination
 
         when (gameSettings) {
-            GameSettings.EASY -> combination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
-            GameSettings.NORMAL -> combination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip()))
-            GameSettings.HARD -> combination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip(), Chip()))
+            GameSettings.EASY -> combination = Combination(arrayOf(Chip(R.drawable.chip_empty, 0), Chip(R.drawable.chip_empty, 1),
+                                                                    Chip(R.drawable.chip_empty, 2), Chip(R.drawable.chip_empty, 3)))
+
+            GameSettings.NORMAL -> combination = Combination(arrayOf(Chip(R.drawable.chip_empty, 0), Chip(R.drawable.chip_empty, 1), Chip(R.drawable.chip_empty, 2),
+                                                                    Chip(R.drawable.chip_empty, 3), Chip(R.drawable.chip_empty, 4)))
+
+            GameSettings.HARD -> combination = Combination(arrayOf(Chip(R.drawable.chip_empty, 0), Chip(R.drawable.chip_empty, 1), Chip(R.drawable.chip_empty, 2),
+                                                                    Chip(R.drawable.chip_empty, 3), Chip(R.drawable.chip_empty, 4), Chip(R.drawable.chip_empty, 5)))
         }
 
         return combination

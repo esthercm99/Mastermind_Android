@@ -68,6 +68,7 @@ class GameFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         setupRecyclerView()
         setupViews()
+        observe()
     }
 
     // Player 01:
@@ -133,8 +134,10 @@ class GameFragment : Fragment() {
     // Setup Views:
     private fun setupViews() {
         isColorBlindMode()
+        viewModel.resetCurrentCombination()
         if (viewModel.modePlayer == 1) {
             setupMultiplayerViews()
+            observeIA()
         }
         setupBtnSelect()
         lblRound.text = String.format("%s %d", getString(R.string.lblround), viewModel.round)
@@ -159,8 +162,7 @@ class GameFragment : Fragment() {
         }
     }
     private fun nextRound() {
-        observe()
-        viewModel.currentColorId = -1
+        viewModel.currentColorId = R.drawable.chip_empty
         viewModel.resetCurrentCombination()
         resetSelected()
 
@@ -208,8 +210,8 @@ class GameFragment : Fragment() {
         btnCheck.setOnClickListener {
             var emptyChip = false
 
-            for (i in 0 until viewModel.currentCombination.chips.size) {
-                if (viewModel.currentCombination.chips[i].color == -1) {
+            for (element in viewModel.currentCombination.chips) {
+                if (element.color == R.drawable.chip_empty) {
                     emptyChip = true
                 }
             }
@@ -267,7 +269,7 @@ class GameFragment : Fragment() {
                                                 chip03.id, chip04.id,
                                                 chip05.id, chip06.id)
 
-        if (viewModel.currentColorId != -1) {
+        if (viewModel.currentColorId != R.drawable.chip_empty) {
 
             val btn = view?.findViewById<Button>(buttonId)
             btn?.background = context?.getDrawable(viewModel.currentColorId)
