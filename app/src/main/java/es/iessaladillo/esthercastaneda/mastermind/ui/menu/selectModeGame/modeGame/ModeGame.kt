@@ -45,18 +45,18 @@ class ModeGame : Fragment(R.layout.mode_game_fragment) {
             navController.navigateUp()
         }
         btnSingle.setOnClickListener {
-            navigateToModeSelect(btnSingle.text.toString())
+            navigateToModeSelect(0)
         }
         btnMulti.setOnClickListener {
-            navigateToModeSelect(btnMulti.text.toString())
+            navigateToModeSelect(1)
         }
     }
 
-    private fun navigateToModeSelect(modeGame: String) {
+    private fun navigateToModeSelect(modeGame: Int) {
         settings.edit {
-            putString("modeGame", modeGame)
+            putInt("modeGame", modeGame)
         }
-        navController.navigate(R.id.gameFragment)
+        navController.navigate(R.id.difficultGameSelect)
     }
 
 }

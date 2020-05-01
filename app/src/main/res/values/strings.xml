@@ -31,10 +31,12 @@
     <string name="selectDifficulty">Select a difficulty</string>
     <string name="selectModeGame">Select mode game</string>
     <string name="lblround">ROUND</string>
-    <string name="lblSelectColor">Select a chip</string>
+    <string name="lblSelectColor">Select a color</string>
     <string name="lblFill">Fill the combination</string>
     <string name="youWin">¡You win %s!</string>
     <string name="youLose">You lose %s...</string>
     <string name="btnDisabled">Button disabled</string>
+    <string name="txtInstructions">Instructions</string>
+    <string name="nameIA">IA</string>
 
 </resources>

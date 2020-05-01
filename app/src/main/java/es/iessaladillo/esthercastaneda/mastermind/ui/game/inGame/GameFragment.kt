@@ -1,8 +1,10 @@
-package es.iessaladillo.esthercastaneda.mastermind.ui.game.singleplayerGame
+package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.edit
@@ -19,13 +21,32 @@ import androidx.recyclerview.widget.RecyclerView
 import es.iessaladillo.esthercastaneda.mastermind.R
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.Combination
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.GameSettings
-import kotlinx.android.synthetic.main.game_fragment.*
 import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.android.synthetic.main.multigame_fragment.*
+import kotlinx.android.synthetic.main.singlegame_fragment.btnCheck
+import kotlinx.android.synthetic.main.singlegame_fragment.btnExit
+import kotlinx.android.synthetic.main.singlegame_fragment.chip01
+import kotlinx.android.synthetic.main.singlegame_fragment.chip02
+import kotlinx.android.synthetic.main.singlegame_fragment.chip03
+import kotlinx.android.synthetic.main.singlegame_fragment.chip04
+import kotlinx.android.synthetic.main.singlegame_fragment.chip05
+import kotlinx.android.synthetic.main.singlegame_fragment.chip06
+import kotlinx.android.synthetic.main.singlegame_fragment.chipBlue
+import kotlinx.android.synthetic.main.singlegame_fragment.chipBrown
+import kotlinx.android.synthetic.main.singlegame_fragment.chipGrey
+import kotlinx.android.synthetic.main.singlegame_fragment.chipOrange
+import kotlinx.android.synthetic.main.singlegame_fragment.chipPurple
+import kotlinx.android.synthetic.main.singlegame_fragment.chipYellow
+import kotlinx.android.synthetic.main.singlegame_fragment.greenChip
+import kotlinx.android.synthetic.main.singlegame_fragment.lblRound
+import kotlinx.android.synthetic.main.singlegame_fragment.lstRounds
+import kotlinx.android.synthetic.main.singlegame_fragment.redChip
 
 
-class GameFragment : Fragment(R.layout.game_fragment) {
+class GameFragment : Fragment() {
 
     private val gameAdapter = GameAdapter()
+    private val gameAdapterIA = GameAdapter()
 
     private val viewModel: GameViewModel by viewModels {
         GameViewModelFactory(requireActivity().application)
@@ -35,13 +56,27 @@ class GameFragment : Fragment(R.layout.game_fragment) {
         NavHostFragment.findNavController(navHostFragment)
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if(viewModel.modePlayer == 0) {
+            return inflater.inflate(R.layout.singlegame_fragment, container, false)
+        } else {
+            return inflater.inflate(R.layout.multigame_fragment, container, false)
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         setupRecyclerView()
-        observe()
+        setupRecyclerViewIA()
+
+       // observe()
+        //observeIA()
+
         setupViews()
     }
 
+    // Player 01:
     private fun setupRecyclerView() {
         lstRounds.run {
             setHasFixedSize(true)
@@ -52,16 +87,14 @@ class GameFragment : Fragment(R.layout.game_fragment) {
         }
         observe()
     }
-
     private fun observe() {
         viewModel.listCombination01.observe(this) {
             updateCombinationList(it)
         }
-        viewModel.listCombinationBN.observe(this) {
+        viewModel.listCombinationBN01.observe(this) {
             updateCombinationBNList(it)
         }
     }
-
     private fun updateCombinationList(newList: List<Combination>) {
         lstRounds.post {
             gameAdapter.submitCombinationList(newList)
@@ -72,15 +105,93 @@ class GameFragment : Fragment(R.layout.game_fragment) {
             gameAdapter.submitCombinationBNList(newList)
         }
     }
+
+    // Player 02:
+    private fun setupRecyclerViewIA() {
+        lstRoundsIA.run {
+            setHasFixedSize(true)
+            adapter = gameAdapterIA
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+            itemAnimator = DefaultItemAnimator()
+        }
+        observeIA()
+    }
+    private fun observeIA() {
+        viewModel.listCombination02.observe(this) {
+            updateCombinationListIA(it)
+        }
+        viewModel.listCombinationBN02.observe(this) {
+            updateCombinationBNListIA(it)
+        }
+    }
+    private fun updateCombinationListIA(newList: List<Combination>) {
+        lstRoundsIA.post {
+            gameAdapterIA.submitCombinationList(newList)
+        }
+    }
+    private fun updateCombinationBNListIA(newList: List<Combination>) {
+        lstRoundsIA.post {
+            gameAdapterIA.submitCombinationBNList(newList)
+        }
+    }
+
+    // Setup Views:
     private fun setupViews() {
         isColorBlindMode()
+        if (viewModel.modePlayer == 1) {
+            setupMultiplayerViews()
+        }
         setupBtnSelect()
         lblRound.text = String.format("%s %d", getString(R.string.lblround), viewModel.round)
         putColorOnChipSelected()
         selectColorChip()
         setupButtons()
     }
+    private fun setupMultiplayerViews() {
+        namePlayer1.text = viewModel.player01.name
+    }
+    private fun roundIA() {
+        viewModel.playRoundIA()
+        viewModel.resetCurrentCombination()
+    }
 
+    private fun checkWinner() {
+        if (viewModel.round > viewModel.gameSettings.numRounds) {
+            finishGame()
+        } else if(viewModel.getWinner01()) {
+            finishGame()
+        }
+    }
+    private fun nextRound() {
+        viewModel.currentColorId = -1
+        viewModel.resetCurrentCombination()
+        resetSelected()
+
+        resetChipSelected(chip01)
+        resetChipSelected(chip02)
+        resetChipSelected(chip03)
+        resetChipSelected(chip04)
+        resetChipSelected(chip05)
+        resetChipSelected(chip06)
+
+        roundIA()
+
+        viewModel.round++
+        lblRound.text = String.format("%s %d", getString(R.string.lblround), viewModel.round)
+    }
+    private fun finishGame() {
+        val settings: SharedPreferences by lazy {
+            PreferenceManager.getDefaultSharedPreferences(activity)
+        }
+
+        settings.edit {
+            putBoolean("isWinner", viewModel.getWinner01())
+        }
+        navController.navigate(R.id.resultFragment)
+    }
+
+    // Setting buttons
     private fun setupBtnSelect() {
         if (viewModel.gameSettings == GameSettings.NORMAL) {
             chip05.visibility = View.VISIBLE
@@ -89,24 +200,6 @@ class GameFragment : Fragment(R.layout.game_fragment) {
             chip06.visibility = View.VISIBLE
         }
     }
-    private fun checkWinner() {
-        if (viewModel.round > viewModel.gameSettings.numRounds) {
-            finishGame()
-        } else if(viewModel.getWinner()) {
-            finishGame()
-        }
-    }
-    private fun finishGame() {
-        val settings: SharedPreferences by lazy {
-            PreferenceManager.getDefaultSharedPreferences(activity)
-        }
-
-        settings.edit {
-            putBoolean("isWinner", viewModel.getWinner())
-        }
-        navController.navigate(R.id.resultFragment)
-    }
-
     private fun setupButtons() {
 
         btnExit.setOnClickListener {
@@ -123,7 +216,7 @@ class GameFragment : Fragment(R.layout.game_fragment) {
             }
 
             if(!emptyChip) {
-                viewModel.addCombination()
+                viewModel.addCombination(viewModel.player01)
                 nextRound()
                 checkWinner()
             } else {
@@ -131,22 +224,6 @@ class GameFragment : Fragment(R.layout.game_fragment) {
             }
         }
     }
-    private fun nextRound() {
-        viewModel.currentColorId = -1
-        viewModel.resetCurrentCombination()
-        resetSelected()
-
-        resetChipSelected(chip01)
-        resetChipSelected(chip02)
-        resetChipSelected(chip03)
-        resetChipSelected(chip04)
-        resetChipSelected(chip05)
-        resetChipSelected(chip06)
-
-        viewModel.round++
-        lblRound.text = String.format("%s %d", getString(R.string.lblround), viewModel.round)
-    }
-
     private fun resetChipSelected(btn: Button) {
         btn.background = context?.getDrawable(R.drawable.ficha_vacia)
         btn.text = ""

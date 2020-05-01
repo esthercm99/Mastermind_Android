@@ -1,6 +1,7 @@
 package es.iessaladillo.esthercastaneda.mastermind.data.entity
 
 open class Player (val name: String) {
+
     private var isWinner: Boolean = false
     private var combinationList: MutableList<Combination> = mutableListOf()
     private var combinationBNList: MutableList<Combination> = mutableListOf()

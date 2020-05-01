@@ -1,4 +1,4 @@
-package es.iessaladillo.esthercastaneda.mastermind.ui.game.singleplayerGame
+package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
 
 import android.app.Application
 import android.content.SharedPreferences
@@ -15,9 +15,16 @@ class GameViewModel(private val application: Application) : ViewModel() {
     var currentColorId : Int = -1
     var currentNumberColor: Int = -1
     var colorBlindMode: Boolean
+    var modePlayer: Int = 0
     lateinit var gameSettings: GameSettings
-
     lateinit var currentCombination: Combination
+    private lateinit var currentCombinationIA: Combination
+
+
+    // Player 1:
+    var player01 : Player
+    // Player 2:
+    var player02 = IA("IA")
 
     private val settings: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(application)
@@ -40,32 +47,58 @@ class GameViewModel(private val application: Application) : ViewModel() {
             }
         }
 
+        modePlayer = settings.getInt("modeGame", 0)
         colorBlindMode = settings.getBoolean(application.getString(R.string.prefColorBlindMode_key), true)
 
+        val name = settings.getString(application.getString(R.string.prefPlayerName_key), application.getString(R.string.playerName_defaultValue))
+        player01 = name?.let { Player(it) }!!
         // Toast.makeText(application.applicationContext, String.format(gameSettings.name), Toast.LENGTH_LONG).show()
     }
 
-    // Jugador 1:
-    private val player = Player("Scole")
-    private val _listCombinationBN : MutableLiveData<List<Combination>> = MutableLiveData()
-    val listCombinationBN : LiveData<List<Combination>>
-        get() = _listCombinationBN
-    private val _listCombination : MutableLiveData<List<Combination>> = MutableLiveData()
+    // Player 1:
+    private val _listCombinationBN01 : MutableLiveData<List<Combination>> = MutableLiveData()
+    val listCombinationBN01 : LiveData<List<Combination>>
+        get() = _listCombinationBN01
+    private val _listCombination01 : MutableLiveData<List<Combination>> = MutableLiveData()
     val listCombination01 : LiveData<List<Combination>>
-        get() = _listCombination
+        get() = _listCombination01
 
-    private val combinationIA = IA("IA").createSecretCombination(gameSettings)
+    // Player 2:
+    private var combinationIA = player02.createSecretCombination(gameSettings)
+    private val _listCombinationBN02: MutableLiveData<List<Combination>> = MutableLiveData()
+    val listCombinationBN02 : LiveData<List<Combination>>
+        get() = _listCombinationBN02
+    private val _listCombination02 : MutableLiveData<List<Combination>> = MutableLiveData()
+    val listCombination02 : LiveData<List<Combination>>
+        get() = _listCombination02
 
-    fun getWinner() = player.isWinner()
 
-    fun addCombination(){
+
+    fun getWinner01() = player01.isWinner()
+    fun getWinner02() = player02.isWinner()
+
+    fun playRoundIA() {
+        currentCombinationIA = player02.createSecretCombination(gameSettings)
+        addCombination()
+    }
+
+    fun addCombination(player: Player){
         currentCombination.let {
             player.addCombination(it)
-            _listCombination.value = player.getCombinationList()
+            _listCombination01.value = player.getCombinationList()
         }
-        checkCombination()
+        checkCombination(player)
+        _listCombinationBN01.value = player.getCombinationBNList()
     }
-    private fun checkCombination() {
+    private fun addCombination(){
+        currentCombinationIA.let {
+            player02.addCombination(it)
+            _listCombination02.value = player02.getCombinationList()
+        }
+        checkCombination(player02)
+        _listCombinationBN02.value = player02.getCombinationBNList()
+    }
+    private fun checkCombination(player: Player) {
         var totalWhite: Byte = 0
         var totalBlack: Byte = 0
         val whiteMap: MutableMap<Int, Boolean> = HashMap()
@@ -147,19 +180,26 @@ class GameViewModel(private val application: Application) : ViewModel() {
         }
 
         player.addCombinationBN(combinationBN)
-        _listCombinationBN.value = player.getCombinationBNList()
 
         if (totalBlack.toInt() == gameSettings.numChips) {
             player.setWinner(true)
         }
         // Toast.makeText(application.applicationContext, String.format("Blancas: %d | Negras: %d", totalWhite, totalBlack), Toast.LENGTH_LONG).show()
     }
-
     fun resetCurrentCombination() {
         when (gameSettings) {
-            GameSettings.EASY -> currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
-            GameSettings.NORMAL -> currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip()))
-            GameSettings.HARD -> currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip(), Chip()))
+            GameSettings.EASY -> {
+                currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
+                currentCombinationIA = Combination(arrayOf(Chip(), Chip(), Chip(), Chip()))
+            }
+            GameSettings.NORMAL -> {
+                currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip()))
+                currentCombinationIA = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip()))
+            }
+            GameSettings.HARD -> {
+                currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip(), Chip()))
+                currentCombinationIA = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip(), Chip()))
+            }
         }
     }
 }
