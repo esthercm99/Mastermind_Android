@@ -2,22 +2,8 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
-        <item name="android:fragmentEnterTransition">@transition/transition_enter</item>
-        <item name="android:fragmentExitTransition">@transition/transition_exit</item>
-        <item name="android:fragmentReenterTransition">@transition/transition_reenter</item>
-        <item name="android:fragmentReturnTransition">@transition/transition_return</item>
-
-        <item name="android:windowEnterTransition">@transition/transition_enter</item>
-        <item name="android:windowExitTransition">@transition/transition_exit</item>
-        <item name="android:windowReenterTransition">@transition/transition_reenter</item>
-        <item name="android:windowReturnTransition">@transition/transition_return</item>
-
-        <item name="android:windowAllowEnterTransitionOverlap">false</item>
-        <item name="android:windowAllowReturnTransitionOverlap">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorPrimary">@color/black</item>
     </style>
 
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mastermind</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txt_play">Jugar</string>
+    <string name="txt_instructions">Instrucciones</string>
+    <string name="txt_settings">Configuración</string>
+    <string name="txt_singleplayer">Un jugador</string>
+    <string name="txt_multiplayer">Multijugador</string>
+
+    <!-- PREFERENCES -->
+    <string name="gameCategory_title">JUEGO</string>
+    <string name="colorblindMode_title">Modo daltónico</string>
+    <string name="playerName">Nombre del jugador/a</string>
+    <string name="playerName_defaultValue">Jugador</string>
+    <string name="language_title">Idioma</string>
+    <string-array name="prefLanguage_entries">
+        <item>Español</item>
+        <item>Inglés</item>
+    </string-array>
+    <string name="prefLanguage_defaultValue">Español</string>
+</resources>

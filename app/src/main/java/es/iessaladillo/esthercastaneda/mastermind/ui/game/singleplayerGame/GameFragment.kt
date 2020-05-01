@@ -1,21 +1,21 @@
-package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
+package es.iessaladillo.esthercastaneda.mastermind.ui.game.singleplayerGame
 
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.*
 import es.iessaladillo.esthercastaneda.mastermind.R
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.Combination
 import kotlinx.android.synthetic.main.game_fragment.*
 import kotlinx.android.synthetic.main.main_activity.*
 import androidx.lifecycle.observe
-import es.iessaladillo.esthercastaneda.mastermind.data.entity.Chip
+import androidx.preference.PreferenceManager
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.GameSettings
 
 class GameFragment : Fragment(R.layout.game_fragment) {
@@ -52,7 +52,7 @@ class GameFragment : Fragment(R.layout.game_fragment) {
         viewModel.listCombination01.observe(this) {
             updateCombinationList(it)
         }
-        viewModel.listCombinationBN01.observe(this) {
+        viewModel.listCombinationBN.observe(this) {
             updateCombinationBNList(it)
         }
     }
@@ -67,7 +67,6 @@ class GameFragment : Fragment(R.layout.game_fragment) {
             gameAdapter.submitCombinationBNList(newList)
         }
     }
-
     private fun setupViews() {
         setupBtnSelect()
         lblRound.text = String.format("RONDA %d", viewModel.round)
@@ -84,19 +83,23 @@ class GameFragment : Fragment(R.layout.game_fragment) {
             ficha06Select.visibility = View.VISIBLE
         }
     }
-
     private fun checkWinner() {
         if (viewModel.round > viewModel.gameSettings.numRounds) {
             finishGame()
-        } else if(viewModel.getWinner01()) {
+        } else if(viewModel.getWinner()) {
             finishGame()
         }
     }
-
     private fun finishGame() {
+        val settings: SharedPreferences by lazy {
+            PreferenceManager.getDefaultSharedPreferences(activity)
+        }
+
+        settings.edit {
+            putBoolean("isWinner", viewModel.getWinner())
+        }
         navController.navigate(R.id.resultFragment)
     }
-
     private fun setupButtons() {
 
         btnExit.setOnClickListener {
@@ -119,22 +122,8 @@ class GameFragment : Fragment(R.layout.game_fragment) {
             } else {
                 Toast.makeText(context, "Rellena la combinación", Toast.LENGTH_SHORT).show()
             }
-
-           /* if (viewModel.currentCombination.chips[0].color != -1 &&
-                viewModel.currentCombination.chips[1].color != -1 &&
-                viewModel.currentCombination.chips[2].color != -1 &&
-                viewModel.currentCombination.chips[3].color != -1) {
-
-                // Toast.makeText(context, "Se ha añadido combinación", Toast.LENGTH_SHORT).show()
-                viewModel.addCombination()
-                nextRound()
-                checkWinner()
-            } else {
-                Toast.makeText(context, "Rellena la combinación", Toast.LENGTH_SHORT).show()
-            }*/
         }
     }
-
     private fun nextRound() {
         viewModel.currentChipId = -1
         viewModel.resetCurrentCombination()
@@ -149,7 +138,6 @@ class GameFragment : Fragment(R.layout.game_fragment) {
         viewModel.round++
         lblRound.text = String.format("RONDA %d", viewModel.round)
     }
-
     private fun chipSelectCheck() {
         ficha01Select.setOnClickListener { viewModel.currentChipId = it.id }
         ficha02Select.setOnClickListener { viewModel.currentChipId = it.id }

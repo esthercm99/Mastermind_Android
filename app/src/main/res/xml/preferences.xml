@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen   xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.preference.PreferenceCategory>
+
+        <EditTextPreference
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/playerName"
+            android:defaultValue="@string/playerName_defaultValue"
+
+            android:inputType="textPersonName"
+
+            android:key="@string/prefGameTime_key"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreference
+            android:icon="@drawable/ic_eye_black_24dp"
+            android:title="@string/colorblindMode_title"
+            android:defaultValue="false"
+
+            android:key="@string/prefDaltonicMode_key"
+            app:useSimpleSummaryProvider="true" />
+
+        <androidx.preference.ListPreference
+            android:icon="@drawable/ic_language_black_24dp"
+            android:title="@string/language_title"
+            android:defaultValue="@string/prefLanguage_defaultValue"
+
+            android:entries="@array/prefLanguage_entries"
+            android:entryValues="@array/prefLanguage_entries"
+
+            android:key="@string/prefLanguage_key"
+            app:useSimpleSummaryProvider="true" />
+
+    </androidx.preference.PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,4 +1,4 @@
-package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
+package es.iessaladillo.esthercastaneda.mastermind.ui.game.singleplayerGame
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

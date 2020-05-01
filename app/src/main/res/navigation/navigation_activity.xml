@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_difficultGameSelect"
             app:destination="@id/difficultGameSelect"/>
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/manualFragment"
@@ -42,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame.GameFragment"
+        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.game.singleplayerGame.GameFragment"
         android:label="game_fragment"
         tools:layout="@layout/game_fragment">
         <action
@@ -60,4 +63,9 @@
         android:name="es.iessaladillo.esthercastaneda.mastermind.ui.game.finishGame.ResultFragment"
         android:label="result_fragment"
         tools:layout="@layout/result_fragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.menu.settings.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/settings_fragment" />
 </navigation>

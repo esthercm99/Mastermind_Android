@@ -1,8 +1,7 @@
-package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
+package es.iessaladillo.esthercastaneda.mastermind.ui.game.singleplayerGame
 
 import android.app.Application
 import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,26 +38,26 @@ class GameViewModel(private val application: Application) : ViewModel() {
             }
         }
 
-        Toast.makeText(application.applicationContext, String.format(gameSettings.name), Toast.LENGTH_LONG).show()
+        // Toast.makeText(application.applicationContext, String.format(gameSettings.name), Toast.LENGTH_LONG).show()
     }
 
     // Jugador 1:
-    private val player01 = Player("Scole")
-    private val _listCombinationBN01 : MutableLiveData<List<Combination>> = MutableLiveData()
-    val listCombinationBN01 : LiveData<List<Combination>>
-        get() = _listCombinationBN01
-    private val _listCombination01 : MutableLiveData<List<Combination>> = MutableLiveData()
+    private val player = Player("Scole")
+    private val _listCombinationBN : MutableLiveData<List<Combination>> = MutableLiveData()
+    val listCombinationBN : LiveData<List<Combination>>
+        get() = _listCombinationBN
+    private val _listCombination : MutableLiveData<List<Combination>> = MutableLiveData()
     val listCombination01 : LiveData<List<Combination>>
-        get() = _listCombination01
+        get() = _listCombination
 
     private val combinationIA = IA("IA").createSecretCombination(gameSettings)
 
-    fun getWinner01() = player01.isWinner()
+    fun getWinner() = player.isWinner()
 
     fun addCombination(){
         currentCombination.let {
-            player01.addCombination(it)
-            _listCombination01.value = player01.getCombinationList()
+            player.addCombination(it)
+            _listCombination.value = player.getCombinationList()
         }
         checkCombination()
     }
@@ -103,7 +102,6 @@ class GameViewModel(private val application: Application) : ViewModel() {
             }
         }
 
-
         var index = 0
         lateinit var combinationBN: Combination
 
@@ -144,11 +142,11 @@ class GameViewModel(private val application: Application) : ViewModel() {
             index++
         }
 
-        player01.addCombinationBN(combinationBN)
-        _listCombinationBN01.value = player01.getCombinationBNList()
+        player.addCombinationBN(combinationBN)
+        _listCombinationBN.value = player.getCombinationBNList()
 
         if (totalBlack.toInt() == gameSettings.numChips) {
-            player01.setWinner(true)
+            player.setWinner(true)
         }
         // Toast.makeText(application.applicationContext, String.format("Blancas: %d | Negras: %d", totalWhite, totalBlack), Toast.LENGTH_LONG).show()
     }
