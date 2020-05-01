@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 import android.view.Window
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.edit
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(AppBarConfiguration(navController.graph)) || super.onSupportNavigateUp()
+    override fun onBackPressed() {
+        Toast.makeText(applicationContext, getString(R.string.btnDisabled), Toast.LENGTH_SHORT).show()
     }
 }

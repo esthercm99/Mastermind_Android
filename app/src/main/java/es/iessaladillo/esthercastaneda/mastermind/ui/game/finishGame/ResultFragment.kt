@@ -27,7 +27,7 @@ class ResultFragment : Fragment(R.layout.result_fragment) {
     private fun setupViews() {
 
         val player = settings.getString(getString(R.string.prefPlayerName_key), getString(R.string.playerName_defaultValue))
-        
+
         if (settings.getBoolean("isWinner", false)) {
             txtResult.text = String.format(getString(R.string.youWin), player)
         } else {

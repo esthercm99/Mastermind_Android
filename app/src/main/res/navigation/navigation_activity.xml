@@ -49,12 +49,6 @@
         android:label="game_fragment"
         tools:layout="@layout/game_fragment">
         <action
-            android:id="@+id/action_result_to_home"
-            app:destination="@id/homeFragment"
-            app:launchSingleTop="false"
-            app:popUpTo="@+id/homeFragment"
-            app:popUpToInclusive="false" />
-        <action
             android:id="@+id/action_gameFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
     </fragment>

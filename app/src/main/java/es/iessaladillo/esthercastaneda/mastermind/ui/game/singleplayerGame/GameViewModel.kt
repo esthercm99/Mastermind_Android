@@ -12,7 +12,9 @@ import es.iessaladillo.esthercastaneda.mastermind.data.entity.*
 class GameViewModel(private val application: Application) : ViewModel() {
 
     var round: Int = 1
-    var currentChipId : Int = -1
+    var currentColorId : Int = -1
+    var currentNumberColor: Int = -1
+    var colorBlindMode: Boolean
     lateinit var gameSettings: GameSettings
 
     lateinit var currentCombination: Combination
@@ -37,6 +39,8 @@ class GameViewModel(private val application: Application) : ViewModel() {
                 currentCombination = Combination(arrayOf(Chip(), Chip(), Chip(), Chip(), Chip(), Chip()))
             }
         }
+
+        colorBlindMode = settings.getBoolean(application.getString(R.string.prefColorBlindMode_key), true)
 
         // Toast.makeText(application.applicationContext, String.format(gameSettings.name), Toast.LENGTH_LONG).show()
     }

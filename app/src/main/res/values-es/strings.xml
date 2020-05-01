@@ -24,9 +24,10 @@
     <string name="selectDifficulty">Selecciona una dificultad</string>
     <string name="selectModeGame">Selecciona modo de juego</string>
     <string name="lblround">RONDA</string>
-    <string name="lblSelectChip">Selecciona una ficha</string>
+    <string name="lblSelectColor">Selecciona una ficha</string>
     <string name="lblFill">Rellena la combinación</string>
     <string name="youWin">¡Has ganado %s!</string>
     <string name="youLose">Has perdido %s...</string>
+    <string name="btnDisabled">Botón deshabilitado</string>
 
 </resources>
