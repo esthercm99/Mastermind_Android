@@ -69,7 +69,7 @@ class GameFragment : Fragment(R.layout.game_fragment) {
     }
     private fun setupViews() {
         setupBtnSelect()
-        lblRound.text = String.format("RONDA %d", viewModel.round)
+        lblRound.text = String.format("%s %d", getString(R.string.lblround), viewModel.round)
         chipSelectCheck()
         changeColor()
         setupButtons()
@@ -120,7 +120,7 @@ class GameFragment : Fragment(R.layout.game_fragment) {
                 nextRound()
                 checkWinner()
             } else {
-                Toast.makeText(context, "Rellena la combinación", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.lblFill), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -136,7 +136,7 @@ class GameFragment : Fragment(R.layout.game_fragment) {
         ficha06Select.background = context?.getDrawable(R.drawable.ficha_vacia)
 
         viewModel.round++
-        lblRound.text = String.format("RONDA %d", viewModel.round)
+        lblRound.text = String.format("%s %d", getString(R.string.lblround), viewModel.round)
     }
     private fun chipSelectCheck() {
         ficha01Select.setOnClickListener { viewModel.currentChipId = it.id }
@@ -190,7 +190,7 @@ class GameFragment : Fragment(R.layout.game_fragment) {
             btn?.background = context?.getDrawable(color)
 
         } else {
-            Toast.makeText(context, "Selecciona una ficha", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.lblSelectChip), Toast.LENGTH_SHORT).show()
         }
     }
 }

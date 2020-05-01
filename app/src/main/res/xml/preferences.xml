@@ -11,15 +11,15 @@
 
             android:inputType="textPersonName"
 
-            android:key="@string/prefGameTime_key"
+            android:key="@string/prefPlayerName_key"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreference
             android:icon="@drawable/ic_eye_black_24dp"
             android:title="@string/colorblindMode_title"
-            android:defaultValue="false"
+            android:defaultValue="@string/colorblindMode_defaultValue"
 
-            android:key="@string/prefDaltonicMode_key"
+            android:key="@string/prefColorBlindMode_key"
             app:useSimpleSummaryProvider="true" />
 
         <androidx.preference.ListPreference

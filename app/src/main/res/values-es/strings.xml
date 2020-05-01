@@ -5,22 +5,28 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <!-- PREFERENCIAS -->
+    <string name="gameCategory_title">JUEGO</string>
+    <string name="colorblindMode_title">Modo daltónico</string>
+    <string name="playerName">Nombre del jugador/a</string>
+    <string name="playerName_defaultValue">Jugador</string>
+    <string name="language_title">Idioma</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="txt_play">Jugar</string>
     <string name="txt_instructions">Instrucciones</string>
     <string name="txt_settings">Configuración</string>
     <string name="txt_singleplayer">Un jugador</string>
     <string name="txt_multiplayer">Multijugador</string>
+    <string name="txtEasy">FÁCIL</string>
+    <string name="txtMedium">MEDIO</string>
+    <string name="txtHard">DIFÍCIL</string>
+    <string name="selectDifficulty">Selecciona una dificultad</string>
+    <string name="selectModeGame">Selecciona modo de juego</string>
+    <string name="lblround">RONDA</string>
+    <string name="lblSelectChip">Selecciona una ficha</string>
+    <string name="lblFill">Rellena la combinación</string>
+    <string name="youWin">¡Has ganado %s!</string>
+    <string name="youLose">Has perdido %s...</string>
 
-    <!-- PREFERENCES -->
-    <string name="gameCategory_title">JUEGO</string>
-    <string name="colorblindMode_title">Modo daltónico</string>
-    <string name="playerName">Nombre del jugador/a</string>
-    <string name="playerName_defaultValue">Jugador</string>
-    <string name="language_title">Idioma</string>
-    <string-array name="prefLanguage_entries">
-        <item>Español</item>
-        <item>Inglés</item>
-    </string-array>
-    <string name="prefLanguage_defaultValue">Español</string>
 </resources>

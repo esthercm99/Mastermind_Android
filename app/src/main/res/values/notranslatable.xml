@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="prefDaltonicMode_key" translatable="false">prefGameMode</string>
-    <string name="prefGameTime_key" translatable="false">prefGameTime</string>
+    <string name="prefColorBlindMode_key" translatable="false">prefColorBlindMode</string>
+    <string name="prefPlayerName_key" translatable="false">prefPlayerName</string>
     <string name="prefLanguage_key" translatable="false">prefLanguage</string>
 
 </resources>

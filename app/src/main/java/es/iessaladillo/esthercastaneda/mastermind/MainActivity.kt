@@ -1,21 +1,28 @@
 package es.iessaladillo.esthercastaneda.mastermind
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.edit
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private val navController: NavController by lazy {
         findNavController(R.id.navHostFragment)
+    }
+    private val settings: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +35,11 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.main_activity)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
+        settings.edit {
+            putString(getString(R.string.prefLanguage_key), getString(R.string.prefLanguage_defaultValue))
+        }
+
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
