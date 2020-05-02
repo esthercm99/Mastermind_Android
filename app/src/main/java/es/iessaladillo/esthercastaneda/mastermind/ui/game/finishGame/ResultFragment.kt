@@ -34,7 +34,7 @@ class ResultFragment : Fragment(R.layout.result_fragment) {
             txtResult.text = String.format(getString(R.string.youLose), player)
         }
 
-        btnCerrar.setOnClickListener {
+        btnClose.setOnClickListener {
             navController.navigate(R.id.homeFragment)
         }
     }

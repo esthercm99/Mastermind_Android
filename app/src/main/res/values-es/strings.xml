@@ -31,5 +31,10 @@
     <string name="btnDisabled">Botón deshabilitado</string>
     <string name="txtInstructions">Instrucciones</string>
     <string name="nameIA">IA</string>
+    <string name="quitGame">¿Salir del juego?</string>
+    <string name="msgQuitGame">¿Estás seguro de que quieres salir del juego?</string>
+    <string name="txtYes">SI</string>
+    <string name="txtNo">NO</string>
+    <string name="txtClose">Cerrar</string>
 
 </resources>

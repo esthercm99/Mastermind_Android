@@ -38,5 +38,10 @@
     <string name="btnDisabled">Button disabled</string>
     <string name="txtInstructions">Instructions</string>
     <string name="nameIA">IA</string>
+    <string name="quitGame">Quit game?</string>
+    <string name="msgQuitGame">Are you sure you want to quit the game?</string>
+    <string name="txtYes">YES</string>
+    <string name="txtNo">NO</string>
+    <string name="txtClose">Close</string>
 
 </resources>

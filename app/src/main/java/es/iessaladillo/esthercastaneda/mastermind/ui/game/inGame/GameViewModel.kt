@@ -74,7 +74,6 @@ class GameViewModel(private val application: Application) : ViewModel() {
 
 
     // IA functions:
-    fun getWinner02() = player02.isWinner()
     fun playRoundIA() {
         hideCombinationIA = player02.createSecretCombination(gameSettings)
         addCombination()
@@ -163,14 +162,7 @@ class GameViewModel(private val application: Application) : ViewModel() {
             combinationBN.chips[index] = Chip(R.drawable.chip_white, index)
             index++
         }
-/*
-        if(totalBlack + totalWhite < gameSettings.numChips) {
-            for (i in index until gameSettings.numChips) {
-                combinationBN.chips[index] = Chip(, index)
-                index++
-            }
-        }
-*/
+
         player.addCombinationBN(combinationBN)
 
         if (totalBlack.toInt() == gameSettings.numChips) {

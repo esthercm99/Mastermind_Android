@@ -1,5 +1,6 @@
 package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
 
+import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import es.iessaladillo.esthercastaneda.mastermind.R
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.Combination
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.GameSettings
+import es.iessaladillo.esthercastaneda.mastermind.data.entity.Player
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.multigame_fragment.*
 import kotlinx.android.synthetic.main.singlegame_fragment.btnCheck
@@ -152,12 +154,13 @@ class GameFragment : Fragment() {
     private fun roundIA() {
         viewModel.playRoundIA()
         viewModel.resetCurrentCombination()
+        checkWinner(viewModel.player02)
     }
 
-    private fun checkWinner() {
+    private fun checkWinner(player: Player) {
         if (viewModel.round > viewModel.gameSettings.numRounds) {
             finishGame()
-        } else if(viewModel.getWinner01()) {
+        } else if(player.isWinner()) {
             finishGame()
         }
     }
@@ -204,7 +207,12 @@ class GameFragment : Fragment() {
     private fun setupButtons() {
 
         btnExit.setOnClickListener {
-            navController.navigate(R.id.homeFragment)
+            AlertDialog.Builder(context).setTitle(getString(R.string.quitGame))
+                .setMessage(getString(R.string.msgQuitGame))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.txtYes)) { _, _ -> navController.navigate(R.id.homeFragment) }
+                .setNegativeButton(getString(R.string.txtNo)){ _, _ -> }
+                .show()
         }
 
         btnCheck.setOnClickListener {
@@ -219,7 +227,7 @@ class GameFragment : Fragment() {
             if(!emptyChip) {
                 viewModel.addCombination(viewModel.player01)
                 nextRound()
-                checkWinner()
+                checkWinner(viewModel.player01)
             } else {
                 Toast.makeText(context, getString(R.string.lblFill), Toast.LENGTH_SHORT).show()
             }
