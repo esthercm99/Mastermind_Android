@@ -1,8 +1,7 @@
-package es.iessaladillo.esthercastaneda.mastermind.ui.game.finishGame
+package es.iessaladillo.esthercastaneda.mastermind.ui.game.resultGame
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment

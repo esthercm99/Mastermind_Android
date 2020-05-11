@@ -14,13 +14,23 @@
             android:id="@+id/action_homeFragment_to_manualFragment"
             app:destination="@id/manualFragment"
             app:enterAnim="@anim/animation_enter"
-            app:exitAnim="@anim/animation_leave"/>
+            app:exitAnim="@anim/animation_exit"
+            app:popExitAnim="@anim/animation_popexit"
+            app:popEnterAnim="@anim/animation_popenter"/>
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/animation_enter"
+            app:exitAnim="@anim/animation_exit"
+            app:popExitAnim="@anim/animation_popexit"
+            app:popEnterAnim="@anim/animation_popenter"/>
         <action
             android:id="@+id/action_homeFragment_to_modeGame"
-            app:destination="@id/modeGame" />
+            app:destination="@id/modeGame"
+            app:enterAnim="@anim/animation_enter"
+            app:exitAnim="@anim/animation_exit"
+            app:popExitAnim="@anim/animation_popexit"
+            app:popEnterAnim="@anim/animation_popenter"/>
     </fragment>
     <fragment
         android:id="@+id/manualFragment"
@@ -28,25 +38,20 @@
         android:label="fragment_manual"
         tools:layout="@layout/fragment_manual" />
     <fragment
-        android:id="@+id/difficultGameSelect"
-        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.menu.selectModeGame.difficultGame.DifficultGameSelect"
-        android:label="difficult_game_select_fragment"
-        tools:layout="@layout/difficult_game_select_fragment" >
-        <action
-            android:id="@+id/action_difficultGameSelect_to_gameFragment"
-            app:destination="@id/gameFragment"
-            app:launchSingleTop="false"
-            app:popUpTo="@+id/homeFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
-    <fragment
         android:id="@+id/modeGame"
-        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.menu.selectModeGame.modeGame.ModeGame"
+        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.menu.selectModeGame.ModeGame"
         android:label="mode_game_fragment"
         tools:layout="@layout/mode_game_fragment" >
         <action
-            android:id="@+id/action_modeGame_to_difficultGameSelect"
-            app:destination="@id/difficultGameSelect" />
+            android:id="@+id/action_modeGame_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@+id/homeFragment"
+            app:popUpToInclusive="false"
+            app:enterAnim="@anim/animation_enter"
+            app:exitAnim="@anim/animation_exit"
+            app:popExitAnim="@anim/animation_popexit"
+            app:popEnterAnim="@anim/animation_popenter"/>
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -58,11 +63,15 @@
             app:destination="@id/resultFragment"
             app:popUpTo="@+id/homeFragment"
             app:launchSingleTop="false"
-            app:popUpToInclusive="false"/>
+            app:popUpToInclusive="false"
+            app:enterAnim="@anim/animation_enter"
+            app:exitAnim="@anim/animation_exit"
+            app:popExitAnim="@anim/animation_popexit"
+            app:popEnterAnim="@anim/animation_popenter"/>
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.game.finishGame.ResultFragment"
+        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.game.resultGame.ResultFragment"
         android:label="result_fragment"
         tools:layout="@layout/result_fragment" />
     <fragment

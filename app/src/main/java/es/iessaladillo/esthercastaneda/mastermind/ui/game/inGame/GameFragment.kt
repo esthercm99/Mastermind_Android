@@ -158,7 +158,7 @@ class GameFragment : Fragment() {
     }
 
     private fun checkWinner(player: Player) {
-        if (viewModel.round > 2) {
+        if (viewModel.round > viewModel.gameSettings.numRounds) {
             finishGame()
         } else if(player.isWinner()) {
             finishGame()

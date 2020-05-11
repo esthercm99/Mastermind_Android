@@ -22,7 +22,7 @@
         android:id="@+id/txtInstructions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/txtInstructions"
+        android:text="@string/txt_instructions"
         android:textAlignment="center"
         android:textSize="32sp"
         android:textStyle="bold"
