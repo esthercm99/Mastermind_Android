@@ -54,7 +54,7 @@ class DifficultGameSelect : Fragment(R.layout.difficult_game_select_fragment) {
         settings.edit {
             putInt("difficultGame", difficult)
         }
-        navController.navigate(R.id.gameFragment)
+        navController.navigate(R.id.action_difficultGameSelect_to_gameFragment)
     }
 
 }

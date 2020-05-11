@@ -58,12 +58,9 @@ class MainActivity : AppCompatActivity() {
                 or SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
     }
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
 
-    override fun onBackPressed() {
-        navController.navigateUp()
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(AppBarConfiguration(navController.graph)) || super.onSupportNavigateUp()
     }
 
 }

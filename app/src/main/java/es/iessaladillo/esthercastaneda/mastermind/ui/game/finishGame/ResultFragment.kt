@@ -36,7 +36,7 @@ class ResultFragment : Fragment(R.layout.result_fragment) {
         }
 
         btnClose.setOnClickListener {
-            navController.navigate(R.id.homeFragment)
+            navController.navigateUp()
         }
     }
 }

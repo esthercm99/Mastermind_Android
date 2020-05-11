@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_activity"
-    app:startDestination="@id/homeFragment">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/navigation_activity"
+            app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -12,7 +12,9 @@
         tools:layout="@layout/home_fragment" >
         <action
             android:id="@+id/action_homeFragment_to_manualFragment"
-            app:destination="@id/manualFragment" />
+            app:destination="@id/manualFragment"
+            app:enterAnim="@anim/animation_enter"
+            app:exitAnim="@anim/animation_leave"/>
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
@@ -49,12 +51,14 @@
     <fragment
         android:id="@+id/gameFragment"
         android:name="es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame.GameFragment"
-        android:label="game_fragment">
+        android:label="game_fragment"
+        tools:layout="@layout/singlegame_fragment">
         <action
             android:id="@+id/action_resultFragment_to_homeFragment"
             app:destination="@id/resultFragment"
             app:popUpTo="@+id/homeFragment"
-            app:popUpToInclusive="true"/>
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false"/>
     </fragment>
     <fragment
         android:id="@+id/resultFragment"

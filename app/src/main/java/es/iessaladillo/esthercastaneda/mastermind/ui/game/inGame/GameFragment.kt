@@ -85,10 +85,10 @@ class GameFragment : Fragment() {
         observe()
     }
     private fun observe() {
-        viewModel.listCombination01.observe(this) {
+        viewModel.listCombination01.observe(viewLifecycleOwner) {
             updateCombinationList(it)
         }
-        viewModel.listCombinationBN01.observe(this) {
+        viewModel.listCombinationBN01.observe(viewLifecycleOwner) {
             updateCombinationBNList(it)
         }
     }
@@ -115,10 +115,10 @@ class GameFragment : Fragment() {
         observeIA()
     }
     private fun observeIA() {
-        viewModel.listCombination02.observe(this) {
+        viewModel.listCombination02.observe(viewLifecycleOwner) {
             updateCombinationListIA(it)
         }
-        viewModel.listCombinationBN02.observe(this) {
+        viewModel.listCombinationBN02.observe(viewLifecycleOwner) {
             updateCombinationBNListIA(it)
         }
     }
@@ -158,7 +158,7 @@ class GameFragment : Fragment() {
     }
 
     private fun checkWinner(player: Player) {
-        if (viewModel.round > viewModel.gameSettings.numRounds) {
+        if (viewModel.round > 2) {
             finishGame()
         } else if(player.isWinner()) {
             finishGame()
@@ -192,7 +192,7 @@ class GameFragment : Fragment() {
         settings.edit {
             putBoolean("isWinner", viewModel.getWinner01())
         }
-        navController.navigate(R.id.resultFragment)
+        navController.navigate(R.id.action_resultFragment_to_homeFragment)
     }
 
     // Setting buttons

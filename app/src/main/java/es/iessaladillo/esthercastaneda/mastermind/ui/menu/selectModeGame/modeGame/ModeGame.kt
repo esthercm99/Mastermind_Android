@@ -56,7 +56,7 @@ class ModeGame : Fragment(R.layout.mode_game_fragment) {
         settings.edit {
             putInt("modeGame", modeGame)
         }
-        navController.navigate(R.id.difficultGameSelect)
+        navController.navigate(R.id.action_modeGame_to_difficultGameSelect)
     }
 
 }
