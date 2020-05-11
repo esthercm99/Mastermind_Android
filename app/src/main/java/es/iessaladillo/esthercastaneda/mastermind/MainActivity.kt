@@ -58,8 +58,12 @@ class MainActivity : AppCompatActivity() {
                 or SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_FULLSCREEN)
     }
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
 
     override fun onBackPressed() {
-        Toast.makeText(applicationContext, getString(R.string.btnDisabled), Toast.LENGTH_SHORT).show()
+        navController.navigateUp()
     }
+
 }

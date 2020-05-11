@@ -13,7 +13,7 @@
     <string name="language_title">Idioma</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="txt_play">Jugar</string>
+    <string name="txt_play">Pulsa para empezar</string>
     <string name="txt_instructions">Instrucciones</string>
     <string name="txt_settings">Configuración</string>
     <string name="txt_singleplayer">Un jugador</string>
