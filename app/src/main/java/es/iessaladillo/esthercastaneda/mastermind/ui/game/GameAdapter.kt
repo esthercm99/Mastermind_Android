@@ -1,4 +1,4 @@
-package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
+package es.iessaladillo.esthercastaneda.mastermind.ui.game
 
 import android.content.SharedPreferences
 import android.view.LayoutInflater
@@ -68,17 +68,17 @@ class GameAdapter() : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        private val ficha01: TextView = containerView.findViewById(R.id.ficha01)
-        private val ficha02: TextView = containerView.findViewById(R.id.ficha02)
-        private val ficha03: TextView = containerView.findViewById(R.id.ficha03)
-        private val ficha04: TextView = containerView.findViewById(R.id.ficha04)
+        private val ficha01: TextView = containerView.findViewById(R.id.chip01)
+        private val ficha02: TextView = containerView.findViewById(R.id.chip02)
+        private val ficha03: TextView = containerView.findViewById(R.id.chip03)
+        private val ficha04: TextView = containerView.findViewById(R.id.chip04)
         private lateinit var ficha05: TextView
         private lateinit var ficha06: TextView
 
-        private val ficha01BN: ImageView = containerView.findViewById(R.id.fichaByN01)
-        private val ficha02BN: ImageView = containerView.findViewById(R.id.fichaByN02)
-        private val ficha03BN: ImageView = containerView.findViewById(R.id.fichaByN03)
-        private val ficha04BN: ImageView = containerView.findViewById(R.id.fichaByN04)
+        private val ficha01BN: ImageView = containerView.findViewById(R.id.chipBN01)
+        private val ficha02BN: ImageView = containerView.findViewById(R.id.chipBN02)
+        private val ficha03BN: ImageView = containerView.findViewById(R.id.chipBN03)
+        private val ficha04BN: ImageView = containerView.findViewById(R.id.chipBN04)
         private lateinit var ficha05BN: ImageView
         private lateinit var ficha06BN: ImageView
 
@@ -92,12 +92,12 @@ class GameAdapter() : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
                 when(gameMode) {
                     GameSettings.NORMAL -> {
-                        ficha05 = containerView.findViewById(R.id.ficha05)
+                        ficha05 = containerView.findViewById(R.id.chip05)
                         setChip(ficha05, chips[4].color)
                     }
                     GameSettings.HARD -> {
-                        ficha05 = containerView.findViewById(R.id.ficha05)
-                        ficha06 = containerView.findViewById(R.id.ficha06)
+                        ficha05 = containerView.findViewById(R.id.chip05)
+                        ficha06 = containerView.findViewById(R.id.chip06)
                         setChip(ficha05, chips[4].color)
                         setChip(ficha06, chips[5].color)
                     }
@@ -112,12 +112,12 @@ class GameAdapter() : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
                 when(gameMode) {
                     GameSettings.NORMAL -> {
-                        ficha05BN = containerView.findViewById(R.id.fichaByN05)
+                        ficha05BN = containerView.findViewById(R.id.chipBN05)
                         ficha05BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[4].color), null)
                     }
                     GameSettings.HARD -> {
-                        ficha05BN = containerView.findViewById(R.id.fichaByN05)
-                        ficha06BN = containerView.findViewById(R.id.fichaByN06)
+                        ficha05BN = containerView.findViewById(R.id.chipBN05)
+                        ficha06BN = containerView.findViewById(R.id.chipBN06)
 
                         ficha05BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[4].color), null)
                         ficha06BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[5].color), null)

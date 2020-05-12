@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="sizeBtnMenu">38dp</dimen>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="sep">4dp</dimen>
+    <dimen name="sizeChipBN">25dp</dimen>
+    <dimen name="sizeBtn">38dp</dimen>
+    <dimen name="sizeChip45">45dp</dimen>
+    <dimen name="sizeChip50">50dp</dimen>
+    <dimen name="btnArrow">60dp</dimen>
+
+    <dimen name="margin_0_4">4dp</dimen>
+    <dimen name="margin_1x">10dp</dimen>
+    <dimen name="margin_1_6x">16dp</dimen>
+    <dimen name="margin_2x">20dp</dimen>
+    <dimen name="margin_3x">30dp</dimen>
+    <dimen name="margin_5x">50dp</dimen>
+    <dimen name="margin_15x">150dp</dimen>
+
+    <dimen name="textSize_24">24sp</dimen>
+    <dimen name="textSize_28">28sp</dimen>
+    <dimen name="textSize_30">30sp</dimen>
+    <dimen name="textSize_32">32sp</dimen>
+    <dimen name="textSize_34">34sp</dimen>
+    <dimen name="textSize_18">18sp</dimen>
 </resources>

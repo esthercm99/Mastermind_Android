@@ -1,7 +1,8 @@
-package es.iessaladillo.esthercastaneda.mastermind.ui.game.resultGame
+package es.iessaladillo.esthercastaneda.mastermind.ui.result
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -32,6 +33,7 @@ class ResultFragment : Fragment(R.layout.result_fragment) {
             txtResult.text = String.format(getString(R.string.youWin), player)
         } else {
             txtResult.text = String.format(getString(R.string.youLose), player)
+            background.visibility = View.INVISIBLE
         }
 
         btnClose.setOnClickListener {

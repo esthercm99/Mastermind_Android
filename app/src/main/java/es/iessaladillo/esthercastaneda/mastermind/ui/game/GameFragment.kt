@@ -1,4 +1,4 @@
-package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
+package es.iessaladillo.esthercastaneda.mastermind.ui.game
 
 import android.app.AlertDialog
 import android.content.SharedPreferences

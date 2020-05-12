@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame.GameFragment"
+        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.game.GameFragment"
         android:label="game_fragment"
         tools:layout="@layout/singlegame_fragment">
         <action
@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.game.resultGame.ResultFragment"
+        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.result.ResultFragment"
         android:label="result_fragment"
         tools:layout="@layout/result_fragment" />
     <fragment

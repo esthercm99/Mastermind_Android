@@ -36,6 +36,6 @@
     <string name="msgQuitGame">¿Estás seguro de que quieres salir del juego?</string>
     <string name="txtYes">SI</string>
     <string name="txtNo">NO</string>
-    <string name="txtClose">Cerrar</string>
+    <string name="txtGoHome">Ir al inicio</string>
 
 </resources>

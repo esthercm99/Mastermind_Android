@@ -1,125 +1,123 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/itemAvatarlst"
+    android:id="@+id/itemChiplst"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
+    android:layout_marginTop="@dimen/margin_1x"
+    android:layout_marginBottom="@dimen/margin_1x"
     android:animateLayoutChanges="true">
 
     <TextView
-        android:id="@+id/ficha01"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/chip01"
+        android:layout_width="@dimen/sizeChip50"
+        android:layout_height="@dimen/sizeChip50"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        android:background="@drawable/ficha_vacia"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:textSize="@dimen/textSize_24"
+        android:background="@drawable/chip_empty"
+        android:layout_marginStart="@dimen/margin_1x"
+        android:layout_marginTop="@dimen/margin_1x"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <TextView
-        android:id="@+id/ficha02"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/chip02"
+        android:layout_width="@dimen/sizeChip50"
+        android:layout_height="@dimen/sizeChip50"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        android:background="@drawable/ficha_vacia"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:textSize="@dimen/textSize_24"
+        android:background="@drawable/chip_empty"
+        android:layout_marginStart="@dimen/margin_1x"
+        android:layout_marginTop="@dimen/margin_1x"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/ficha01"/>
+        app:layout_constraintLeft_toRightOf="@id/chip01"/>
 
     <TextView
-        android:id="@+id/ficha03"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/chip03"
+        android:layout_width="@dimen/sizeChip50"
+        android:layout_height="@dimen/sizeChip50"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        android:background="@drawable/ficha_vacia"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:textSize="@dimen/textSize_24"
+        android:background="@drawable/chip_empty"
+        android:layout_marginStart="@dimen/margin_1x"
+        android:layout_marginTop="@dimen/margin_1x"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/ficha02"/>
+        app:layout_constraintLeft_toRightOf="@id/chip02"/>
 
     <TextView
-        android:id="@+id/ficha04"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/chip04"
+        android:layout_width="@dimen/sizeChip50"
+        android:layout_height="@dimen/sizeChip50"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        android:background="@drawable/ficha_vacia"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/ficha01"
+        android:textSize="@dimen/textSize_24"
+        android:background="@drawable/chip_empty"
+        android:layout_marginStart="@dimen/margin_1x"
+        android:layout_marginTop="@dimen/margin_1x"
+        app:layout_constraintTop_toBottomOf="@id/chip01"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <TextView
-        android:id="@+id/ficha05"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/chip05"
+        android:layout_width="@dimen/sizeChip50"
+        android:layout_height="@dimen/sizeChip50"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        android:background="@drawable/ficha_vacia"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/ficha02"
-        app:layout_constraintLeft_toRightOf="@id/ficha04"/>
+        android:textSize="@dimen/textSize_24"
+        android:background="@drawable/chip_empty"
+        android:layout_marginStart="@dimen/margin_1x"
+        android:layout_marginTop="@dimen/margin_1x"
+        app:layout_constraintTop_toBottomOf="@id/chip02"
+        app:layout_constraintLeft_toRightOf="@id/chip04"/>
 
 
     <ImageView
-        android:id="@+id/fichaByN01"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/ficha_vacia"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintTop_toTopOf="@id/ficha03"
-        app:layout_constraintLeft_toRightOf="@id/ficha03"/>
+        android:id="@+id/chipBN01"
+        android:layout_width="@dimen/sizeChipBN"
+        android:layout_height="@dimen/sizeChipBN"
+        android:background="@drawable/chip_empty"
+        android:layout_marginTop="@dimen/margin_2x"
+        android:layout_marginStart="@dimen/margin_1x"
+        app:layout_constraintTop_toTopOf="@id/chip03"
+        app:layout_constraintLeft_toRightOf="@id/chip03"/>
     <ImageView
-        android:id="@+id/fichaByN02"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/ficha_vacia"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintTop_toTopOf="@id/ficha03"
-        app:layout_constraintLeft_toRightOf="@id/fichaByN01"/>
+        android:id="@+id/chipBN02"
+        android:layout_width="@dimen/sizeChipBN"
+        android:layout_height="@dimen/sizeChipBN"
+        android:background="@drawable/chip_empty"
+        android:layout_marginTop="@dimen/margin_2x"
+        android:layout_marginStart="@dimen/margin_1x"
+        app:layout_constraintTop_toTopOf="@id/chip03"
+        app:layout_constraintLeft_toRightOf="@id/chipBN01"/>
     <ImageView
-        android:id="@+id/fichaByN03"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/ficha_vacia"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintTop_toTopOf="@id/ficha05"
-        app:layout_constraintLeft_toRightOf="@id/ficha03"/>
+        android:id="@+id/chipBN03"
+        android:layout_width="@dimen/sizeChipBN"
+        android:layout_height="@dimen/sizeChipBN"
+        android:background="@drawable/chip_empty"
+        android:layout_marginStart="@dimen/margin_1x"
+        android:layout_marginBottom="@dimen/margin_2x"
+        app:layout_constraintTop_toTopOf="@id/chip05"
+        app:layout_constraintLeft_toRightOf="@id/chip03"/>
     <ImageView
-        android:id="@+id/fichaByN04"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/ficha_vacia"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintTop_toTopOf="@id/ficha05"
-        app:layout_constraintLeft_toRightOf="@id/fichaByN01"/>
+        android:id="@+id/chipBN04"
+        android:layout_width="@dimen/sizeChipBN"
+        android:layout_height="@dimen/sizeChipBN"
+        android:background="@drawable/chip_empty"
+        android:layout_marginStart="@dimen/margin_1x"
+        android:layout_marginBottom="@dimen/margin_2x"
+        app:layout_constraintTop_toTopOf="@id/chip05"
+        app:layout_constraintLeft_toRightOf="@id/chipBN01"/>
     <ImageView
-        android:id="@+id/fichaByN05"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/ficha_vacia"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintTop_toTopOf="@id/ficha03"
-        app:layout_constraintLeft_toRightOf="@id/fichaByN02"/>
-
-
+        android:id="@+id/chipBN05"
+        android:layout_width="@dimen/sizeChipBN"
+        android:layout_height="@dimen/sizeChipBN"
+        android:background="@drawable/chip_empty"
+        android:layout_marginTop="@dimen/margin_2x"
+        android:layout_marginStart="@dimen/margin_1x"
+        app:layout_constraintTop_toTopOf="@id/chip03"
+        app:layout_constraintLeft_toRightOf="@id/chipBN02"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

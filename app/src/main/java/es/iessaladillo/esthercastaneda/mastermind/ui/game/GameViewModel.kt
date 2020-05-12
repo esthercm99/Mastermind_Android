@@ -1,8 +1,7 @@
-package es.iessaladillo.esthercastaneda.mastermind.ui.game.inGame
+package es.iessaladillo.esthercastaneda.mastermind.ui.game
 
 import android.app.Application
 import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -96,7 +95,13 @@ class GameViewModel(private val application: Application) : ViewModel() {
             _listCombination01.value = player.getCombinationList()
         }
         checkCombination(player)
-        _listCombinationBN01.value = player.getCombinationBNList()
+
+        while (true) {
+            if(player.getCombinationBNList().isNotEmpty()) {
+                _listCombinationBN01.value = player.getCombinationBNList()
+                break
+            }
+        }
     }
 
     private fun checkCombination(player: Player) {

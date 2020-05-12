@@ -44,6 +44,6 @@
     <string name="msgQuitGame">Are you sure you want to quit the game?</string>
     <string name="txtYes">YES</string>
     <string name="txtNo">NO</string>
-    <string name="txtClose">Close</string>
+    <string name="txtGoHome">Go to home</string>
 
 </resources>
