@@ -9,5 +9,7 @@
     app:defaultNavHost="true"
     app:navGraph="@navigation/navigation_activity"
     tools:context=".MainActivity"
-    tools:ignore="FragmentTagUsage"/>
+    tools:ignore="FragmentTagUsage">
+</fragment>
+
 

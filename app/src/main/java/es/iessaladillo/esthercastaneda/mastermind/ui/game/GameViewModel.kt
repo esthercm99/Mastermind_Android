@@ -95,13 +95,7 @@ class GameViewModel(private val application: Application) : ViewModel() {
             _listCombination01.value = player.getCombinationList()
         }
         checkCombination(player)
-
-        while (true) {
-            if(player.getCombinationBNList().isNotEmpty()) {
-                _listCombinationBN01.value = player.getCombinationBNList()
-                break
-            }
-        }
+        _listCombinationBN01.value = player.getCombinationBNList()
     }
 
     private fun checkCombination(player: Player) {

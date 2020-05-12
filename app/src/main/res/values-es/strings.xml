@@ -37,5 +37,11 @@
     <string name="txtYes">SI</string>
     <string name="txtNo">NO</string>
     <string name="txtGoHome">Ir al inicio</string>
+    <string name="n_games">Total partidas: %s</string>
+    <string name="n_games_win">Partidas ganadas: %s</string>
+    <string name="n_games_lose">Partidas perdidas: %s</string>
+    <string name="user_profile">Perfil del jugador</string>
+    <string name="namePlayer">Nombre del jugador: %s</string>
+
 
 </resources>

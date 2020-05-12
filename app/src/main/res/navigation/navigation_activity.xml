@@ -31,6 +31,9 @@
             app:exitAnim="@anim/animation_exit"
             app:popExitAnim="@anim/animation_popexit"
             app:popEnterAnim="@anim/animation_popenter"/>
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/manualFragment"
@@ -79,4 +82,9 @@
         android:name="es.iessaladillo.esthercastaneda.mastermind.ui.menu.settings.SettingsFragment"
         android:label="settings_fragment"
         tools:layout="@layout/settings_fragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="es.iessaladillo.esthercastaneda.mastermind.ui.menu.profile.ProfileFragment"
+        android:label="profile_fragment"
+        tools:layout="@layout/profile_fragment" />
 </navigation>

@@ -139,7 +139,7 @@
             app:layout_constraintTop_toBottomOf="@id/lblRound"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/redChip"
-            app:layout_constraintBottom_toTopOf="@id/chip01"
+            app:layout_constraintBottom_toTopOf="@id/chip01select"
             tools:listitem="@layout/round_easy_item"/>
 
         <View
@@ -162,7 +162,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <Button
-            android:id="@+id/chip01"
+            android:id="@+id/chip01select"
             android:layout_width="@dimen/sizeChip45"
             android:layout_height="@dimen/sizeChip45"
             android:textAlignment="center"
@@ -174,7 +174,7 @@
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <Button
-            android:id="@+id/chip02"
+            android:id="@+id/chip02select"
             android:layout_width="@dimen/sizeChip45"
             android:layout_height="@dimen/sizeChip45"
             android:textAlignment="center"
@@ -183,10 +183,10 @@
             android:background="@drawable/chip_empty"
             android:layout_margin="@dimen/margin_1x"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/chip01"/>
+            app:layout_constraintLeft_toRightOf="@id/chip01select"/>
 
         <Button
-            android:id="@+id/chip03"
+            android:id="@+id/chip03select"
             android:layout_width="@dimen/sizeChip45"
             android:layout_height="@dimen/sizeChip45"
             android:textAlignment="center"
@@ -195,10 +195,10 @@
             android:background="@drawable/chip_empty"
             android:layout_margin="@dimen/margin_1x"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/chip02"/>
+            app:layout_constraintLeft_toRightOf="@id/chip02select"/>
 
         <Button
-            android:id="@+id/chip04"
+            android:id="@+id/chip04select"
             android:layout_width="@dimen/sizeChip45"
             android:layout_height="@dimen/sizeChip45"
             android:textAlignment="center"
@@ -207,10 +207,10 @@
             android:background="@drawable/chip_empty"
             android:layout_margin="@dimen/margin_1x"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/chip03"/>
+            app:layout_constraintLeft_toRightOf="@id/chip03select"/>
 
         <Button
-            android:id="@+id/chip05"
+            android:id="@+id/chip05select"
             android:layout_width="@dimen/sizeChip45"
             android:layout_height="@dimen/sizeChip45"
             android:textAlignment="center"
@@ -220,10 +220,10 @@
             android:layout_margin="@dimen/margin_1x"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/chip04"/>
+            app:layout_constraintLeft_toRightOf="@id/chip04select"/>
 
         <Button
-            android:id="@+id/chip06"
+            android:id="@+id/chip06select"
             android:layout_width="@dimen/sizeChip45"
             android:layout_height="@dimen/sizeChip45"
             android:textAlignment="center"
@@ -233,7 +233,7 @@
             android:layout_margin="@dimen/margin_1x"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/chip05"/>
+            app:layout_constraintLeft_toRightOf="@id/chip05select"/>
 
         <Button
             android:id="@+id/btnCheck"

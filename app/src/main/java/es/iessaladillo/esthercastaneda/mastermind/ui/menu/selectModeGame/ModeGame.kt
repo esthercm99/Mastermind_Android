@@ -102,13 +102,9 @@ class ModeGame : Fragment(R.layout.mode_game_fragment) {
         }
     }
 
-
-
     private fun navigateToGame() {
         settings.edit {
             putInt("modeGame", indexList)
-        }
-        settings.edit {
             putInt("difficultGame", indexDifficultList)
         }
         navController.navigate(R.id.action_modeGame_to_gameFragment)

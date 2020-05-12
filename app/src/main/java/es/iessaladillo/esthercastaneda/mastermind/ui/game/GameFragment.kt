@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
@@ -27,12 +28,6 @@ import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.multigame_fragment.*
 import kotlinx.android.synthetic.main.singlegame_fragment.btnCheck
 import kotlinx.android.synthetic.main.singlegame_fragment.btnExit
-import kotlinx.android.synthetic.main.singlegame_fragment.chip01
-import kotlinx.android.synthetic.main.singlegame_fragment.chip02
-import kotlinx.android.synthetic.main.singlegame_fragment.chip03
-import kotlinx.android.synthetic.main.singlegame_fragment.chip04
-import kotlinx.android.synthetic.main.singlegame_fragment.chip05
-import kotlinx.android.synthetic.main.singlegame_fragment.chip06
 import kotlinx.android.synthetic.main.singlegame_fragment.chipBlue
 import kotlinx.android.synthetic.main.singlegame_fragment.chipBrown
 import kotlinx.android.synthetic.main.singlegame_fragment.chipGrey
@@ -53,10 +48,13 @@ class GameFragment : Fragment() {
     private val viewModel: GameViewModel by viewModels {
         GameViewModelFactory(requireActivity().application)
     }
-
     private val navController: NavController by lazy {
         NavHostFragment.findNavController(navHostFragment)
     }
+    private val settings: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(activity)
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if(viewModel.modePlayer == 0) {
@@ -169,12 +167,12 @@ class GameFragment : Fragment() {
         viewModel.resetCurrentCombination()
         resetSelected()
 
-        resetChipSelected(chip01)
-        resetChipSelected(chip02)
-        resetChipSelected(chip03)
-        resetChipSelected(chip04)
-        resetChipSelected(chip05)
-        resetChipSelected(chip06)
+        resetChipSelected(chip01select)
+        resetChipSelected(chip02select)
+        resetChipSelected(chip03select)
+        resetChipSelected(chip04select)
+        resetChipSelected(chip05select)
+        resetChipSelected(chip06select)
 
         if(viewModel.modePlayer == 1) {
             roundIA()
@@ -185,10 +183,6 @@ class GameFragment : Fragment() {
         lblRound.text = String.format("%s %d", getString(R.string.lblround), viewModel.round)
     }
     private fun finishGame() {
-        val settings: SharedPreferences by lazy {
-            PreferenceManager.getDefaultSharedPreferences(activity)
-        }
-
         settings.edit {
             putBoolean("isWinner", viewModel.getWinner01())
         }
@@ -198,10 +192,10 @@ class GameFragment : Fragment() {
     // Setting buttons
     private fun setupBtnSelect() {
         if (viewModel.gameSettings == GameSettings.NORMAL) {
-            chip05.visibility = View.VISIBLE
+            chip05select.visibility = View.VISIBLE
         } else if (viewModel.gameSettings == GameSettings.HARD) {
-            chip05.visibility = View.VISIBLE
-            chip06.visibility = View.VISIBLE
+            chip05select.visibility = View.VISIBLE
+            chip06select.visibility = View.VISIBLE
         }
     }
     private fun setupButtons() {
@@ -210,7 +204,7 @@ class GameFragment : Fragment() {
             AlertDialog.Builder(context).setTitle(getString(R.string.quitGame))
                 .setMessage(getString(R.string.msgQuitGame))
                 .setCancelable(false)
-                .setPositiveButton(getString(R.string.txtYes)) { _, _ -> navController.navigate(R.id.homeFragment) }
+                .setPositiveButton(getString(R.string.txtYes)) { _, _ -> navController.navigateUp() }
                 .setNegativeButton(getString(R.string.txtNo)){ _, _ -> }
                 .show()
         }
@@ -234,16 +228,16 @@ class GameFragment : Fragment() {
         }
     }
     private fun resetChipSelected(btn: Button) {
-        btn.background = context?.getDrawable(R.drawable.ficha_vacia)
+        btn.background = context?.getDrawable(R.drawable.chip_empty)
         btn.text = ""
     }
     private fun putColorOnChipSelected() {
-        chip01.setOnClickListener { changeColorSelected(it.id) }
-        chip02.setOnClickListener { changeColorSelected(it.id) }
-        chip03.setOnClickListener { changeColorSelected(it.id) }
-        chip04.setOnClickListener { changeColorSelected(it.id) }
-        chip05.setOnClickListener { changeColorSelected(it.id) }
-        chip06.setOnClickListener { changeColorSelected(it.id) }
+        chip01select.setOnClickListener { changeColorSelected(it.id) }
+        chip02select.setOnClickListener { changeColorSelected(it.id) }
+        chip03select.setOnClickListener { changeColorSelected(it.id) }
+        chip04select.setOnClickListener { changeColorSelected(it.id) }
+        chip05select.setOnClickListener { changeColorSelected(it.id) }
+        chip06select.setOnClickListener { changeColorSelected(it.id) }
     }
     private fun selectColorChip() {
         redChip.setOnClickListener { resetAndSelectChip(it, R.drawable.chip_red_selected, R.drawable.chip_red,1 ) }
@@ -273,9 +267,9 @@ class GameFragment : Fragment() {
     }
     private fun changeColorSelected(buttonId: Int) {
 
-        val arrayChipsBtn = arrayOf(chip01.id, chip02.id,
-                                                chip03.id, chip04.id,
-                                                chip05.id, chip06.id)
+        val arrayChipsBtn = arrayOf(chip01select.id, chip02select.id,
+                                                chip03select.id, chip04select.id,
+                                                chip05select.id, chip06select.id)
 
         if (viewModel.currentColorId != R.drawable.chip_empty) {
 

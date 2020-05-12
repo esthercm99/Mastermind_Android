@@ -45,5 +45,10 @@
     <string name="txtYes">YES</string>
     <string name="txtNo">NO</string>
     <string name="txtGoHome">Go to home</string>
+    <string name="n_games">Total games: %s</string>
+    <string name="n_games_win">Winned games: %s</string>
+    <string name="n_games_lose">Losed games: %s</string>
+    <string name="user_profile">Player profile</string>
+    <string name="namePlayer">Name player: %s</string>
 
 </resources>

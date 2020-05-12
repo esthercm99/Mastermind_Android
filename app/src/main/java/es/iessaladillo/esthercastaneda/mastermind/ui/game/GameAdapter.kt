@@ -68,59 +68,59 @@ class GameAdapter() : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        private val ficha01: TextView = containerView.findViewById(R.id.chip01)
-        private val ficha02: TextView = containerView.findViewById(R.id.chip02)
-        private val ficha03: TextView = containerView.findViewById(R.id.chip03)
-        private val ficha04: TextView = containerView.findViewById(R.id.chip04)
-        private lateinit var ficha05: TextView
-        private lateinit var ficha06: TextView
+        private val chip01t: TextView = containerView.findViewById(R.id.chip01)
+        private val chip02t: TextView = containerView.findViewById(R.id.chip02)
+        private val chip03t: TextView = containerView.findViewById(R.id.chip03)
+        private val chip04t: TextView = containerView.findViewById(R.id.chip04)
+        private lateinit var chip05t: TextView
+        private lateinit var chip06t: TextView
 
-        private val ficha01BN: ImageView = containerView.findViewById(R.id.chipBN01)
-        private val ficha02BN: ImageView = containerView.findViewById(R.id.chipBN02)
-        private val ficha03BN: ImageView = containerView.findViewById(R.id.chipBN03)
-        private val ficha04BN: ImageView = containerView.findViewById(R.id.chipBN04)
-        private lateinit var ficha05BN: ImageView
-        private lateinit var ficha06BN: ImageView
+        private val chipt01BN: ImageView = containerView.findViewById(R.id.chipBN01)
+        private val chipt02BN: ImageView = containerView.findViewById(R.id.chipBN02)
+        private val chipt03BN: ImageView = containerView.findViewById(R.id.chipBN03)
+        private val chipt04BN: ImageView = containerView.findViewById(R.id.chipBN04)
+        private lateinit var chipt05BN: ImageView
+        private lateinit var chipt06BN: ImageView
 
         fun bind(combination: Combination, combinationBN: Combination) {
 
             combination.run {
-                setChip(ficha01, chips[0].color)
-                setChip(ficha02, chips[1].color)
-                setChip(ficha03, chips[2].color)
-                setChip(ficha04, chips[3].color)
+                setChip(chip01t, chips[0].color)
+                setChip(chip02t, chips[1].color)
+                setChip(chip03t, chips[2].color)
+                setChip(chip04t, chips[3].color)
 
                 when(gameMode) {
                     GameSettings.NORMAL -> {
-                        ficha05 = containerView.findViewById(R.id.chip05)
-                        setChip(ficha05, chips[4].color)
+                        chip05t = containerView.findViewById(R.id.chip05)
+                        setChip(chip05t, chips[4].color)
                     }
                     GameSettings.HARD -> {
-                        ficha05 = containerView.findViewById(R.id.chip05)
-                        ficha06 = containerView.findViewById(R.id.chip06)
-                        setChip(ficha05, chips[4].color)
-                        setChip(ficha06, chips[5].color)
+                        chip05t = containerView.findViewById(R.id.chip05)
+                        chip06t = containerView.findViewById(R.id.chip06)
+                        setChip(chip05t, chips[4].color)
+                        setChip(chip06t, chips[5].color)
                     }
                 }
             }
 
             combinationBN.run {
-                ficha01BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[0].color), null)
-                ficha02BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[1].color), null)
-                ficha03BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[2].color), null)
-                ficha04BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[3].color), null)
+                chipt01BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[0].color), null)
+                chipt02BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[1].color), null)
+                chipt03BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[2].color), null)
+                chipt04BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[3].color), null)
 
                 when(gameMode) {
                     GameSettings.NORMAL -> {
-                        ficha05BN = containerView.findViewById(R.id.chipBN05)
-                        ficha05BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[4].color), null)
+                        chipt05BN = containerView.findViewById(R.id.chipBN05)
+                        chipt05BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[4].color), null)
                     }
                     GameSettings.HARD -> {
-                        ficha05BN = containerView.findViewById(R.id.chipBN05)
-                        ficha06BN = containerView.findViewById(R.id.chipBN06)
+                        chipt05BN = containerView.findViewById(R.id.chipBN05)
+                        chipt06BN = containerView.findViewById(R.id.chipBN06)
 
-                        ficha05BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[4].color), null)
-                        ficha06BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[5].color), null)
+                        chipt05BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[4].color), null)
+                        chipt06BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[5].color), null)
                     }
                 }
             }

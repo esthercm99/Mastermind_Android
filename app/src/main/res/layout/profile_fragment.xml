@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.menu.profile.ProfileFragment">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_profile"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <View
+        android:id="@+id/sep01"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sep"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/margin_5x"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_2x"
+        android:text="@string/user_profile"
+        android:textSize="@dimen/textSize_32"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/sep01"/>
+    <View
+        android:id="@+id/sep02"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sep"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/margin_2x"
+        app:layout_constraintTop_toBottomOf="@id/title"/>
+
+    <TextView
+        android:id="@+id/nameUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_5x"
+        android:layout_marginStart="@dimen/margin_2x"
+        android:text="@string/playerName_defaultValue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize_24"
+        app:layout_constraintTop_toBottomOf="@id/sep02" />
+
+    <TextView
+        android:id="@+id/lblNumGames"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_2x"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize_24"
+        app:layout_constraintTop_toBottomOf="@id/nameUser" />
+
+    <TextView
+        android:id="@+id/lblNumGamesWin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_2x"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize_24"
+        app:layout_constraintTop_toBottomOf="@id/lblNumGames" />
+
+    <TextView
+        android:id="@+id/lblNumGamesLose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_2x"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize_24"
+        app:layout_constraintTop_toBottomOf="@id/lblNumGamesWin" />
+
+    <TextView
+        android:id="@+id/btnHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_5x"
+        android:text="@string/txtGoHome"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize_32"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
