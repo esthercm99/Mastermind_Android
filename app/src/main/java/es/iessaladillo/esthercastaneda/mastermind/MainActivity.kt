@@ -2,6 +2,7 @@ package es.iessaladillo.esthercastaneda.mastermind
 
 import android.app.AlertDialog
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -41,10 +42,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
-        settings.edit {
-            putString(getString(R.string.prefLanguage_key), getString(R.string.prefLanguage_defaultValue))
-        }
+        changeLanguage()
+    }
 
+    private fun changeLanguage() {
+        val defaultLanguage = Locale.getDefault().displayLanguage.toString().toLowerCase(Locale.ROOT)
+
+        // Toast.makeText(this, defaultLanguage, Toast.LENGTH_LONG).show()
+
+        if (defaultLanguage.equals(getString(R.string.prefLanguage_defaultValue).toLowerCase(Locale.ROOT))) {
+            settings.edit {
+                putString(getString(R.string.prefLanguage_key), getString(R.string.prefLanguage_defaultValue))
+            }
+        } else {
+            settings.edit {
+                putString(getString(R.string.prefLanguage_key), getString(R.string.english_value))
+            }
+        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

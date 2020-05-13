@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.menu.manual.ManualFragment"
-    android:background="@drawable/bg_app">
+    android:background="@color/black">
 
     <Button
         android:id="@+id/btnExit"
@@ -16,17 +16,14 @@
         android:layout_height="@dimen/sizeChip50"
         android:layout_margin="@dimen/margin_1x"
         android:background="@drawable/ic_home_black_24dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
-    <TextView
-        android:id="@+id/txtInstructions"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_instructions"
-        android:textAlignment="center"
-        android:textSize="@dimen/textSize_32"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/btnExit"/>
+        android:layout_height="match_parent"
+        tools:context=".ui.assistant.AssistantFragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
