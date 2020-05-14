@@ -9,7 +9,6 @@
         android:id="@+id/icon"
         android:layout_width="@dimen/zero"
         android:layout_height="@dimen/zero"
-        android:layout_margin="@dimen/margin_5x"
         app:layout_constraintBottom_toTopOf="@id/btnFinish"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
