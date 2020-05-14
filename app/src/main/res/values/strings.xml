@@ -50,5 +50,6 @@
     <string name="n_games_lose">Losed games: %s</string>
     <string name="user_profile">Player profile</string>
     <string name="namePlayer">Name player: %s</string>
+    <string name="firstSessionKey">firstSession</string>
 
 </resources>
