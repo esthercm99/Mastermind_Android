@@ -1,25 +1,17 @@
 package es.iessaladillo.esthercastaneda.mastermind
 
-import android.app.AlertDialog
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
 import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 import android.view.Window
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.edit
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
-import es.iessaladillo.esthercastaneda.mastermind.ui.game.GameFragment
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -48,8 +40,6 @@ class MainActivity : AppCompatActivity() {
     private fun changeLanguage() {
         val defaultLanguage = Locale.getDefault().displayLanguage.toString().toLowerCase(Locale.ROOT)
 
-        // Toast.makeText(this, defaultLanguage, Toast.LENGTH_LONG).show()
-
         if (defaultLanguage.equals(getString(R.string.prefLanguage_defaultValue).toLowerCase(Locale.ROOT))) {
             settings.edit {
                 putString(getString(R.string.prefLanguage_key), getString(R.string.prefLanguage_defaultValue))
@@ -67,6 +57,7 @@ class MainActivity : AppCompatActivity() {
             hideSystemUI()
         }
     }
+
     private fun hideSystemUI() {
         val decorView = window.decorView
         decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY

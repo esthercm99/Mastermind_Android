@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
@@ -55,7 +54,6 @@ class GameFragment : Fragment() {
         PreferenceManager.getDefaultSharedPreferences(activity)
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if(viewModel.modePlayer == 0) {
             return inflater.inflate(R.layout.singlegame_fragment, container, false)
@@ -63,7 +61,6 @@ class GameFragment : Fragment() {
             return inflater.inflate(R.layout.multigame_fragment, container, false)
         }
     }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupRecyclerView()
@@ -191,7 +188,7 @@ class GameFragment : Fragment() {
 
     // Setting buttons
     private fun setupBtnSelect() {
-        if (viewModel.gameSettings == GameSettings.NORMAL) {
+        if (viewModel.gameSettings == GameSettings.MEDIUM) {
             chip05select.visibility = View.VISIBLE
         } else if (viewModel.gameSettings == GameSettings.HARD) {
             chip05select.visibility = View.VISIBLE

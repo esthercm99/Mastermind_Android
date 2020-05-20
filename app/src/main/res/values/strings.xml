@@ -51,5 +51,10 @@
     <string name="user_profile">Player profile</string>
     <string name="namePlayer">Name player: %s</string>
     <string name="firstSessionKey">firstSession</string>
+    <string name="manage_users">Manage users</string>
+    <string name="goBack">Go back</string>
+    <string name="change_user">Change user</string>
+    <string name="key_currentIdUser">currentIdUser</string>
+    <string name="key_optionUser">optionUser</string>
 
 </resources>

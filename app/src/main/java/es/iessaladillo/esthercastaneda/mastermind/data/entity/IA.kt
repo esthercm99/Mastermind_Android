@@ -4,12 +4,8 @@ import java.util.*
 import es.iessaladillo.esthercastaneda.mastermind.R
 
 class IA(name: String) : Player(name) {
-
-    fun createSecretCombination(gameSettings: GameSettings): Combination {
-        return createCombination(gameSettings)
-    }
-
-    private fun createCombination(gameSettings: GameSettings): Combination {
+    fun createSecretCombination(gameSettings: GameSettings): Combination = createCombination(gameSettings)
+    fun createCombination(gameSettings: GameSettings): Combination {
 
         val combination: Combination
 
@@ -20,7 +16,7 @@ class IA(name: String) : Player(name) {
                 Chip(R.drawable.chip_empty, 3),
                 Chip(R.drawable.chip_empty, 4)))
 
-            GameSettings.NORMAL -> combination = Combination(arrayOf(   Chip(R.drawable.chip_empty, 1),
+            GameSettings.MEDIUM -> combination = Combination(arrayOf(   Chip(R.drawable.chip_empty, 1),
                 Chip(R.drawable.chip_empty, 2),
                 Chip(R.drawable.chip_empty, 3),
                 Chip(R.drawable.chip_empty, 4),
@@ -54,7 +50,6 @@ class IA(name: String) : Player(name) {
 
         return combination
     }
-
     private fun chooseColor(): Int {
         val random = Random()
         val numRnd = random.nextInt(16)

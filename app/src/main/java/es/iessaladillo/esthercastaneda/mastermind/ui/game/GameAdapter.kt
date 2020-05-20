@@ -42,7 +42,7 @@ class GameAdapter() : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
                 itemView = layoutInflater.inflate(R.layout.round_easy_item, parent, false)
             }
             1 -> {
-                gameMode = GameSettings.NORMAL
+                gameMode = GameSettings.MEDIUM
                 itemView = layoutInflater.inflate(R.layout.round_normal_item, parent, false)
             }
             2 -> {
@@ -91,7 +91,7 @@ class GameAdapter() : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
                 setChip(chip04t, chips[3].color)
 
                 when(gameMode) {
-                    GameSettings.NORMAL -> {
+                    GameSettings.MEDIUM -> {
                         chip05t = containerView.findViewById(R.id.chip05)
                         setChip(chip05t, chips[4].color)
                     }
@@ -111,7 +111,7 @@ class GameAdapter() : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
                 chipt04BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[3].color), null)
 
                 when(gameMode) {
-                    GameSettings.NORMAL -> {
+                    GameSettings.MEDIUM -> {
                         chipt05BN = containerView.findViewById(R.id.chipBN05)
                         chipt05BN.background = ResourcesCompat.getDrawable(containerView.resources, checkEmptyChips(chips[4].color), null)
                     }

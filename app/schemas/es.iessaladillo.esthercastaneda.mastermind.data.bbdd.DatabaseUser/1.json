@@ -1,0 +1,100 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "7c9b51c7af6d137b5c0ac4838ce5384e",
+    "entities": [
+      {
+        "tableName": "userplayer",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idUser` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nameUser` TEXT NOT NULL DEFAULT 'Player')",
+        "fields": [
+          {
+            "fieldPath": "idUser",
+            "columnName": "idUser",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nameUser",
+            "columnName": "nameUser",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'Player'"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idUser"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "USERS_INDEX_NAME_UNIQUE",
+            "unique": true,
+            "columnNames": [
+              "nameUser"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `USERS_INDEX_NAME_UNIQUE` ON `${TABLE_NAME}` (`nameUser`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Game",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idGame` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idUser` INTEGER NOT NULL, `numRound` INTEGER NOT NULL, `difficulty` TEXT NOT NULL, `gameMode` TEXT NOT NULL, `result` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idGame",
+            "columnName": "idGame",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idUser",
+            "columnName": "idUser",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numRound",
+            "columnName": "numRound",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "difficulty",
+            "columnName": "difficulty",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameMode",
+            "columnName": "gameMode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "result",
+            "columnName": "result",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idGame"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7c9b51c7af6d137b5c0ac4838ce5384e')"
+    ]
+  }
+}

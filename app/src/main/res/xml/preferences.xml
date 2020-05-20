@@ -4,23 +4,6 @@
 
     <androidx.preference.PreferenceCategory>
 
-        <EditTextPreference
-            android:icon="@drawable/ic_person_black_24dp"
-            android:title="@string/playerName"
-            android:defaultValue="@string/playerName_defaultValue"
-
-            android:inputType="textPersonName"
-
-            android:key="@string/prefPlayerName_key"
-            app:useSimpleSummaryProvider="true" />
-
-        <SwitchPreference
-            android:icon="@drawable/ic_eye_black_24dp"
-            android:title="@string/colorblindMode_title"
-            android:defaultValue="@string/colorblindMode_defaultValue"
-
-            android:key="@string/prefColorBlindMode_key"
-            app:useSimpleSummaryProvider="true" />
 
         <androidx.preference.ListPreference
             android:icon="@drawable/ic_language_black_24dp"
@@ -33,6 +16,13 @@
             android:key="@string/prefLanguage_key"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreference
+            android:icon="@drawable/ic_eye_black_24dp"
+            android:title="@string/colorblindMode_title"
+            android:defaultValue="@string/colorblindMode_defaultValue"
+
+            android:key="@string/prefColorBlindMode_key"
+            app:useSimpleSummaryProvider="true" />
     </androidx.preference.PreferenceCategory>
 
 </PreferenceScreen>
