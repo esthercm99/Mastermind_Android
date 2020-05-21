@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.iessaladillo.esthercastaneda.mastermind.R
+import es.iessaladillo.esthercastaneda.mastermind.data.bbdd.DatabaseUser
+import es.iessaladillo.esthercastaneda.mastermind.data.bbdd.Game
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.Combination
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.GameSettings
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.Player
@@ -37,6 +39,7 @@ import kotlinx.android.synthetic.main.singlegame_fragment.greenChip
 import kotlinx.android.synthetic.main.singlegame_fragment.lblRound
 import kotlinx.android.synthetic.main.singlegame_fragment.lstRounds
 import kotlinx.android.synthetic.main.singlegame_fragment.redChip
+import kotlin.concurrent.thread
 
 
 class GameFragment : Fragment() {
@@ -183,6 +186,25 @@ class GameFragment : Fragment() {
         settings.edit {
             putBoolean("isWinner", viewModel.getWinner01())
         }
+
+        thread {
+            val idUser = settings.getLong(getString(R.string.key_currentIdUser), -1L)
+            val difficult = viewModel.gameSettings.name.toLowerCase()
+            val modeGame: String
+
+            if (viewModel.modePlayer == 0) {
+                modeGame = "s"
+            } else {
+                modeGame = "m"
+            }
+
+            if (viewModel.getWinner01()) {
+                DatabaseUser.getInstance(requireContext()).gameDao.insertGame(Game(0, idUser, viewModel.round, difficult, modeGame, "w"))
+            } else {
+                DatabaseUser.getInstance(requireContext()).gameDao.insertGame(Game(0, idUser, viewModel.round, difficult, modeGame, "l"))
+            }
+        }.join()
+
         navController.navigate(R.id.action_resultFragment_to_homeFragment)
     }
 
