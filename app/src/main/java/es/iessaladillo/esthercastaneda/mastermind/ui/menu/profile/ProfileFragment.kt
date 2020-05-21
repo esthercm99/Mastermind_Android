@@ -25,9 +25,6 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     private val navController: NavController by lazy {
         NavHostFragment.findNavController(navHostFragment)
     }
-    private val viewModel: ProfileViewModel by viewModels {
-        ProfileViewModelFactory(DatabaseUser.getInstance(requireContext()).userDao, requireActivity().application)
-    }
     private val settings: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(context)
     }
@@ -87,14 +84,14 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         val dialogLayout = inflater.inflate(R.layout.alert_dialog_edittext, null)
         val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
 
-        builder.setTitle("Write a name")
+        builder.setTitle(getString(R.string.title_write_name))
                 .setView(dialogLayout)
 
         if (settings.getLong(getString(R.string.key_currentIdUser), -1L) != -1L) {
-            builder.setNegativeButton("Cancel"){ _,_-> }
+            builder.setNegativeButton(getString(R.string.btn_cancel)){ _, _-> }
         }
 
-       builder.setPositiveButton("Add") { _, _ ->
+       builder.setPositiveButton(getString(R.string.btn_add)) { _, _ ->
             thread { DatabaseUser.getInstance(requireContext()).userDao.insertUser(UserPlayer(0, editText.text.toString())) }
             if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == -1L) {
                 firstUser()

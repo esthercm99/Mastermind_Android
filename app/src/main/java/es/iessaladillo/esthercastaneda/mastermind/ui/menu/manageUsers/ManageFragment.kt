@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.lifecycle.observe
@@ -39,7 +40,6 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         setupAdapter()
         setupRecyclerView()
         submitList()
-        //isListEmpty()
         setupViews()
     }
 
@@ -50,7 +50,6 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
             }
         }
     }
-
     private fun setupAdapter() {
         manageAdapter = ManageAdapter().also {
             it.onItemClickListener = { position -> manageUser(position) }
@@ -75,13 +74,13 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
 
         when(settings.getInt(getString(R.string.key_optionUser), 0)) {
             0 -> {
-                namePlayer.text = "Changing player by..."
+                namePlayer.text = getString(R.string.title_change_player)
             }
             1 -> {
-                namePlayer.text = "Edit name player"
+                namePlayer.text = getString(R.string.title_edit_player)
             }
             2 -> {
-                namePlayer.text = "Delete player"
+                namePlayer.text = getString(R.string.title_delete_player)
             }
         }
         btnBack.setOnClickListener { navController.navigateUp() }
@@ -102,7 +101,6 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
             }
         }
     }
-
     private fun askRemove(userPlayer: UserPlayer) {
         AlertDialog.Builder(context).setTitle(getString(R.string.quitGame))
             .setMessage(String.format("¿Quieres borrar a %s?", userPlayer.nameUser))
@@ -111,34 +109,21 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
             .setNegativeButton(getString(R.string.txtNo)){ _, _ -> }
             .show()
     }
-
-    private fun isListEmpty() {
-        thread {
-            if (DatabaseUser.getInstance(requireContext()).userDao.queryAllUsers().value?.size == 0) {
-                settings.edit {
-                    putInt(getString(R.string.key_optionUser), -1)
-                }
-                navController.navigateUp()
-            }
-        }
-    }
-
     private fun removeUser(userPlayer: UserPlayer) {
-
-        var nameDeleted = userPlayer.nameUser
-        var message = "Nada, hilo se ha atrasao"
+        var message = ""
+        val nameDeleted = userPlayer.nameUser
 
         thread {
             val numUsers = DatabaseUser.getInstance(requireContext()).userDao.queryCountUsers()
 
             if(numUsers <= 1) {
-                message = "No puedes eliminar al único usuario que hay"
+                message = getString(R.string.msg_only_player)
             } else {
                 DatabaseUser.getInstance(requireContext()).userDao.deleteUser(userPlayer)
-                message = String.format("Has eliminado a %s", nameDeleted)
+                message = String.format(getString(R.string.msg_removed_player), nameDeleted)
 
                 if(userPlayer.idUser == settings.getLong(getString(R.string.key_currentIdUser), -1L)) {
-                    namePlayer.text = "Changing player by..."
+                    namePlayer.text = getString(R.string.title_change_player)
                     settings.edit {
                         putInt(getString(R.string.key_optionUser), 0)
                     }
@@ -148,16 +133,36 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         }.join()
 
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-
     }
-
     private fun editUser(userPlayer: UserPlayer) {
+        val inflater = layoutInflater
+        val builder = AlertDialog.Builder(requireContext())
+        val dialogLayout = inflater.inflate(R.layout.alert_dialog_edittext, null)
+        val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
 
+        builder.setTitle(getString(R.string.title_write_name))
+            .setView(dialogLayout)
+
+        if (settings.getLong(getString(R.string.key_currentIdUser), -1L) != -1L) {
+            builder.setNegativeButton(getString(R.string.btn_cancel)){ _, _-> }
+        }
+
+        builder.setPositiveButton(getString(R.string.btn_edit)) { _, _ ->
+            userPlayer.nameUser = editText.text.toString()
+
+            thread { DatabaseUser.getInstance(requireContext()).userDao.updateUser(userPlayer) }.join()
+
+            if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == userPlayer.idUser) {
+                settings.edit {
+                    putString(getString(R.string.prefPlayerName_key), userPlayer.nameUser)
+                }
+            }
+        }.show()
     }
-
     private fun changeUser(userPlayer: UserPlayer) {
         settings.edit {
             putLong(getString(R.string.key_currentIdUser), userPlayer.idUser)
+            putString(getString(R.string.prefPlayerName_key), userPlayer.nameUser)
         }
         navController.navigateUp()
     }

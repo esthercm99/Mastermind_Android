@@ -56,5 +56,14 @@
     <string name="change_user">Change user</string>
     <string name="key_currentIdUser">currentIdUser</string>
     <string name="key_optionUser">optionUser</string>
+    <string name="title_delete_player">Delete player</string>
+    <string name="title_edit_player">Edit name player</string>
+    <string name="title_change_player">Changing player by...</string>
+    <string name="msg_removed_player">You have removed %s</string>
+    <string name="msg_only_player">You cannot delete the only user</string>
+    <string name="btn_add">Add</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="title_write_name">Write a name for player</string>
+    <string name="btn_edit">Edit</string>
 
 </resources>
