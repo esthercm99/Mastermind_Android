@@ -27,6 +27,9 @@ interface UserDao {
     @Query("SELECT * FROM UserPlayer WHERE nameUser LIKE :name")
     fun queryUser(name: String) : UserPlayer
 
+    @Query("SELECT COUNT(*) FROM UserPlayer")
+    fun queryCountUsers() : Int
+
     @Query("SELECT U.nameUser AS namePlayer, " +
             "COUNT(*) AS numGame, " +
             "COALESCE(SUM(CASE WHEN G.result like 'w' THEN 1 ELSE 0 END), 0) AS numGameWin, " +

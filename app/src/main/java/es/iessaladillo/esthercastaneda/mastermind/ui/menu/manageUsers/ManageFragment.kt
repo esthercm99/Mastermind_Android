@@ -39,19 +39,8 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         setupAdapter()
         setupRecyclerView()
         submitList()
-        isListEmpty()
-        when(settings.getInt(getString(R.string.key_optionUser), 0)) {
-            0 -> {
-                namePlayer.text = "Changing player by..."
-            }
-            1 -> {
-                namePlayer.text = "Edit name player"
-            }
-            2 -> {
-                namePlayer.text = "Delete player"
-            }
-        }
-        btnBack.setOnClickListener { navController.navigateUp() }
+        //isListEmpty()
+        setupViews()
     }
 
     private fun submitList() {
@@ -75,6 +64,28 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         }
     }
 
+    private fun setupViews() {
+
+        if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == -1L) {
+            btnBack.visibility = View.INVISIBLE
+        } else {
+            btnBack.visibility = View.VISIBLE
+        }
+
+
+        when(settings.getInt(getString(R.string.key_optionUser), 0)) {
+            0 -> {
+                namePlayer.text = "Changing player by..."
+            }
+            1 -> {
+                namePlayer.text = "Edit name player"
+            }
+            2 -> {
+                namePlayer.text = "Delete player"
+            }
+        }
+        btnBack.setOnClickListener { navController.navigateUp() }
+    }
 
     private fun manageUser(position: Int) {
         val userPlayer = viewModel.list.value?.get(position)!!
@@ -113,21 +124,30 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
     }
 
     private fun removeUser(userPlayer: UserPlayer) {
-        var isEmptyUsers = false
-        Toast.makeText(context, String.format("Has eliminado a %s", userPlayer.nameUser), Toast.LENGTH_SHORT).show()
+
+        var nameDeleted = userPlayer.nameUser
+        var message = "Nada, hilo se ha atrasao"
 
         thread {
-            DatabaseUser.getInstance(requireContext()).userDao.deleteUser(userPlayer)
-        }
+            val numUsers = DatabaseUser.getInstance(requireContext()).userDao.queryCountUsers()
 
+            if(numUsers <= 1) {
+                message = "No puedes eliminar al único usuario que hay"
+            } else {
+                DatabaseUser.getInstance(requireContext()).userDao.deleteUser(userPlayer)
+                message = String.format("Has eliminado a %s", nameDeleted)
 
-        if(userPlayer.idUser == settings.getLong(getString(R.string.key_currentIdUser), -1L)) {
-            namePlayer.text = "Changing player by..."
-            settings.edit {
-                putInt(getString(R.string.key_optionUser), 0)
+                if(userPlayer.idUser == settings.getLong(getString(R.string.key_currentIdUser), -1L)) {
+                    namePlayer.text = "Changing player by..."
+                    settings.edit {
+                        putInt(getString(R.string.key_optionUser), 0)
+                    }
+                    btnBack.visibility = View.INVISIBLE
+                }
             }
-            btnBack.visibility = View.INVISIBLE
-        }
+        }.join()
+
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
     }
 
@@ -141,7 +161,4 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         }
         navController.navigateUp()
     }
-
-
-
 }

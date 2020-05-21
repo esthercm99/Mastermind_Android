@@ -89,18 +89,23 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
         builder.setTitle("Write a name")
                 .setView(dialogLayout)
-                .setPositiveButton("Add") { _, _ ->
-                    thread { DatabaseUser.getInstance(requireContext()).userDao.insertUser(UserPlayer(0, editText.text.toString())) }
-                    firstUser()
-                }
-                .setNegativeButton("Cancel"){ _,_-> }
-                .setCancelable(true)
-                .show()
+
+        if (settings.getLong(getString(R.string.key_currentIdUser), -1L) != -1L) {
+            builder.setNegativeButton("Cancel"){ _,_-> }
+        }
+
+       builder.setPositiveButton("Add") { _, _ ->
+            thread { DatabaseUser.getInstance(requireContext()).userDao.insertUser(UserPlayer(0, editText.text.toString())) }
+            if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == -1L) {
+                firstUser()
+            }
+       }.show()
     }
 
     private fun firstUser() {
-        thread {
-            DatabaseUser.getInstance(requireContext()).userDao
+        settings.edit {
+            putInt(getString(R.string.key_optionUser), 0)
         }
+        navController.navigate(R.id.action_profileFragment_to_manageFragment)
     }
 }
