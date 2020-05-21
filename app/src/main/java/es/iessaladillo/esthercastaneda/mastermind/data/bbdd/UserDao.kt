@@ -18,9 +18,6 @@ interface UserDao {
     @Query("SELECT * FROM UserPlayer")
     fun queryAllUsers() : LiveData<List<UserPlayer>>
 
-    @Query("SELECT * FROM UserPlayer")
-    fun listUsers() : List<UserPlayer>
-
     @Query("SELECT * FROM UserPlayer WHERE idUser LIKE :idUser")
     fun queryUser(idUser: Long) : UserPlayer
 
@@ -31,7 +28,7 @@ interface UserDao {
     fun queryCountUsers() : Int
 
     @Query("SELECT U.nameUser AS namePlayer, " +
-            "COUNT(*) AS numGame, " +
+            "COUNT(G.idGame) AS numGame, " +
             "COALESCE(SUM(CASE WHEN G.result like 'w' THEN 1 ELSE 0 END), 0) AS numGameWin, " +
             "COALESCE(SUM(CASE WHEN G.result like 'l' THEN 1 ELSE 0 END), 0) AS numGameLose " +
             "FROM UserPlayer AS U " +

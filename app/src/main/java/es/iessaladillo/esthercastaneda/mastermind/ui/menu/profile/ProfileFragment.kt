@@ -4,17 +4,13 @@ import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.EditText
-import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
 import es.iessaladillo.esthercastaneda.mastermind.R
 import es.iessaladillo.esthercastaneda.mastermind.data.bbdd.DatabaseUser
-import es.iessaladillo.esthercastaneda.mastermind.data.bbdd.UserDao
 import es.iessaladillo.esthercastaneda.mastermind.data.bbdd.UserPlayer
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.profile_fragment.*

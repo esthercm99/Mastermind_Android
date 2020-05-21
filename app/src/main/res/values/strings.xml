@@ -18,6 +18,9 @@
     <string name="prefLanguage_defaultValue" translatable="false">Español</string>
     <string name="english_value" translatable="false">English</string>
     <string name="colorblindMode_defaultValue" translatable="false">false</string>
+    <string name="firstSessionKey" translatable="false">firstSession</string>
+    <string name="key_currentIdUser" translatable="false">currentIdUser</string>
+    <string name="key_optionUser" translatable="false">optionUser</string>
 
     <string name="txt_start">Tap to start</string>
     <string name="txt_play">Tap to play</string>
@@ -38,7 +41,7 @@
     <string name="lblSelectColor">Select a color</string>
     <string name="lblFill">Fill the combination</string>
     <string name="youWin">¡You win %s!</string>
-    <string name="youLose">You lose %s...</string>
+    <string name="youLose">You lose %s…</string>
     <string name="nameIA">IA</string>
     <string name="quitGame">Quit game?</string>
     <string name="msgQuitGame">Are you sure you want to quit the game?</string>
@@ -50,17 +53,14 @@
     <string name="n_games_lose">Losed games: %s</string>
     <string name="user_profile">Player profile</string>
     <string name="namePlayer">Name player: %s</string>
-    <string name="firstSessionKey">firstSession</string>
-    <string name="manage_users">Manage users</string>
+    <string name="manage_users">Manage players</string>
     <string name="goBack">Go back</string>
-    <string name="change_user">Change user</string>
-    <string name="key_currentIdUser">currentIdUser</string>
-    <string name="key_optionUser">optionUser</string>
+    <string name="change_user">Change player</string>
     <string name="title_delete_player">Delete player</string>
-    <string name="title_edit_player">Edit name player</string>
-    <string name="title_change_player">Changing player by...</string>
+    <string name="title_edit_player">Edit player</string>
+    <string name="title_change_player">Changing player by…</string>
     <string name="msg_removed_player">You have removed %s</string>
-    <string name="msg_only_player">You cannot delete the only user</string>
+    <string name="msg_only_player">You cannot delete the only player</string>
     <string name="btn_add">Add</string>
     <string name="btn_cancel">Cancel</string>
     <string name="title_write_name">Write a name for player</string>
