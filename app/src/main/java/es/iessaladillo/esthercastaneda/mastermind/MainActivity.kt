@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 import android.view.Window
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.navigation.NavController
@@ -14,7 +15,11 @@ import androidx.navigation.ui.navigateUp
 import androidx.preference.PreferenceManager
 import java.util.*
 
+
 class MainActivity : AppCompatActivity() {
+
+    private val INTERVAL = 2000
+    private var timeFristClick: Long = 0
 
     private val navController: NavController by lazy {
         findNavController(R.id.navHostFragment)
@@ -72,4 +77,13 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(AppBarConfiguration(navController.graph)) || super.onSupportNavigateUp()
     }
 
+    override fun onBackPressed() {
+        if (timeFristClick + INTERVAL > System.currentTimeMillis()) {
+            super.onBackPressed()
+            return
+        } else {
+            Toast.makeText(this, getString(R.string.press_to_exit), Toast.LENGTH_SHORT).show()
+        }
+        timeFristClick = System.currentTimeMillis()
+    }
 }

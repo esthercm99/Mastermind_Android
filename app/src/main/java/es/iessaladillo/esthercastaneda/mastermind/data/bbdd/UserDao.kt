@@ -21,6 +21,9 @@ interface UserDao {
     @Query("SELECT * FROM UserPlayer WHERE idUser LIKE :idUser")
     fun queryUser(idUser: Long) : UserPlayer
 
+    @Query("SELECT count(nameUser) from UserPlayer where nameUser LIKE :name")
+    fun queryCountNameUser(name: String): Int
+
     @Query("SELECT COUNT(*) FROM UserPlayer")
     fun queryCountUsers() : Int
 

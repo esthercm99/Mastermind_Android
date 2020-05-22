@@ -148,9 +148,24 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         }
 
         builder.setPositiveButton(getString(R.string.btn_edit)) { _, _ ->
-            userPlayer.nameUser = editText.text.toString()
+            var message = ""
+            val oldName = userPlayer.nameUser
+            val namePlayer = editText.text.toString()
+            userPlayer.nameUser = namePlayer
 
-            thread { DatabaseUser.getInstance(requireContext()).userDao.updateUser(userPlayer) }.join()
+            thread {
+                val userDao = DatabaseUser.getInstance(requireContext()).userDao
+
+                if(userDao.queryCountNameUser(namePlayer) == 0) {
+                    userDao.updateUser(userPlayer)
+                    message = String.format(getString(R.string.msg_edited), oldName, namePlayer)
+                } else {
+                    message = getString(R.string.msg_player_exist)
+                }
+
+            }.join()
+
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 
             if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == userPlayer.idUser) {
                 settings.edit {

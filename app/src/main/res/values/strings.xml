@@ -66,5 +66,10 @@
     <string name="title_write_name">Write a name for player</string>
     <string name="btn_edit">Edit</string>
     <string name="hint_enter_the_name_here">Enter the name here</string>
+    <string name="press_to_exit">Press again to exit</string>
+    <string name="msg_player_exist">This name player exists, try again</string>
+    <string name="msg_inserted">The player %s has been successfully inserted</string>
+    <string name="msg_creat_player">You must first create a player</string>
+    <string name="msg_edited">A player has been edited: %s -> %s</string>
 
 </resources>

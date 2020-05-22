@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -79,19 +80,32 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         val builder = AlertDialog.Builder(requireContext())
         val dialogLayout = inflater.inflate(R.layout.alert_dialog_edittext, null)
         val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
+        var message = ""
 
         builder.setTitle(getString(R.string.title_write_name))
                 .setView(dialogLayout)
+                .setCancelable(false)
 
         if (settings.getLong(getString(R.string.key_currentIdUser), -1L) != -1L) {
             builder.setNegativeButton(getString(R.string.btn_cancel)){ _, _-> }
         }
 
        builder.setPositiveButton(getString(R.string.btn_add)) { _, _ ->
-            thread { DatabaseUser.getInstance(requireContext()).userDao.insertUser(UserPlayer(0, editText.text.toString())) }
-            if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == -1L) {
-                firstUser()
-            }
+           val namePlayer = editText.text.toString()
+
+           thread {
+                val userDao = DatabaseUser.getInstance(requireContext()).userDao
+                if(userDao.queryCountNameUser(namePlayer) == 0) {
+                    userDao.insertUser(UserPlayer(0, namePlayer))
+                    message = String.format(getString(R.string.msg_inserted), namePlayer)
+                } else {
+                    message = getString(R.string.msg_player_exist)
+                }
+            }.join()
+
+           Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+           if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == -1L) { firstUser() }
+
        }.show()
     }
     private fun firstUser() {

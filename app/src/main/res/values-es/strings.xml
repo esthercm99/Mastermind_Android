@@ -47,7 +47,7 @@
     <string name="goBack">Ir atrás</string>
     <string name="change_user">Cambiar jugador</string>
     <string name="title_delete_player">Eliminar jugador</string>
-    <string name="title_edit_player">Editar jugardor</string>
+    <string name="title_edit_player">Editar jugador</string>
     <string name="title_change_player">Cambiando jugador por…</string>
     <string name="msg_removed_player">Has eliminado a %s</string>
     <string name="msg_only_player">No puedes eliminar al único jugador</string>
@@ -56,5 +56,10 @@
     <string name="title_write_name">Escribe un nombre para el jugador</string>
     <string name="btn_edit">Editar</string>
     <string name="hint_enter_the_name_here">Introduce un nombre aquí</string>
+    <string name="press_to_exit">Vuelve a presionar para salir</string>
+    <string name="msg_player_exist">El nombre de este jugador existe, prueba otra vez</string>
+    <string name="msg_inserted">El jugador %s ha sido añadido correctamente</string>
+    <string name="msg_creat_player">Primero debes de crear un jugador</string>
+    <string name="msg_edited">Un jugador se ha editado: %s -> %s</string>
 
 </resources>
