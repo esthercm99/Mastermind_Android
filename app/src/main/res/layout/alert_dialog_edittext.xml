@@ -6,8 +6,9 @@
 
     <EditText
         android:id="@+id/editText"
+        android:layout_margin="@dimen/margin_1x"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter the text here"/>
+        android:hint="@string/hint_enter_the_name_here"/>
 
 </LinearLayout>

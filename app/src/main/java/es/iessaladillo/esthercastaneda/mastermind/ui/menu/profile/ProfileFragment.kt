@@ -94,7 +94,6 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
             }
        }.show()
     }
-
     private fun firstUser() {
         settings.edit {
             putInt(getString(R.string.key_optionUser), 0)

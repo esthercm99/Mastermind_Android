@@ -55,5 +55,6 @@
     <string name="btn_cancel">Cancelar</string>
     <string name="title_write_name">Escribe un nombre para el jugador</string>
     <string name="btn_edit">Editar</string>
+    <string name="hint_enter_the_name_here">Introduce un nombre aquí</string>
 
 </resources>
