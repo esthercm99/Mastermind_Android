@@ -139,7 +139,7 @@
             android:layout_marginBottom="@dimen/margin_1x"
             app:layout_constraintTop_toBottomOf="@id/sep1"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/redChip"
+            app:layout_constraintRight_toLeftOf="@id/sep4"
             app:layout_constraintBottom_toTopOf="@id/namePlayer2"
             tools:listitem="@layout/round_easy_item"/>
 
@@ -223,7 +223,7 @@
             app:layout_constraintBottom_toTopOf="@id/chip01select"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/redChip"
+            app:layout_constraintRight_toLeftOf="@id/sep4"
             app:layout_constraintTop_toBottomOf="@id/namePlayer1"
             tools:listitem="@layout/round_easy_item" />
 

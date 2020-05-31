@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import es.iessaladillo.esthercastaneda.mastermind.R
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.Combination
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.GameSettings
+import es.iessaladillo.esthercastaneda.mastermind.data.entity.PlayCombinations
 import kotlinx.android.extensions.LayoutContainer
 import kotlin.properties.Delegates
 
@@ -20,13 +21,12 @@ class GameAdapter() : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
     private lateinit var gameMode: GameSettings
     private var colorBlindMode by Delegates.notNull<Boolean>()
 
-    private var combinationList: List<Combination> = emptyList()
-    private var combinationListBN: List<Combination> = emptyList()
+    private var combinationsList: PlayCombinations = PlayCombinations(mutableListOf(), mutableListOf())
 
-    override fun getItemCount(): Int = combinationList.size
+    override fun getItemCount(): Int = combinationsList.combinations.size
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val combination = combinationList[position]
-        val combinationBN = combinationListBN[position]
+        val combination = combinationsList.combinations[position]
+        val combinationBN = combinationsList.combinationsBN[position]
         holder.bind(combination, combinationBN)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,13 +56,8 @@ class GameAdapter() : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
         return ViewHolder(itemView)
     }
 
-    fun submitCombinationList(newList: List<Combination>) {
-        combinationList = newList
-        notifyDataSetChanged()
-    }
-
-    fun submitCombinationBNList(newList: List<Combination>) {
-        combinationListBN = newList
+    fun submitCombinationList(newList: PlayCombinations) {
+        combinationsList = newList
         notifyDataSetChanged()
     }
 

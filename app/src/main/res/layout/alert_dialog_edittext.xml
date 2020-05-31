@@ -9,6 +9,8 @@
         android:layout_margin="@dimen/margin_1x"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:inputType="textPersonName"
         android:hint="@string/hint_enter_the_name_here"/>
 
 </LinearLayout>

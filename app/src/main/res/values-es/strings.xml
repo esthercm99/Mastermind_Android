@@ -18,7 +18,6 @@
     <string name="txt_settings">Configuración</string>
 
     <string name="txt_singleplayer">Un jugador</string>
-    <string name="txt_multiplayer">Multijugador</string>
 
     <string name="txtEasy">Fácil</string>
     <string name="txtMedium">Medio</string>
@@ -48,7 +47,7 @@
     <string name="change_user">Cambiar jugador</string>
     <string name="title_delete_player">Eliminar jugador</string>
     <string name="title_edit_player">Editar jugador</string>
-    <string name="title_change_player">Cambiando jugador por…</string>
+    <string name="title_change_player">Cambiar a…</string>
     <string name="msg_removed_player">Has eliminado a %s</string>
     <string name="msg_only_player">No puedes eliminar al único jugador</string>
     <string name="btn_add">Añadir</string>
@@ -59,7 +58,9 @@
     <string name="press_to_exit">Vuelve a presionar para salir</string>
     <string name="msg_player_exist">El nombre de este jugador existe, prueba otra vez</string>
     <string name="msg_inserted">El jugador %s ha sido añadido correctamente</string>
-    <string name="msg_creat_player">Primero debes de crear un jugador</string>
+    <string name="msg_create_player">Primero debes de crear un jugador</string>
     <string name="msg_edited">Un jugador se ha editado: %s -> %s</string>
+    <string name="msg_askRemove">¿Quieres borrar a %s?</string>
+    <string name="msg_empty_name">No puedes introducir un nombre en vacío</string>
 
 </resources>

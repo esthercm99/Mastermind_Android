@@ -29,13 +29,13 @@
     <string name="txt_settings">Settings</string>
 
     <string name="txt_singleplayer">Singleplayer</string>
-    <string name="txt_multiplayer">Multiplayer</string>
+    <string name="txt_multiplayer" translatable="false">Vs IA</string>
 
     <string name="txtEasy">Easy</string>
     <string name="txtMedium">Medium</string>
     <string name="txtHard">Hard</string>
 
-    <string name="selectModeGame">Select mode game</string>
+    <string name="selectModeGame">Select game mode</string>
 
     <string name="lblround">ROUND</string>
     <string name="lblSelectColor">Select a color</string>
@@ -47,18 +47,18 @@
     <string name="msgQuitGame">Are you sure you want to quit the game?</string>
     <string name="txtYes">YES</string>
     <string name="txtNo">NO</string>
-    <string name="txtGoHome">Go to home</string>
+    <string name="txtGoHome">Go home</string>
     <string name="n_games">Total games: %s</string>
-    <string name="n_games_win">Winned games: %s</string>
-    <string name="n_games_lose">Losed games: %s</string>
+    <string name="n_games_win">Games won: %s</string>
+    <string name="n_games_lose">Lost games: %s</string>
     <string name="user_profile">Player profile</string>
-    <string name="namePlayer">Name player: %s</string>
+    <string name="namePlayer">Player\'s name: %s</string>
     <string name="manage_users">Manage players</string>
     <string name="goBack">Go back</string>
     <string name="change_user">Change player</string>
     <string name="title_delete_player">Delete player</string>
     <string name="title_edit_player">Edit player</string>
-    <string name="title_change_player">Changing player by…</string>
+    <string name="title_change_player">Change to…</string>
     <string name="msg_removed_player">You have removed %s</string>
     <string name="msg_only_player">You cannot delete the only player</string>
     <string name="btn_add">Add</string>
@@ -69,7 +69,9 @@
     <string name="press_to_exit">Press again to exit</string>
     <string name="msg_player_exist">This name player exists, try again</string>
     <string name="msg_inserted">The player %s has been successfully inserted</string>
-    <string name="msg_creat_player">You must first create a player</string>
+    <string name="msg_create_player">You must first create a player</string>
     <string name="msg_edited">A player has been edited: %s -> %s</string>
+    <string name="msg_askRemove">Do you want remove %s?</string>
+    <string name="msg_empty_name">You can\'t introduce a empty name</string>
 
 </resources>

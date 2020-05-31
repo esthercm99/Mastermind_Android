@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.preference.PreferenceManager
 import es.iessaladillo.esthercastaneda.mastermind.R
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.*
@@ -24,6 +25,7 @@ class GameViewModel(private val application: Application) : ViewModel() {
 
     // Player 1:
     var player01 : Player
+
     init {
 
         when (settings.getInt("difficultGame", -1)) {
@@ -48,21 +50,17 @@ class GameViewModel(private val application: Application) : ViewModel() {
         player01 = name?.let { Player(it) }!!
     }
 
-    private val _listCombination01 : MutableLiveData<List<Combination>> = MutableLiveData()
-    val listCombination01 : LiveData<List<Combination>>
-        get() = _listCombination01
-    private val _listCombinationBN01 : MutableLiveData<List<Combination>> = MutableLiveData()
-    val listCombinationBN01 : LiveData<List<Combination>>
-        get() = _listCombinationBN01
+    private var _listPlayer01 = MutableLiveData(player01.getCombinationsList())
+    val listPlayer01: LiveData<PlayCombinations>
+        get() = _listPlayer01
 
     // Player IA:
     var player02 = IA("IA")
-    private val _listCombinationBN02: MutableLiveData<List<Combination>> = MutableLiveData()
-    val listCombinationBN02 : LiveData<List<Combination>>
-        get() = _listCombinationBN02
-    private val _listCombination02 : MutableLiveData<List<Combination>> = MutableLiveData()
-    val listCombination02 : LiveData<List<Combination>>
-        get() = _listCombination02
+
+    private var _listPlayer02 = MutableLiveData(player02.getCombinationsList())
+    val listPlayer02: LiveData<PlayCombinations>
+        get() = _listPlayer02
+
 
     private val hideCombination = player02.createSecretCombination(gameSettings)
     private val hideCombinationIA= player02.createSecretCombination(gameSettings)
@@ -72,23 +70,15 @@ class GameViewModel(private val application: Application) : ViewModel() {
     fun getWinner02() = player02.isWinner()
     private fun addCombination(){
         currentCombination = player02.createCombination(gameSettings)
-        currentCombination.let { it ->
-            player02.addCombination(it)
-            _listCombination02.value = player02.getCombinationList()
-        }
         checkCombination(player02, hideCombinationIA)
-        _listCombinationBN02.value = player02.getCombinationBNList()
+        _listPlayer02.postValue(player02.getCombinationsList())
     }
 
     // Player functions:
     fun getWinner01() = player01.isWinner()
-    fun addCombination(player: Player){
-        currentCombination.let {
-            player.addCombination(it)
-            _listCombination01.value = player.getCombinationList()
-        }
+    fun addCombination(player: Player) {
         checkCombination(player, hideCombination)
-        _listCombinationBN01.value = player.getCombinationBNList()
+        _listPlayer01.postValue(player01.getCombinationsList())
     }
 
     private fun checkCombination(player: Player, hideCombination: Combination) {
@@ -153,7 +143,7 @@ class GameViewModel(private val application: Application) : ViewModel() {
             index++
         }
 
-        player.addCombinationBN(combinationBN)
+        player.addCombinationsList(currentCombination, combinationBN)
 
         if (totalBlack.toInt() == gameSettings.numChips) {
             player.setWinner(true)

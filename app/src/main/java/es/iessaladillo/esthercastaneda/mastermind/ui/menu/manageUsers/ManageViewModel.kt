@@ -10,4 +10,5 @@ import kotlinx.android.synthetic.main.manage_fragment.*
 
 class ManageViewModel(private val userDao: UserDao, private val application: Application) : ViewModel() {
     var list: LiveData<List<UserPlayer>> = userDao.queryAllUsers()
+    var usersdb = DatabaseUser.getInstance(application.applicationContext).userDao
 }

@@ -20,13 +20,24 @@
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"/>
 
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="@dimen/sizeBtn"
+            android:layout_height="@dimen/sizeBtn"
+            android:layout_margin="@dimen/margin_2x"
+            android:background="@drawable/ic_home_black_24dp"
+            android:backgroundTint="@color/silver"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <Button
             android:id="@+id/btnSet"
             android:layout_width="@dimen/sizeBtn"
             android:layout_height="@dimen/sizeBtn"
             android:background="@drawable/ic_build_black_24dp"
             android:backgroundTint="@color/silver"
-            android:layout_marginEnd="@dimen/margin_1x"
+            android:layout_margin="@dimen/margin_2x"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 
@@ -36,7 +47,7 @@
             android:layout_height="@dimen/sizeBtn"
             android:background="@drawable/ic_person_black_24dp"
             android:backgroundTint="@color/silver"
-            android:layout_marginEnd="@dimen/margin_1x"
+            android:layout_margin="@dimen/margin_2x"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@id/btnSet"/>
 
@@ -46,7 +57,7 @@
             android:layout_height="@dimen/sizeBtn"
             android:background="@drawable/ic_receipt_black_24dp"
             android:backgroundTint="@color/silver"
-            android:layout_marginEnd="@dimen/margin_1x"
+            android:layout_margin="@dimen/margin_2x"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@id/btnPlayer"/>
 

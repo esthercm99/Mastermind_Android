@@ -16,10 +16,20 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
+        android:id="@+id/btnHome"
+        android:layout_width="@dimen/sizeBtn"
+        android:layout_height="@dimen/sizeBtn"
+        android:layout_margin="@dimen/margin_2x"
+        android:background="@drawable/ic_home_black_24dp"
+        android:backgroundTint="@color/silver"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
         android:id="@+id/btnEdit"
         android:layout_width="@dimen/sizeBtn"
         android:layout_height="@dimen/sizeBtn"
-        android:layout_margin="@dimen/margin_1x"
+        android:layout_margin="@dimen/margin_2x"
         android:background="@drawable/ic_edit_black_24dp"
         android:backgroundTint="@color/silver"
         app:layout_constraintRight_toRightOf="parent"
@@ -28,7 +38,7 @@
         android:id="@+id/btnAdd"
         android:layout_width="@dimen/sizeBtn"
         android:layout_height="@dimen/sizeBtn"
-        android:layout_margin="@dimen/margin_1x"
+        android:layout_margin="@dimen/margin_2x"
         android:background="@drawable/ic_add_24dp"
         android:backgroundTint="@color/silver"
         app:layout_constraintRight_toLeftOf="@id/btnEdit"
@@ -37,7 +47,7 @@
         android:id="@+id/btnRemove"
         android:layout_width="@dimen/sizeBtn"
         android:layout_height="@dimen/sizeBtn"
-        android:layout_margin="@dimen/margin_1x"
+        android:layout_margin="@dimen/margin_2x"
         android:background="@drawable/ic_remove_24dp"
         android:backgroundTint="@color/silver"
         app:layout_constraintRight_toLeftOf="@id/btnAdd"
@@ -110,20 +120,8 @@
         android:id="@+id/btnChangeUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_1x"
-        android:text="@string/change_user"
-        android:textColor="@color/white"
-        android:textSize="@dimen/textSize_32"
-        app:layout_constraintBottom_toTopOf="@id/btnHome"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <TextView
-        android:id="@+id/btnHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_5x"
-        android:text="@string/txtGoHome"
+        android:text="@string/change_user"
         android:textColor="@color/white"
         android:textSize="@dimen/textSize_32"
         app:layout_constraintBottom_toBottomOf="parent"

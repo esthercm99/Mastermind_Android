@@ -24,6 +24,7 @@ import es.iessaladillo.esthercastaneda.mastermind.data.bbdd.DatabaseUser
 import es.iessaladillo.esthercastaneda.mastermind.data.bbdd.Game
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.Combination
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.GameSettings
+import es.iessaladillo.esthercastaneda.mastermind.data.entity.PlayCombinations
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.Player
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.multigame_fragment.*
@@ -83,21 +84,13 @@ class GameFragment : Fragment() {
         observe()
     }
     private fun observe() {
-        viewModel.listCombination01.observe(viewLifecycleOwner) {
+        viewModel.listPlayer01.observe(viewLifecycleOwner) {
             updateCombinationList(it)
         }
-        viewModel.listCombinationBN01.observe(viewLifecycleOwner) {
-            updateCombinationBNList(it)
-        }
     }
-    private fun updateCombinationList(newList: List<Combination>) {
+    private fun updateCombinationList(newList: PlayCombinations) {
         lstRounds.post {
             gameAdapter.submitCombinationList(newList)
-        }
-    }
-    private fun updateCombinationBNList(newList: List<Combination>) {
-        lstRounds.post {
-            gameAdapter.submitCombinationBNList(newList)
         }
     }
 
@@ -113,21 +106,13 @@ class GameFragment : Fragment() {
         observeIA()
     }
     private fun observeIA() {
-        viewModel.listCombination02.observe(viewLifecycleOwner) {
+        viewModel.listPlayer02.observe(viewLifecycleOwner) {
             updateCombinationListIA(it)
         }
-        viewModel.listCombinationBN02.observe(viewLifecycleOwner) {
-            updateCombinationBNListIA(it)
-        }
     }
-    private fun updateCombinationListIA(newList: List<Combination>) {
+    private fun updateCombinationListIA(newList: PlayCombinations) {
         lstRoundsIA.post {
             gameAdapterIA.submitCombinationList(newList)
-        }
-    }
-    private fun updateCombinationBNListIA(newList: List<Combination>) {
-        lstRoundsIA.post {
-            gameAdapterIA.submitCombinationBNList(newList)
         }
     }
 

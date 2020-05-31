@@ -103,7 +103,7 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
     }
     private fun askRemove(userPlayer: UserPlayer) {
         AlertDialog.Builder(context).setTitle(getString(R.string.quitGame))
-            .setMessage(String.format("¿Quieres borrar a %s?", userPlayer.nameUser))
+            .setMessage(String.format(getString(R.string.msg_askRemove), userPlayer.nameUser))
             .setCancelable(false)
             .setPositiveButton(getString(R.string.txtYes)) { _, _ -> removeUser(userPlayer) }
             .setNegativeButton(getString(R.string.txtNo)){ _, _ -> }
@@ -114,12 +114,13 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         val nameDeleted = userPlayer.nameUser
 
         thread {
-            val numUsers = DatabaseUser.getInstance(requireContext()).userDao.queryCountUsers()
+            val db = viewModel.usersdb
+            val numUsers = db.queryCountUsers()
 
             if(numUsers <= 1) {
                 message = getString(R.string.msg_only_player)
             } else {
-                DatabaseUser.getInstance(requireContext()).userDao.deleteUser(userPlayer)
+                db.deleteUser(userPlayer)
                 message = String.format(getString(R.string.msg_removed_player), nameDeleted)
 
                 if(userPlayer.idUser == settings.getLong(getString(R.string.key_currentIdUser), -1L)) {
@@ -149,30 +150,38 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
 
         builder.setPositiveButton(getString(R.string.btn_edit)) { _, _ ->
             var message = ""
-            val oldName = userPlayer.nameUser
             val namePlayer = editText.text.toString()
-            userPlayer.nameUser = namePlayer
 
-            thread {
-                val userDao = DatabaseUser.getInstance(requireContext()).userDao
+            if (namePlayer.trim().isNotEmpty()) {
+                val oldName = userPlayer.nameUser
+                userPlayer.nameUser = namePlayer
 
-                if(userDao.queryCountNameUser(namePlayer) == 0) {
-                    userDao.updateUser(userPlayer)
-                    message = String.format(getString(R.string.msg_edited), oldName, namePlayer)
-                } else {
-                    message = getString(R.string.msg_player_exist)
+                thread {
+                    val userDao = viewModel.usersdb
+
+                    if(userDao.queryCountNameUser(namePlayer) == 0) {
+                        userDao.updateUser(userPlayer)
+                        message = String.format(getString(R.string.msg_edited), oldName, namePlayer)
+                    } else {
+                        message = getString(R.string.msg_player_exist)
+                    }
+
+                }.join()
+
+                if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == userPlayer.idUser) {
+                    settings.edit {
+                        putString(getString(R.string.prefPlayerName_key), userPlayer.nameUser)
+                    }
                 }
-
-            }.join()
+            } else {
+                message = getString(R.string.msg_empty_name)
+            }
 
             Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 
-            if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == userPlayer.idUser) {
-                settings.edit {
-                    putString(getString(R.string.prefPlayerName_key), userPlayer.nameUser)
-                }
-            }
-        }.show()
+        }
+
+        builder.show()
     }
     private fun changeUser(userPlayer: UserPlayer) {
         settings.edit {

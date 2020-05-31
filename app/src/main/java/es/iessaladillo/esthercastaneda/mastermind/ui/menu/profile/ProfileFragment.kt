@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
@@ -24,6 +25,9 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     }
     private val settings: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(context)
+    }
+    private val viewModel: ProfileViewModel by viewModels {
+        ProfileViewModelFactory(DatabaseUser.getInstance(requireContext()).userDao, requireActivity().application)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -64,13 +68,13 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
         if(id != -1L) {
             thread {
-                    val user = DatabaseUser.getInstance(requireContext()).userDao.getInfoUserGame(id)
+                    val user = viewModel.usersdb.getInfoUserGame(id)
 
                     nameUser.text = String.format(getString(R.string.namePlayer, user.namePlayer))
                     lblNumGames.text = String.format(getString(R.string.n_games), user.numGame)
                     lblNumGamesWin.text = String.format(getString(R.string.n_games_win), user.numGameWin)
                     lblNumGamesLose.text = String.format(getString(R.string.n_games_lose), user.numGameLose)
-            }
+            }.join()
         } else {
             addUser()
         }
@@ -93,18 +97,23 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
        builder.setPositiveButton(getString(R.string.btn_add)) { _, _ ->
            val namePlayer = editText.text.toString()
 
-           thread {
-                val userDao = DatabaseUser.getInstance(requireContext()).userDao
-                if(userDao.queryCountNameUser(namePlayer) == 0) {
-                    userDao.insertUser(UserPlayer(0, namePlayer))
-                    message = String.format(getString(R.string.msg_inserted), namePlayer)
-                } else {
-                    message = getString(R.string.msg_player_exist)
-                }
-            }.join()
+           if (namePlayer.trim().isNotEmpty()) {
+               thread {
+                   val userDao = viewModel.usersdb
+                   if(userDao.queryCountNameUser(namePlayer) == 0) {
+                       userDao.insertUser(UserPlayer(0, namePlayer))
+                       message = String.format(getString(R.string.msg_inserted), namePlayer)
+                   } else {
+                       message = getString(R.string.msg_player_exist)
+                   }
+               }.join()
 
-           Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-           if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == -1L) { firstUser() }
+               if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == -1L) { firstUser() }
+
+           } else {
+               message = getString(R.string.msg_empty_name)
+               Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+           }
 
        }.show()
     }

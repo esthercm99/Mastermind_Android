@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/zero"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/zero"
         app:layout_constraintBottom_toTopOf="@id/btnFinish"
         app:layout_constraintTop_toTopOf="parent"

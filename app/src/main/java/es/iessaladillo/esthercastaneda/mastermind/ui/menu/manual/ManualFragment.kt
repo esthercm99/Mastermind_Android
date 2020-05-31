@@ -30,7 +30,7 @@ class ManualFragment : Fragment(R.layout.fragment_manual) {
         Page(R.drawable.manual_difficulty_es, R.drawable.manual_difficulty_en),
         Page(R.drawable.manual_easy_es, R.drawable.manual_easy_en),
         Page(R.drawable.manual_medium_es, R.drawable.manual_medium_en),
-        Page(R.drawable.manual_hard_es, R.drawable.manual_hard_en)
+        Page(R.drawable.manual_haard_es, R.drawable.manual_haard_en)
     )
 
     private val navController: NavController by lazy {
