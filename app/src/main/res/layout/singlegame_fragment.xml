@@ -147,6 +147,7 @@
             android:layout_width="@dimen/zero"
             android:layout_height="@dimen/sep"
             android:background="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@id/sep3"
             app:layout_constraintTop_toBottomOf="@id/lstRounds"/>
 

@@ -99,9 +99,8 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
            if (namePlayer.trim().isNotEmpty()) {
                thread {
-                   val userDao = viewModel.usersdb
-                   if(userDao.queryCountNameUser(namePlayer) == 0) {
-                       userDao.insertUser(UserPlayer(0, namePlayer))
+                   if(viewModel.usersdb.queryCountNameUser(namePlayer) == 0) {
+                       viewModel.usersdb.insertUser(UserPlayer(0, namePlayer))
                        message = String.format(getString(R.string.msg_inserted), namePlayer)
                    } else {
                        message = getString(R.string.msg_player_exist)
