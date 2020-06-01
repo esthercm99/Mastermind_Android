@@ -111,9 +111,9 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
            } else {
                message = getString(R.string.msg_empty_name)
-               Toast.makeText(context, message, Toast.LENGTH_LONG).show()
            }
 
+           Toast.makeText(context, message, Toast.LENGTH_LONG).show()
        }.show()
     }
     private fun firstUser() {

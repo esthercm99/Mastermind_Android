@@ -307,7 +307,8 @@
             android:layout_margin="@dimen/margin_1x"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/chip05select"/>
+            app:layout_constraintLeft_toRightOf="@id/chip05select"
+            app:layout_constraintRight_toLeftOf="@id/sep4"/>
 
         <Button
             android:id="@+id/btnCheck"

@@ -8,13 +8,16 @@ import androidx.preference.PreferenceFragmentCompat
 import es.iessaladillo.esthercastaneda.mastermind.R
 import java.util.*
 
+
 class SettingsListFragment : PreferenceFragmentCompat() {
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
         setupLanguage()
     }
 
     private fun setupLanguage() {
+
         val list = findPreference<ListPreference>(getString(R.string.prefLanguage_key)) as ListPreference
 
         list.onPreferenceChangeListener =
@@ -36,7 +39,11 @@ class SettingsListFragment : PreferenceFragmentCompat() {
 
                     this.resources.updateConfiguration(config, this.resources.displayMetrics)
                 }
+
+                SettingsFragment().onResume()
+
                 true
             }
     }
+
 }

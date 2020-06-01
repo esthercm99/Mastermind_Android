@@ -24,9 +24,6 @@ class MainActivity : AppCompatActivity() {
     private val navController: NavController by lazy {
         findNavController(R.id.navHostFragment)
     }
-    private val settings: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,21 +36,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
-        changeLanguage()
-    }
-
-    private fun changeLanguage() {
-        val defaultLanguage = Locale.getDefault().displayLanguage.toString().toLowerCase(Locale.ROOT)
-
-        if (defaultLanguage.equals(getString(R.string.prefLanguage_defaultValue).toLowerCase(Locale.ROOT))) {
-            settings.edit {
-                putString(getString(R.string.prefLanguage_key), getString(R.string.prefLanguage_defaultValue))
-            }
-        } else {
-            settings.edit {
-                putString(getString(R.string.prefLanguage_key), getString(R.string.english_value))
-            }
-        }
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
