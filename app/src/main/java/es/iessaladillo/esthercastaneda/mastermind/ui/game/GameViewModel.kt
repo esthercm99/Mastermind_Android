@@ -2,10 +2,10 @@ package es.iessaladillo.esthercastaneda.mastermind.ui.game
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.preference.PreferenceManager
 import es.iessaladillo.esthercastaneda.mastermind.R
 import es.iessaladillo.esthercastaneda.mastermind.data.entity.*
@@ -68,6 +68,8 @@ class GameViewModel(private val application: Application) : ViewModel() {
     // IA functions:
     fun playRoundIA() = addCombination()
     fun getWinner02() = player02.isWinner()
+
+    // Add combination IA:
     private fun addCombination(){
         currentCombination = player02.createCombination(gameSettings)
         checkCombination(player02, hideCombinationIA)
@@ -85,47 +87,63 @@ class GameViewModel(private val application: Application) : ViewModel() {
         var totalWhite: Byte = 0
         var totalBlack: Byte = 0
 
-        val whiteMap: MutableMap<Int, Boolean> = HashMap()
-        val blackMap: MutableMap<Int, Boolean> = HashMap()
+        val listColors: List<Int> = listOf( R.drawable.chip_brown,
+                                            R.drawable.chip_red,
+                                            R.drawable.chip_green,
+                                            R.drawable.chip_blue,
+                                            R.drawable.chip_yellow,
+                                            R.drawable.chip_orange,
+                                            R.drawable.chip_grey,
+                                            R.drawable.chip_purple)
+
+        val secretColorsAppears: MutableMap<Int, Int> = mutableMapOf()
+        val currentColorsAppears: MutableMap<Int, Int> = mutableMapOf()
+
+        // Settear todos los contadores de cada color a 0:
+        for (i in 0 until listColors.size) {
+            secretColorsAppears[listColors[i]] = 0
+            currentColorsAppears[listColors[i]] = 0
+        }
+
+        // De la combinación secreta contar de cada color cuantas veces aparece:
+        for (i in 0 until gameSettings.numChips) {
+            for((key, value) in secretColorsAppears){
+                if (hideCombination.chips[i].color == key) {
+                    secretColorsAppears[hideCombination.chips[i].color] = value + 1
+                }
+            }
+        }
+
+        // Se cuenta los colores de cada uno que aparecen en la combinación propuesta:
+        for (i in 0 until gameSettings.numChips) {
+            for((key, value) in currentColorsAppears){
+                if (currentCombination.chips[i].color == key) {
+                    currentColorsAppears[currentCombination.chips[i].color] = value + 1
+                }
+            }
+        }
+
+        // Se calcula el número de fichas blancas hay:
+        for((keyS, valueS) in secretColorsAppears) {
+            for((keyC, valueC) in currentColorsAppears) {
+                if (keyC == keyS) {
+                    if (valueC >= valueS) {
+                        totalWhite = (totalWhite + valueS.toByte()).toByte()
+                    } else {
+                        totalWhite = (totalWhite + valueC.toByte()).toByte()
+                    }
+                }
+            }
+        }
 
         // Comprueba si hay fichas negras:
         for (i in 0 until gameSettings.numChips) {
 
-            // Si son iguales se guarda la posición en la que es negra para luego comprobarlo con las blancas:
+            // Si son iguales se cuenta más uno las negras y menos uno las blancas:
             if (hideCombination.chips[i].color == currentCombination.chips[i].color &&
                 hideCombination.chips[i].position == currentCombination.chips[i].position) {
                 totalBlack++
-                blackMap[hideCombination.chips[i].position-1] = true
-            } else {
-                blackMap[hideCombination.chips[i].position-1] = false
-            }
-        }
-
-        // Combrueba si hay fichas blancas:
-        for (i in 0 until gameSettings.numChips) {
-
-            for (j in 0 until gameSettings.numChips) {
-
-                if (hideCombination.chips[i].color == currentCombination.chips[j].color &&
-                    hideCombination.chips[i].position != currentCombination.chips[j].position) {
-
-                    val black = blackMap[i]
-                    val white = whiteMap[i]
-
-                    // Si en la posición de la IA / jugador contrario no hay ninguna ficha en la misma posición
-                    // y aun no se ha colocado como ficha blanca se cuenta:
-                    if (black == false) {
-                        if (white == null || white == false) {
-                            totalWhite++
-                            whiteMap[i] = true
-                        } else {
-                            whiteMap[i] = false
-                        }
-                    } else {
-                        whiteMap[i] = false
-                    }
-
-                }
+                totalWhite--
             }
         }
 
@@ -138,9 +156,13 @@ class GameViewModel(private val application: Application) : ViewModel() {
             index++
         }
 
-        for (i in 0 until totalWhite) {
-            combinationBN.chips[index] = Chip(R.drawable.chip_white, index)
-            index++
+        try {
+            for (i in 0 until totalWhite) {
+                combinationBN.chips[index] = Chip(R.drawable.chip_white, index)
+                index++
+            }
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            Toast.makeText(application.applicationContext, totalWhite.toString(), Toast.LENGTH_SHORT).show()
         }
 
         player.addCombinationsList(currentCombination, combinationBN)

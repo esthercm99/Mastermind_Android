@@ -25,10 +25,9 @@
 
         <View
             android:id="@+id/sep1"
-            android:layout_width="@dimen/zero"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/sep"
             android:background="@color/white"
-            app:layout_constraintRight_toRightOf="@id/sep3"
             app:layout_constraintTop_toBottomOf="@id/lblRound"/>
 
         <Button
@@ -184,7 +183,7 @@
             android:layout_width="@dimen/sep"
             android:layout_height="@dimen/zero"
             android:background="@color/white"
-            android:layout_marginEnd="@dimen/margin_1_6x"
+            android:layout_marginEnd="@dimen/margin_1x"
             app:layout_constraintLeft_toRightOf="@id/lstRoundsIA"
             app:layout_constraintRight_toLeftOf="@id/btnExit"
             app:layout_constraintTop_toTopOf="parent"
@@ -229,10 +228,9 @@
 
         <View
             android:id="@+id/sep2"
-            android:layout_width="@dimen/zero"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/sep"
             android:background="@color/white"
-            app:layout_constraintRight_toRightOf="@id/sep3"
             app:layout_constraintTop_toBottomOf="@id/lstRounds"/>
 
         <Button
@@ -243,7 +241,8 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_24"
             android:background="@drawable/chip_empty"
-            android:layout_margin="@dimen/margin_1x"
+            android:layout_marginBottom="@dimen/margin_1x"
+            android:layout_marginStart="@dimen/margin_0_4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
@@ -255,7 +254,8 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_24"
             android:background="@drawable/chip_empty"
-            android:layout_margin="@dimen/margin_1x"
+            android:layout_marginBottom="@dimen/margin_1x"
+            android:layout_marginStart="@dimen/margin_0_4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/chip01select"/>
 
@@ -267,7 +267,8 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_24"
             android:background="@drawable/chip_empty"
-            android:layout_margin="@dimen/margin_1x"
+            android:layout_marginBottom="@dimen/margin_1x"
+            android:layout_marginStart="@dimen/margin_0_4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/chip02select"/>
 
@@ -279,7 +280,8 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_24"
             android:background="@drawable/chip_empty"
-            android:layout_margin="@dimen/margin_1x"
+            android:layout_marginBottom="@dimen/margin_1x"
+            android:layout_marginStart="@dimen/margin_0_4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/chip03select"/>
 
@@ -291,7 +293,8 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_24"
             android:background="@drawable/chip_empty"
-            android:layout_margin="@dimen/margin_1x"
+            android:layout_marginBottom="@dimen/margin_1x"
+            android:layout_marginStart="@dimen/margin_0_4"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/chip04select"/>
@@ -304,11 +307,11 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_24"
             android:background="@drawable/chip_empty"
-            android:layout_margin="@dimen/margin_1x"
+            android:layout_marginBottom="@dimen/margin_1x"
+            android:layout_marginStart="@dimen/margin_0_4"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/chip05select"
-            app:layout_constraintRight_toLeftOf="@id/sep4"/>
+            app:layout_constraintLeft_toRightOf="@id/chip05select" />
 
         <Button
             android:id="@+id/btnCheck"

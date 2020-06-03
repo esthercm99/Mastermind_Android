@@ -145,6 +145,7 @@ class GameFragment : Fragment() {
             finishGame()
         } else if(player.isWinner()) {
             finishGame()
+            Toast.makeText(context, String.format(getString(R.string.youWin), player.name), Toast.LENGTH_SHORT).show()
         }
     }
     private fun nextRound() {
