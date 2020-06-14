@@ -102,7 +102,7 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         }
     }
     private fun askRemove(userPlayer: UserPlayer) {
-        AlertDialog.Builder(context).setTitle(getString(R.string.quitGame))
+        AlertDialog.Builder(context).setTitle(getString(R.string.title_delete_player))
             .setMessage(String.format(getString(R.string.msg_askRemove), userPlayer.nameUser))
             .setCancelable(false)
             .setPositiveButton(getString(R.string.txtYes)) { _, _ -> removeUser(userPlayer) }
