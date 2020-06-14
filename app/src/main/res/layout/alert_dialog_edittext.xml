@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,6 +12,43 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:inputType="textPersonName"
-        android:hint="@string/hint_enter_the_name_here"/>
+        android:hint="@string/hint_enter_the_name_here"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_cancel"
+        android:layout_margin="@dimen/margin_2x"
+        android:textSize="@dimen/textSize_18"
+        android:textAllCaps="true"
+        android:textColor="@color/accent"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/editText"
+        app:layout_constraintRight_toLeftOf="@id/btnAddEdit"/>
+
+    <TextView
+        android:id="@+id/btnAddEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_edit"
+        android:layout_margin="@dimen/margin_2x"
+        android:textSize="@dimen/textSize_18"
+        android:textAllCaps="true"
+        android:textColor="@color/accent"
+        android:background="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/editText"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/inv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textSize_18"
+        android:background="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/btnCancel"
+        app:layout_constraintRight_toRightOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

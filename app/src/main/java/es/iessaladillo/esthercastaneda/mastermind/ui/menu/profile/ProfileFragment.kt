@@ -3,7 +3,11 @@ package es.iessaladillo.esthercastaneda.mastermind.ui.menu.profile
 import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
@@ -84,37 +88,57 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         val builder = AlertDialog.Builder(requireContext())
         val dialogLayout = inflater.inflate(R.layout.alert_dialog_edittext, null)
         val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
-        var message = ""
+        val btnEditAdd  = dialogLayout.findViewById<TextView>(R.id.btnAddEdit)
+        val btnCancel  = dialogLayout.findViewById<TextView>(R.id.btnCancel)
+
+        btnEditAdd.text = getString(R.string.btn_add)
 
         builder.setTitle(getString(R.string.title_write_name))
                 .setView(dialogLayout)
                 .setCancelable(false)
 
         if (settings.getLong(getString(R.string.key_currentIdUser), -1L) != -1L) {
-            builder.setNegativeButton(getString(R.string.btn_cancel)){ _, _-> }
+            btnCancel.visibility = View.VISIBLE
+        } else {
+            btnCancel.visibility = View.INVISIBLE
         }
 
-       builder.setPositiveButton(getString(R.string.btn_add)) { _, _ ->
-           val namePlayer = editText.text.toString()
+        editText.addTextChangedListener(object : TextWatcher {
 
-           if (namePlayer.trim().isNotEmpty()) {
-               thread {
-                   if(viewModel.usersdb.queryCountNameUser(namePlayer) == 0) {
-                       viewModel.usersdb.insertUser(UserPlayer(0, namePlayer))
-                       message = String.format(getString(R.string.msg_inserted), namePlayer)
-                   } else {
-                       message = getString(R.string.msg_player_exist)
-                   }
-               }.join()
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0.toString().trim().isNotEmpty()) {
+                    btnEditAdd.visibility = View.VISIBLE
+                } else {
+                    btnEditAdd.visibility = View.INVISIBLE
+                }
+            }
 
-               if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == -1L) { firstUser() }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
 
-           } else {
-               message = getString(R.string.msg_empty_name)
-           }
+        val dialog = builder.show()
 
-           Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-       }.show()
+        btnEditAdd.setOnClickListener {
+            var message = ""
+            val namePlayer = editText.text.toString()
+
+            thread {
+                if(viewModel.usersdb.queryCountNameUser(namePlayer) == 0) {
+                    viewModel.usersdb.insertUser(UserPlayer(0, namePlayer))
+                    message = String.format(getString(R.string.msg_inserted), namePlayer)
+                } else {
+                    message = getString(R.string.msg_player_exist)
+                }
+            }.join()
+
+            if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == -1L) { firstUser() }
+
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+
+        btnCancel.setOnClickListener { dialog.dismiss() }
     }
     private fun firstUser() {
         settings.edit {

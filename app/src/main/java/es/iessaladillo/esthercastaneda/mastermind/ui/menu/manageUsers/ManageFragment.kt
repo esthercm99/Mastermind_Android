@@ -3,10 +3,14 @@ package es.iessaladillo.esthercastaneda.mastermind.ui.menu.manageUsers
 import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.edit
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.observe
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -140,48 +144,65 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         val builder = AlertDialog.Builder(requireContext())
         val dialogLayout = inflater.inflate(R.layout.alert_dialog_edittext, null)
         val editText  = dialogLayout.findViewById<EditText>(R.id.editText)
+        val btnEditAdd  = dialogLayout.findViewById<TextView>(R.id.btnAddEdit)
+        val btnCancel  = dialogLayout.findViewById<TextView>(R.id.btnCancel)
+
+        btnEditAdd.text = getString(R.string.btn_edit)
 
         builder.setTitle(getString(R.string.title_write_name))
             .setView(dialogLayout)
 
         if (settings.getLong(getString(R.string.key_currentIdUser), -1L) != -1L) {
-            builder.setNegativeButton(getString(R.string.btn_cancel)){ _, _-> }
+            builder.setCancelable(true)
         }
 
-        builder.setPositiveButton(getString(R.string.btn_edit)) { _, _ ->
+        editText.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0.toString().trim().isNotEmpty()) {
+                    btnEditAdd.visibility = View.VISIBLE
+                } else {
+                    btnEditAdd.visibility = View.INVISIBLE
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+
+        val dialog = builder.show()
+
+        btnEditAdd.setOnClickListener {
             var message = ""
             val namePlayer = editText.text.toString()
 
-            if (namePlayer.trim().isNotEmpty()) {
-                val oldName = userPlayer.nameUser
-                userPlayer.nameUser = namePlayer
+            val oldName = userPlayer.nameUser
+            userPlayer.nameUser = namePlayer
 
-                thread {
-                    val userDao = viewModel.usersdb
+            thread {
+                val userDao = viewModel.usersdb
 
-                    if(userDao.queryCountNameUser(namePlayer) == 0) {
-                        userDao.updateUser(userPlayer)
-                        message = String.format(getString(R.string.msg_edited), oldName, namePlayer)
-                    } else {
-                        message = getString(R.string.msg_player_exist)
-                    }
-
-                }.join()
-
-                if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == userPlayer.idUser) {
-                    settings.edit {
-                        putString(getString(R.string.prefPlayerName_key), userPlayer.nameUser)
-                    }
+                if(userDao.queryCountNameUser(namePlayer) == 0) {
+                    userDao.updateUser(userPlayer)
+                    message = String.format(getString(R.string.msg_edited), oldName, namePlayer)
+                } else {
+                    message = getString(R.string.msg_player_exist)
                 }
-            } else {
-                message = getString(R.string.msg_empty_name)
+
+            }.join()
+
+            if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == userPlayer.idUser) {
+                settings.edit {
+                    putString(getString(R.string.prefPlayerName_key), userPlayer.nameUser)
+                }
             }
 
             Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-
+            dialog.dismiss()
         }
 
-        builder.show()
+        btnCancel.setOnClickListener { dialog.dismiss() }
+
     }
     private fun changeUser(userPlayer: UserPlayer) {
         settings.edit {

@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (timeFristClick + INTERVAL > System.currentTimeMillis()) {
-            super.onBackPressed()
+            finish()
             return
         } else {
             Toast.makeText(this, getString(R.string.press_to_exit), Toast.LENGTH_SHORT).show()
