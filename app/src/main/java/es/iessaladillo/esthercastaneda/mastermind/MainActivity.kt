@@ -1,20 +1,15 @@
 package es.iessaladillo.esthercastaneda.mastermind
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.preference.PreferenceManager
-import java.util.*
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,7 +54,12 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(AppBarConfiguration(navController.graph)) || super.onSupportNavigateUp()
     }
 
+    /*
+        Si queremos pulsar el botón "atrás" del panel de navegación, este al pulsar 2 veces
+        se finalizará la aplicación.
+    */
     override fun onBackPressed() {
+
         if (timeFristClick + INTERVAL > System.currentTimeMillis()) {
             finish()
             return

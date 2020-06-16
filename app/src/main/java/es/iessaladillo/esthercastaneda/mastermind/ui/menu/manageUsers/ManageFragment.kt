@@ -10,10 +10,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.edit
-import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.observe
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
@@ -23,7 +22,8 @@ import es.iessaladillo.esthercastaneda.mastermind.data.bbdd.DatabaseUser
 import es.iessaladillo.esthercastaneda.mastermind.data.bbdd.UserPlayer
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.manage_fragment.*
-import kotlinx.android.synthetic.main.manage_fragment.lstUsers
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 import kotlin.concurrent.thread
 
 class ManageFragment : Fragment(R.layout.manage_fragment) {
@@ -47,6 +47,9 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         setupViews()
     }
 
+    /*
+        Se actualiza la lista de jugadores que hay en la base de datos.
+    */
     private fun submitList() {
         viewModel.list.observe(viewLifecycleOwner) {
             lstUsers.post {
@@ -54,6 +57,10 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
             }
         }
     }
+
+    /*
+        Configuraciones de vistas
+    */
     private fun setupAdapter() {
         manageAdapter = ManageAdapter().also {
             it.onItemClickListener = { position -> manageUser(position) }
@@ -66,7 +73,6 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
             adapter = manageAdapter
         }
     }
-
     private fun setupViews() {
 
         if (settings.getLong(getString(R.string.key_currentIdUser), -1L) == -1L) {
@@ -90,6 +96,11 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         btnBack.setOnClickListener { navController.navigateUp() }
     }
 
+
+    /*
+        Gestiona al usuario, dependiendo de la opción que haya escogido el usuario
+        podrá eliminar, editar o cambiar el jugador seleccionado.
+    */
     private fun manageUser(position: Int) {
         val userPlayer = viewModel.list.value?.get(position)!!
 
@@ -105,6 +116,10 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
             }
         }
     }
+
+    /*
+        Mostrará un diaálogo para confirmar la eliminación del jugador seleccionado.
+    */
     private fun askRemove(userPlayer: UserPlayer) {
         AlertDialog.Builder(context).setTitle(getString(R.string.title_delete_player))
             .setMessage(String.format(getString(R.string.msg_askRemove), userPlayer.nameUser))
@@ -113,6 +128,10 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
             .setNegativeButton(getString(R.string.txtNo)){ _, _ -> }
             .show()
     }
+
+    /*
+        Se elimina el jugador seleccionado.
+    */
     private fun removeUser(userPlayer: UserPlayer) {
         var message = ""
         val nameDeleted = userPlayer.nameUser
@@ -139,6 +158,10 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
 
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
+
+    /*
+        Se edita al jugador seleccionado.
+    */
     private fun editUser(userPlayer: UserPlayer) {
         val inflater = layoutInflater
         val builder = AlertDialog.Builder(requireContext())
@@ -150,7 +173,8 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         btnEditAdd.text = getString(R.string.btn_edit)
 
         builder.setTitle(getString(R.string.title_write_name))
-            .setView(dialogLayout)
+                .setMessage(getString(R.string.msg_requiredName))
+                .setView(dialogLayout)
 
         if (settings.getLong(getString(R.string.key_currentIdUser), -1L) != -1L) {
             builder.setCancelable(true)
@@ -159,7 +183,10 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         editText.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {
-                if (p0.toString().trim().isNotEmpty()) {
+                val pattern: Pattern = Pattern.compile("\\w{3,10}", Pattern.CASE_INSENSITIVE)
+                val matcher: Matcher = pattern.matcher(p0.toString())
+
+                if (matcher.matches()) {
                     btnEditAdd.visibility = View.VISIBLE
                 } else {
                     btnEditAdd.visibility = View.INVISIBLE
@@ -204,6 +231,10 @@ class ManageFragment : Fragment(R.layout.manage_fragment) {
         btnCancel.setOnClickListener { dialog.dismiss() }
 
     }
+
+    /*
+        Se cambia el jugador anterior por el jugador seleccionado.
+    */
     private fun changeUser(userPlayer: UserPlayer) {
         settings.edit {
             putLong(getString(R.string.key_currentIdUser), userPlayer.idUser)

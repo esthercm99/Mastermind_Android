@@ -16,6 +16,9 @@ class SettingsListFragment : PreferenceFragmentCompat() {
         setupLanguage()
     }
 
+    /*
+        Se configura el idioma seleccionado para aplicarselo a la aplicación.
+     */
     private fun setupLanguage() {
 
         val list = findPreference<ListPreference>(getString(R.string.prefLanguage_key)) as ListPreference

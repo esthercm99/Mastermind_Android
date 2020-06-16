@@ -73,5 +73,6 @@
     <string name="msg_edited">A player has been edited: %s -> %s</string>
     <string name="msg_askRemove">Do you want remove %s?</string>
     <string name="msg_empty_name">You can\'t introduce a empty name</string>
+    <string name="msg_requiredName">\nIt must be between 3–10 characters. Only characters a–z, 0–9 and _ are allowed</string>
 
 </resources>

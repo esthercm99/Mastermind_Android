@@ -45,6 +45,9 @@ class ManualFragment : Fragment(R.layout.fragment_manual) {
         setupViews()
     }
 
+    /*
+        Configuración de las vistas.
+    */
     private fun setupViews() {
         setupAdapter()
         setupViewPager()
@@ -52,6 +55,10 @@ class ManualFragment : Fragment(R.layout.fragment_manual) {
         setupBtnHome()
     }
 
+    /*
+        Se mostrará el botón del home si no es el primer
+        inicio de la aplicación
+    */
     private fun setupBtnHome() {
         val firstSession = settings.getBoolean(getString(R.string.firstSessionKey), true)
 
@@ -65,12 +72,14 @@ class ManualFragment : Fragment(R.layout.fragment_manual) {
         btnExit.setOnClickListener { navController.navigateUp() }
     }
 
+    /*
+        Configuración de las páginas.
+    */
     private fun setupAdapter() {
         manualAdapter = ManualFragmentAdapter(pages).also {
             it.onItemClickListener = { navController.navigateUp() }
         }
     }
-
     private fun setupViewPager() { viewPager.adapter = manualAdapter }
     private fun setupTabLayout() {
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()

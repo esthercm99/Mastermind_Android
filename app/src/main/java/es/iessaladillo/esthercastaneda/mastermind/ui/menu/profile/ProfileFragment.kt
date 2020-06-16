@@ -20,6 +20,8 @@ import es.iessaladillo.esthercastaneda.mastermind.data.bbdd.DatabaseUser
 import es.iessaladillo.esthercastaneda.mastermind.data.bbdd.UserPlayer
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.profile_fragment.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 import kotlin.concurrent.thread
 
 class ProfileFragment : Fragment(R.layout.profile_fragment) {
@@ -39,11 +41,17 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         setupViews()
     }
 
+    /*
+        Configuración de las vistas.
+     */
     private fun setupViews() {
         setupUserInfo()
         setupButtons()
     }
 
+    /*
+        Configuración de botones.
+     */
     private fun setupButtons() {
         btnHome.setOnClickListener { navController.navigateUp() }
 
@@ -67,6 +75,11 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
             navController.navigate(R.id.action_profileFragment_to_manageFragment)
         }
     }
+
+    /*
+        Coloca el nombre del jugador con el
+        nº de partidas ganadas, perdidas y tatales.
+     */
     private fun setupUserInfo() {
         val id = settings.getLong(getString(R.string.key_currentIdUser), -1)
 
@@ -83,6 +96,10 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
             addUser()
         }
     }
+
+    /*
+        Se añade un jugador.
+     */
     private fun addUser() {
         val inflater = layoutInflater
         val builder = AlertDialog.Builder(requireContext())
@@ -94,6 +111,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         btnEditAdd.text = getString(R.string.btn_add)
 
         builder.setTitle(getString(R.string.title_write_name))
+                .setMessage(getString(R.string.msg_requiredName))
                 .setView(dialogLayout)
                 .setCancelable(false)
 
@@ -106,7 +124,10 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
         editText.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {
-                if (p0.toString().trim().isNotEmpty()) {
+                val pattern: Pattern = Pattern.compile("\\w{3,10}", Pattern.CASE_INSENSITIVE)
+                val matcher: Matcher = pattern.matcher(p0.toString())
+
+                if (matcher.matches()) {
                     btnEditAdd.visibility = View.VISIBLE
                 } else {
                     btnEditAdd.visibility = View.INVISIBLE
@@ -140,6 +161,10 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
 
         btnCancel.setOnClickListener { dialog.dismiss() }
     }
+
+    /*
+        Te lleva a seleccionar el primer jugador creado.
+     */
     private fun firstUser() {
         settings.edit {
             putInt(getString(R.string.key_optionUser), 0)

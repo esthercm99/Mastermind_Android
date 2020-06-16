@@ -26,7 +26,7 @@
         android:textColor="@color/accent"
         android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@id/editText"
-        app:layout_constraintRight_toLeftOf="@id/btnAddEdit"/>
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <TextView
         android:id="@+id/btnAddEdit"

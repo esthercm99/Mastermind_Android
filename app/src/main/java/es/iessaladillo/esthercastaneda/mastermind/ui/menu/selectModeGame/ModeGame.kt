@@ -14,7 +14,6 @@ import es.iessaladillo.esthercastaneda.mastermind.R
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.mode_game_fragment.*
 
-
 class ModeGame : Fragment(R.layout.mode_game_fragment) {
 
     private var indexList = 0
@@ -35,12 +34,18 @@ class ModeGame : Fragment(R.layout.mode_game_fragment) {
         setupViews()
     }
 
+    /*
+        Configuración de vistas.
+    */
     private fun setupViews() {
         listOptions = listOf(btnSingle, btnMulti)
         listDifficult = listOf(btnEasy, btnNormal, btnHard)
         setupButtons()
     }
 
+    /*
+        Configuración de botones.
+    */
     private fun setupButtons() {
 
         btnPlay.blink()
@@ -102,6 +107,10 @@ class ModeGame : Fragment(R.layout.mode_game_fragment) {
         }
     }
 
+    /*
+        Una vez seleccionado los ajustes del juego va a la
+        pantalla del juego con esas opciones.
+    */
     private fun navigateToGame() {
         settings.edit {
             putInt("modeGame", indexList)
@@ -109,5 +118,4 @@ class ModeGame : Fragment(R.layout.mode_game_fragment) {
         }
         navController.navigate(R.id.action_modeGame_to_gameFragment)
     }
-
 }

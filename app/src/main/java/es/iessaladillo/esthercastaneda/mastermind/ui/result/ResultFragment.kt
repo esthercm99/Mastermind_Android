@@ -25,6 +25,9 @@ class ResultFragment : Fragment(R.layout.result_fragment) {
         setupViews()
     }
 
+    /*
+        Configura las vistas, diciendo si el jugador ha ganado o perdido.
+    */
     private fun setupViews() {
 
         val player = settings.getString(getString(R.string.prefPlayerName_key), getString(R.string.playerName_defaultValue))
