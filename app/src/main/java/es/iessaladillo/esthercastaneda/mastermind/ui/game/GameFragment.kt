@@ -72,7 +72,7 @@ class GameFragment : Fragment() {
         observe()
     }
 
-    // Player 01:
+    // Player 01 Adapter:
     private fun setupRecyclerView() {
         lstRounds.run {
             setHasFixedSize(true)
@@ -94,7 +94,7 @@ class GameFragment : Fragment() {
         }
     }
 
-    // Player 02:
+    // Player 02 Adapter:
     private fun setupRecyclerViewIA() {
         lstRoundsIA.run {
             setHasFixedSize(true)
@@ -134,12 +134,22 @@ class GameFragment : Fragment() {
         namePlayer1.text = viewModel.player01.name
         setupRecyclerViewIA()
     }
+
+    /*
+        La inteligencia artificial jugará una ronda cuando acabe
+        el jugador.
+    */
     private fun roundIA() {
         viewModel.playRoundIA()
         viewModel.resetCurrentCombination()
         checkWinner(viewModel.player02)
     }
 
+    /*
+        Se comprueba quién ha ganado en esa ronda.
+        Si no han ganado ninguno y se ha llegado al nº de rondas máximas
+        se acaba el juego.
+    */
     private fun checkWinner(player: Player) {
         if (viewModel.round > viewModel.gameSettings.numRounds) {
             finishGame()
@@ -148,6 +158,10 @@ class GameFragment : Fragment() {
             Toast.makeText(context, String.format(getString(R.string.youWin), player.name), Toast.LENGTH_SHORT).show()
         }
     }
+
+    /*
+        Pasa a la siguiente ronda, reseteando los botones de color.
+    */
     private fun nextRound() {
         viewModel.currentColorId = R.drawable.chip_empty
         viewModel.resetCurrentCombination()
@@ -168,6 +182,10 @@ class GameFragment : Fragment() {
         viewModel.round++
         lblRound.text = String.format("%s %d", getString(R.string.lblround), viewModel.round)
     }
+
+    /*
+        Finaliza el juego pasando a la pantalla de resultados.
+    */
     private fun finishGame() {
         settings.edit {
             putBoolean("isWinner", viewModel.getWinner01())
@@ -195,6 +213,10 @@ class GameFragment : Fragment() {
     }
 
     // Setting buttons
+
+    /*
+        Dependiendo del modo de juego, se mostrarán o no más fichas.
+    */
     private fun setupBtnSelect() {
         if (viewModel.gameSettings == GameSettings.MEDIUM) {
             chip05select.visibility = View.VISIBLE
@@ -203,6 +225,10 @@ class GameFragment : Fragment() {
             chip06select.visibility = View.VISIBLE
         }
     }
+
+    /*
+      Configuración de botones
+    */
     private fun setupButtons() {
 
         btnExit.setOnClickListener {
@@ -232,10 +258,20 @@ class GameFragment : Fragment() {
             }
         }
     }
+
+    /*
+        Cambia una ficha por una vacía para así poder resetear el resto
+        de la combinación propuesta.
+    */
     private fun resetChipSelected(btn: Button) {
         btn.background = context?.getDrawable(R.drawable.chip_empty)
         btn.text = ""
     }
+
+    /*
+        Configuración de las fichas de colores (botones). Cuando se pulsen
+        sobre la ficha se selecciona.
+    */
     private fun putColorOnChipSelected() {
         chip01select.setOnClickListener { changeColorSelected(it.id) }
         chip02select.setOnClickListener { changeColorSelected(it.id) }
@@ -244,6 +280,10 @@ class GameFragment : Fragment() {
         chip05select.setOnClickListener { changeColorSelected(it.id) }
         chip06select.setOnClickListener { changeColorSelected(it.id) }
     }
+
+    /*
+        Configuración de fichas seleccionadoras (botones).
+    */
     private fun selectColorChip() {
         redChip.setOnClickListener { resetAndSelectChip(it, R.drawable.chip_red_selected, R.drawable.chip_red,1 ) }
         greenChip.setOnClickListener { resetAndSelectChip(it, R.drawable.chip_green_selected, R.drawable.chip_green, 2) }
@@ -254,12 +294,21 @@ class GameFragment : Fragment() {
         chipBrown.setOnClickListener { resetAndSelectChip(it, R.drawable.chip_brown_selected, R.drawable.chip_brown, 7) }
         chipGrey.setOnClickListener { resetAndSelectChip(it, R.drawable.chip_grey_selected, R.drawable.chip_grey, 8) }
     }
+
+    /*
+        Cuando se va a seleccionar un color se deselecciona el resto para seleccionar
+        el color que el jugador ha seleccionado.
+    */
     private fun resetAndSelectChip(btn: View, colorSelect: Int, actualColor: Int, number: Int) {
         resetSelected()
         btn.background = context?.getDrawable(colorSelect)
         viewModel.currentColorId = actualColor
         viewModel.currentNumberColor = number
     }
+
+    /*
+        Resetea todas las fichas de selección de colores
+    */
     private fun resetSelected() {
         redChip.background = context?.getDrawable(R.drawable.chip_red)
         chipOrange.background = context?.getDrawable(R.drawable.chip_orange)
@@ -270,6 +319,11 @@ class GameFragment : Fragment() {
         chipBrown.background = context?.getDrawable(R.drawable.chip_brown)
         chipGrey.background = context?.getDrawable(R.drawable.chip_grey)
     }
+
+    /*
+        Cambia la ficha seleccionada de la combinación
+        propuesta por la ficha de color que se pulse.
+    */
     private fun changeColorSelected(buttonId: Int) {
 
         val arrayChipsBtn = arrayOf(chip01select.id, chip02select.id,
@@ -296,6 +350,10 @@ class GameFragment : Fragment() {
         }
     }
 
+    /*
+        Comprueba si el modo daltónico está activado para que
+        se active la configuración.
+    */
     private fun isColorBlindMode() {
         if (viewModel.colorBlindMode) {
             setupColorBlind(redChip, R.drawable.chip_red,1)
@@ -308,6 +366,10 @@ class GameFragment : Fragment() {
             setupColorBlind(chipGrey, R.drawable.chip_grey, 8)
         }
     }
+
+    /*
+        Se configura las fichas para que tenga un número encima.
+    */
     private fun setupColorBlind(btn: Button, color: Int, number: Int) {
         resetSelected()
         btn.background = context?.getDrawable(color)

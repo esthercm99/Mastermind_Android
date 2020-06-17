@@ -78,11 +78,17 @@ class GameViewModel(private val application: Application) : ViewModel() {
 
     // Player functions:
     fun getWinner01() = player01.isWinner()
+
+    // Add combination player:
     fun addCombination(player: Player) {
         checkCombination(player, hideCombination)
         _listPlayer01.postValue(player01.getCombinationsList())
     }
 
+    /*
+        Comprueba el nº de fichas blancas y negras de la combinación
+        propuesta por el jugador.
+    */
     private fun checkCombination(player: Player, hideCombination: Combination) {
         var totalWhite: Byte = 0
         var totalBlack: Byte = 0
@@ -171,6 +177,10 @@ class GameViewModel(private val application: Application) : ViewModel() {
             player.setWinner(true)
         }
     }
+
+    /*
+        Obtiene una combinación de fichas vacías.
+    */
     private fun getEmptyCombination(): Combination {
         val combination: Combination
 
@@ -187,6 +197,11 @@ class GameViewModel(private val application: Application) : ViewModel() {
 
         return combination
     }
+
+    /*
+        Resetea la combinación actual por una combinación de
+        fichas vacías.
+    */
     fun resetCurrentCombination() {
         currentCombination = getEmptyCombination()
     }
